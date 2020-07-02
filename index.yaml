@@ -2,14 +2,14 @@ apiVersion: v1
 entries:
   ahoy:
   - apiVersion: v2
-    created: "2020-06-24T12:42:43.641745133Z"
+    created: "2020-07-02T09:04:05.465125061Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 8.10.4
-    digest: 9e79a3f2a6dbeb49129a5606a1c23634a470be5432df18733a4d32757ecb8e38
+    digest: d3dee26edf80494c18b6f0c8ababc642e36e5a09f0bec2393e4e61f516f88a8d
     name: ahoy
     urls:
     - https://openlsd.github.io/charts/ahoy-1.0.0-SNAPSHOT.tgz
     version: 1.0.0-SNAPSHOT
-generated: "2020-06-24T12:42:43.638360628Z"
+generated: "2020-07-02T09:04:05.461461836Z"
