@@ -1,4 +1,5 @@
 ahoyHost: ahoy.minikube.host
+ahoyClusterType: kubernetes
 
 postgresql:
   ## PostgreSQL user (has superuser privileges if username is `postgres`)

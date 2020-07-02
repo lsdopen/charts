@@ -1,5 +1,6 @@
 ahoyHost: ahoy.gke.host
 ahoyTlsSecret: ahoy-tls-secret
+ahoyClusterType: kubernetes
 
 postgresql:
   ## PostgreSQL user (has superuser privileges if username is `postgres`)

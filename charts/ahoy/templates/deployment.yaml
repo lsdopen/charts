@@ -16,15 +16,12 @@ spec:
         app: ahoy-server
     spec:
       serviceAccountName: ahoy
-      securityContext:
-        runAsUser: 1000
-        fsGroup: 1000
       volumes:
         - name: properties-prod
           configMap:
             name: ahoy-properties-prod
       containers:
-        - image: openlsd/ahoy:1.0.0-SNAPSHOT
+        - image: openlsd/ahoy:{{ .Chart.Version }}
           imagePullPolicy: Always
           name: ahoy-server
           ports:
@@ -32,7 +29,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: properties-prod
-              mountPath: "/home/ahoy/config"
+              mountPath: "/tmp/config"
           livenessProbe:
             failureThreshold: 3
             httpGet:

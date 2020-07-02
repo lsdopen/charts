@@ -1,0 +1,22 @@
+{{ if eq .Values.ahoyClusterType "openshift" }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: ahoy-server
+  name: ahoy-server
+  namespace: ahoy
+spec:
+  host: {{ .Values.ahoyHost }}
+  port:
+    targetPort: 8443-tcp
+  to:
+    kind: Service
+    name: ahoy-server
+    weight: 100
+  wildcardPolicy: None
+  tls:
+    termination: passthrough
+status:
+  ingress: []
+  {{ end }}

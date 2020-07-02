@@ -1,5 +1,6 @@
 # Values for Kubernetes
 ahoyHost: ahoy.k8s.host
+ahoyClusterType: kubernetes
 
 postgresql:
   ## PostgreSQL user (has superuser privileges if username is `postgres`)
