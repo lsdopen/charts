@@ -30,7 +30,7 @@ spec:
           - name: AHOY_CLUSTER_TYPE
             value: '{{ .Values.ahoyClusterType }}'
           ports:
-            - containerPort: 8443
+            - containerPort: 8080
               protocol: TCP
           volumeMounts:
             - name: properties-prod
@@ -39,8 +39,8 @@ spec:
             failureThreshold: 3
             httpGet:
               path: /
-              port: 8443
-              scheme: HTTPS
+              port: 8080
+              scheme: HTTP
             initialDelaySeconds: 60
             periodSeconds: 10
             successThreshold: 1
@@ -49,8 +49,8 @@ spec:
             failureThreshold: 3
             httpGet:
               path: /
-              port: 8443
-              scheme: HTTPS
+              port: 8080
+              scheme: HTTP
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1

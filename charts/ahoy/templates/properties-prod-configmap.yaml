@@ -9,11 +9,7 @@ data:
   application-prod.properties: |
     ahoy.repo-path=./cache/repo
 
-    server.port=8443
-    server.ssl.key-store-type=PKCS12
-    server.ssl.key-store=classpath:keystore/ahoy.p12
-    server.ssl.key-store-password=changeit
-    server.ssl.key-alias=ahoy
+    server.port=8080
 
     spring.datasource.url=jdbc:postgresql://ahoy-postgresql.ahoy.svc/ahoy
     spring.datasource.platform=postgres

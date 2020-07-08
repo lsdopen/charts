@@ -6,8 +6,6 @@ metadata:
     app: ahoy-server
   name: ahoy-server
   namespace: ahoy
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   {{ if .Values.ahoyTlsSecret }}
   tls:
@@ -19,5 +17,5 @@ spec:
         paths:
           - backend:
               serviceName: ahoy-server
-              servicePort: 8443
+              servicePort: 8080
   {{ end }}

@@ -6,15 +6,15 @@ metadata:
   name: ahoy-server
   namespace: ahoy
   annotations:
-    cloud.google.com/app-protocols: '{"8443-tcp":"HTTPS"}'
-    service.alpha.kubernetes.io/app-protocols: '{"8443-tcp":"HTTPS"}'
+    cloud.google.com/app-protocols: '{"8080-tcp":"HTTP"}'
+    service.alpha.kubernetes.io/app-protocols: '{"8080-tcp":"HTTP"}'
 spec:
   selector:
     app: ahoy-server
   ports:
-    - name: 8443-tcp
-      port: 8443
+    - name: 8080-tcp
+      port: 8080
       protocol: TCP
-      targetPort: 8443
+      targetPort: 8080
   sessionAffinity: None
   type: NodePort

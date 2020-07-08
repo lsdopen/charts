@@ -9,14 +9,12 @@ metadata:
 spec:
   host: {{ .Values.ahoyHost }}
   port:
-    targetPort: 8443-tcp
+    targetPort: 8080-tcp
   to:
     kind: Service
     name: ahoy-server
     weight: 100
   wildcardPolicy: None
-  tls:
-    termination: passthrough
 status:
   ingress: []
   {{ end }}
