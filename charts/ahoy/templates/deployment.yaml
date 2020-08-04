@@ -29,6 +29,10 @@ spec:
             value: '{{ .Values.ahoyHost }}'
           - name: AHOY_CLUSTER_TYPE
             value: '{{ .Values.ahoyClusterType }}'
+          - name: AHOY_AUTH_ISSUER
+            value: '{{ .Values.authIssuer }}'
+          - name: AHOY_UI_AUTH_ISSUER
+            value: '{{ .Values.authFrontendIssuer }}'
           ports:
             - containerPort: 8080
               protocol: TCP

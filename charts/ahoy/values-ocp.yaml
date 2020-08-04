@@ -1,6 +1,9 @@
 # Values for Openshift Container Platform setup
 ahoyHost: ahoy.ocp.host
 ahoyClusterType: openshift
+ahoyRedirectUri: http://ahoy.ocp.host/*
+authIssuer: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy
+authFrontendIssuer: https://keycloak.ocp.host/auth/realms/Ahoy
 
 postgresql:
   ## PostgreSQL user (has superuser privileges if username is `postgres`)
@@ -16,3 +19,62 @@ postgresql:
   ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#creating-a-database-on-first-run
   ##
   postgresqlDatabase: ahoy
+
+keycloak:
+  # Indicates whether information about services should be injected into Pod's environment variables, matching the syntax of Docker links
+  enableServiceLinks: false
+
+  # Additional environment variables for Keycloak
+  extraEnv: |
+    - name: KEYCLOAK_IMPORT
+      value: /tmp/ahoy/ahoy-realm.json
+    - name: KEYCLOAK_USER
+      value: admin
+    - name: KEYCLOAK_PASSWORD
+      value: admin
+    - name: PROXY_ADDRESS_FORWARDING
+      value: "true"
+
+  # Add additional volumes, e. g. for custom themes
+  extraVolumes: |
+    - name: ahoy-realm
+      configMap:
+        name: ahoy-keycloak-realm
+
+  # Add additional volumes mounts, e. g. for custom themes
+  extraVolumeMounts: |
+    - name: ahoy-realm
+      mountPath: "/tmp/ahoy"
+
+  route:
+    # If `true`, an OpenShift Route is created
+    enabled: true
+    # Path for the Route
+    path: /
+    # Route annotations
+    annotations: {}
+    # Additional Route labels
+    labels: {}
+    # Host name for the Route
+    host: "keycloak.ocp.host"
+    # TLS configuration
+    tls:
+      # If `true`, TLS is enabled for the Route
+      enabled: true
+      # Insecure edge termination policy of the Route. Can be `None`, `Redirect`, or `Allow`
+      insecureEdgeTerminationPolicy: Redirect
+      # TLS termination of the route. Can be `edge`, `passthrough`, or `reencrypt`
+      termination: edge
+
+  postgresql:
+    fullnameOverride: keycloak-postgresql
+
+    # If `true`, the Postgresql dependency is enabled
+    enabled: true
+    # PostgreSQL User to create
+    postgresqlUsername: keycloak
+    # PostgreSQL Password for the new user
+    postgresqlPassword: keycloak
+    # PostgreSQL Database to create
+    postgresqlDatabase: keycloak
+    # Persistent Volume Storage configuration
