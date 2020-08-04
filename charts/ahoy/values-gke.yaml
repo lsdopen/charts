@@ -1,7 +1,7 @@
 ahoyHost: ahoy.gke.host
 ahoyTlsSecret: ahoy-tls-secret
 ahoyClusterType: kubernetes
-ahoyRedirectUri: http://ahoy.gke.host/*
+ahoyRedirectUri: http://ahoy.gke.host/
 authIssuer: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy
 authFrontendIssuer: https://keycloak.gke.host/auth/realms/Ahoy
 

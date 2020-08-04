@@ -1,7 +1,7 @@
 # Values for Openshift Container Platform setup
 ahoyHost: ahoy.ocp.host
 ahoyClusterType: openshift
-ahoyRedirectUri: http://ahoy.ocp.host/*
+ahoyRedirectUri: http://ahoy.ocp.host/
 authIssuer: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy
 authFrontendIssuer: https://keycloak.ocp.host/auth/realms/Ahoy
 

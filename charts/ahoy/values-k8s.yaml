@@ -1,7 +1,7 @@
 # Values for Kubernetes
 ahoyHost: ahoy.k8s.host
 ahoyClusterType: kubernetes
-ahoyRedirectUri: http://ahoy.k8s.host/*
+ahoyRedirectUri: http://ahoy.k8s.host/
 authIssuer: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy
 authFrontendIssuer: https://keycloak.k8s.host/auth/realms/Ahoy
 

@@ -1,6 +1,6 @@
 ahoyHost: ahoy.minikube.host
 ahoyClusterType: kubernetes
-ahoyRedirectUri: http://ahoy.minikube.host/*
+ahoyRedirectUri: http://ahoy.minikube.host/
 authIssuer: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy
 authFrontendIssuer: https://keycloak.minikube.host/auth/realms/Ahoy
 
