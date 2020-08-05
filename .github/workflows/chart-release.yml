@@ -2,9 +2,10 @@ name: Chart release
 
 on:
   push:
-    branches: [ master ]    
+    branches:
+      - master
     paths:
-    - 'charts/**'
+      - 'charts/**'
 
 jobs:
   release-chart:
