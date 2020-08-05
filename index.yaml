@@ -2,14 +2,17 @@ apiVersion: v1
 entries:
   ahoy:
   - apiVersion: v2
-    created: "2020-07-08T10:32:23.901636387Z"
+    created: "2020-08-05T14:18:27.81140944Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 8.10.4
-    digest: 037c129dcf89a53545724550c819831cc722570858385c89440112051e9cd2ee
+    - name: keycloak
+      repository: https://codecentric.github.io/helm-charts
+      version: 9.0.1
+    digest: a2ba6d7715e4aa4bc9ba2332c80fe17c7ea4e3adc99f134c3cdff42d899c1ec4
     name: ahoy
     urls:
     - https://openlsd.github.io/charts/ahoy-1.0.0-SNAPSHOT.tgz
     version: 1.0.0-SNAPSHOT
-generated: "2020-07-08T10:32:23.898899293Z"
+generated: "2020-08-05T14:18:27.802398633Z"
