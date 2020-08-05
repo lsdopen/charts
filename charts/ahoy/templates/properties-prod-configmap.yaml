@@ -8,6 +8,10 @@ metadata:
 data:
   application-prod.properties: |
     ahoy.repo-path=./cache/repo
+    ahoy.host={{ .Values.ahoyHost }}
+    ahoy.cluster-type={{ .Values.ahoyClusterType }}
+    ahoy.auth-issuer={{ .Values.authIssuer }}
+    ahoy.ui-auth-issuer={{ .Values.authFrontendIssuer }}
 
     server.port=8080
 

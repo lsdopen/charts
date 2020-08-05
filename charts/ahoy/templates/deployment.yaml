@@ -24,15 +24,6 @@ spec:
         - image: openlsd/ahoy:{{ .Chart.Version }}
           imagePullPolicy: Always
           name: ahoy-server
-          env:
-          - name: AHOY_HOST
-            value: '{{ .Values.ahoyHost }}'
-          - name: AHOY_CLUSTER_TYPE
-            value: '{{ .Values.ahoyClusterType }}'
-          - name: AHOY_AUTH_ISSUER
-            value: '{{ .Values.authIssuer }}'
-          - name: AHOY_UI_AUTH_ISSUER
-            value: '{{ .Values.authFrontendIssuer }}'
           ports:
             - containerPort: 8080
               protocol: TCP
