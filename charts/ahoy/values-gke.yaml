@@ -43,6 +43,10 @@ keycloak:
     - name: ahoy-realm
       mountPath: "/tmp/ahoy"
 
+  service:
+    # The Service type
+    type: NodePort
+
   ingress:
     # If `true`, an Ingress is created
     enabled: true
@@ -59,7 +63,7 @@ keycloak:
         host: 'keycloak.gke.host'
         # Paths for the host
         paths:
-          - /
+          - /*
     # TLS configuration
     tls:
       - hosts:
