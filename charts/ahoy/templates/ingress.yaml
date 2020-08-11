@@ -1,4 +1,4 @@
-{{ if eq .Values.ahoyClusterType "kubernetes" }}
+{{ if eq .Values.ahoy.clusterType "kubernetes" }}
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
@@ -7,12 +7,12 @@ metadata:
   name: ahoy-server
   namespace: ahoy
 spec:
-  {{ if .Values.ahoyTlsSecret }}
+  {{ if .Values.ahoy.tlsSecret }}
   tls:
-    - secretName: {{ .Values.ahoyTlsSecret }}
+    - secretName: {{ .Values.ahoy.tlsSecret }}
   {{ end }}
   rules:
-    - host: {{ .Values.ahoyHost }}
+    - host: {{ .Values.ahoy.host }}
       http:
         paths:
           - backend:

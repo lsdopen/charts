@@ -1,4 +1,4 @@
-{{ if eq .Values.ahoyClusterType "openshift" }}
+{{ if eq .Values.ahoy.clusterType "openshift" }}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
@@ -7,7 +7,7 @@ metadata:
   name: ahoy-server
   namespace: ahoy
 spec:
-  host: {{ .Values.ahoyHost }}
+  host: {{ .Values.ahoy.host }}
   port:
     targetPort: 8080-tcp
   to:

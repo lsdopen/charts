@@ -1,9 +1,12 @@
-ahoyHost: ahoy.gke.host
-ahoyTlsSecret: ahoy-tls-secret
-ahoyClusterType: kubernetes
-ahoyRedirectUri: http://ahoy.gke.host/
-authIssuer: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy
-authFrontendIssuer: https://keycloak.gke.host/auth/realms/Ahoy
+ahoy:
+  host: ahoy.gke.host
+  clusterType: kubernetes
+  tlsSecret: ahoy-tls-secret
+
+  auth:
+    redirectUri: http://ahoy.gke.host/
+    issuer: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy
+    frontendIssuer: https://keycloak.gke.host/auth/realms/Ahoy
 
 postgresql:
   ## PostgreSQL user (has superuser privileges if username is `postgres`)
