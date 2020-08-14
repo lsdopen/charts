@@ -4,9 +4,10 @@ ahoy:
   clusterType: kubernetes
 
   auth:
+    clientId: ahoy
     redirectUri: http://ahoy.k8s.host/
-    issuer: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy
-    frontendIssuer: https://keycloak.k8s.host/auth/realms/Ahoy
+    issuer: https://keycloak.k8s.host/auth/realms/Ahoy
+    jwkSetUri: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy/protocol/openid-connect/certs
 
 postgresql:
   ## PostgreSQL user (has superuser privileges if username is `postgres`)

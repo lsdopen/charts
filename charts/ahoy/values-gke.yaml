@@ -4,9 +4,10 @@ ahoy:
   tlsSecret: ahoy-tls-secret
 
   auth:
+    clientId: ahoy
     redirectUri: http://ahoy.gke.host/
-    issuer: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy
-    frontendIssuer: https://keycloak.gke.host/auth/realms/Ahoy
+    issuer: https://keycloak.gke.host/auth/realms/Ahoy
+    jwkSetUri: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy/protocol/openid-connect/certs
 
 postgresql:
   ## PostgreSQL user (has superuser privileges if username is `postgres`)
