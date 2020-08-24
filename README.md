@@ -1,6 +1,6 @@
 # Open LSD Charts
 
 ```
-helm repo add openlsd https://openlsd.github.io/charts
+helm repo add lsdopen https://lsdopen.github.io/charts
 helm repo update
 ```
