@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   ahoy:
   - apiVersion: v2
-    created: "2020-08-24T08:05:22.32549614Z"
+    created: "2020-11-26T18:28:02.859149333Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -10,9 +10,18 @@ entries:
     - name: keycloak
       repository: https://codecentric.github.io/helm-charts
       version: 9.0.1
-    digest: af3cb1603c63a058a81f935c9cc1fb48aafa23e1a81e161329fed104a750ad20
+    digest: 4ff72a2e261bcabd9882c664976e5592980827d3e931cb5c6c5ccaf3ced9e1db
     name: ahoy
     urls:
     - https://lsdopen.github.io/charts/ahoy-1.0.0-SNAPSHOT.tgz
     version: 1.0.0-SNAPSHOT
-generated: "2020-08-24T08:05:22.314222339Z"
+  dhcp-server:
+  - apiVersion: v1
+    appVersion: latest
+    created: "2020-11-26T18:28:02.859540946Z"
+    digest: cb999a3bebc4d43f4247e1fc40460edb2dbf2a7772cfe5acfb8735a6c84ada9d
+    name: dhcp-server
+    urls:
+    - https://lsdopen.github.io/charts/dhcp-server-1.0.1.tgz
+    version: 1.0.1
+generated: "2020-11-26T18:28:02.845898878Z"
