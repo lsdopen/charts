@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dhcp-server
+  labels:
+    app: dhcp-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dhcp-server
+  template:
+    metadata:
+      labels:
+        app: dhcp-server
+    spec:
+      hostNetwork: true
+      containers:
+      - name: dhcp-server
+        image: {{ .Values.dhcpserver.image.repository }}:{{ tpl .Values.dhcpserver.image.tag . }}
+        ports:
+        - containerPort: 67
+          protocol: UDP
+        volumeMounts:
+          - name: dhcp-server
+            mountPath: /data/dhcpd.conf
+            subPath: mymounts/dhcpd.conf
+      volumes:
+        - name: dhcp-server
+          configMap:
+            name: dhcp-server
+            items:
+             - key: config
+               path: mymounts/dhcpd.conf

@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "dhcp-server"
+spec:
+  type: ClusterIP
+  ports:
+  - port: 67
+    name: dhcp
+    targetPort: 67
+    protocol: UDP
+  selector:
+    app: "dhcp-server"

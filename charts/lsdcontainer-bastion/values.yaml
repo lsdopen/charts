@@ -1,0 +1,22 @@
+dhcpserver:
+  image:
+    repository: 'networkboot/dhcpd'
+    tag: '{{ .Chart.AppVersion }}'
+  config: |
+    subnet 10.1.0.0 netmask 255.255.255.240 {
+      range 10.1.0.2 10.1.0.13;
+      option routers 10.1.0.14;
+    
+      host bootstrap-01 {
+        hardware ethernet 00:50:56:01:15:96;
+        option host-name "bootstrap-01.lab-01.okd.lsdopen.io";
+        fixed-address 10.1.0.2;
+      }
+      host controlplane-01 {
+        hardware ethernet 00:50:56:01:15:97;
+        option host-name "controlplane-01.lab-01.okd.lsdopen.io";
+        fixed-address 10.1.0.3;
+      }
+    
+      deny unknown-clients;
+    }

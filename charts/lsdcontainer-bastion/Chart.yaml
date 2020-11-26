@@ -1,0 +1,4 @@
+name: dhcp-server
+apiVersion: v1
+version: 1.0.1
+appVersion: 'latest'
