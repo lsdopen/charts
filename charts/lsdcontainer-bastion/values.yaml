@@ -1,7 +1,10 @@
 dhcpserver:
+  enabled: true
   image:
-    repository: 'networkboot/dhcpd'
+    registry: "docker.io"
+    repository: "networkboot/dhcpd"
     tag: '{{ .Chart.AppVersion }}'
+  # Below is a standard dhcpd.conf configuration. Modify appropriately
   config: |
     subnet 10.1.0.0 netmask 255.255.255.240 {
       range 10.1.0.2 10.1.0.13;

@@ -1,3 +1,4 @@
+{{- if .Values.dhcpserver.enabled -}}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -18,7 +19,7 @@ spec:
       hostNetwork: true
       containers:
       - name: dhcp-server
-        image: {{ .Values.dhcpserver.image.repository }}:{{ tpl .Values.dhcpserver.image.tag . }}
+        image: {{ .Values.dhcpserver.image.registry }/{{ .Values.dhcpserver.image.repository }}:{{ tpl .Values.dhcpserver.image.tag . }}
         ports:
         - containerPort: 67
           protocol: UDP
@@ -33,3 +34,4 @@ spec:
             items:
              - key: config
                path: mymounts/dhcpd.conf
+{{- end }}
