@@ -1,4 +1,18 @@
-name: lsdcontainer-bastion
 apiVersion: v1
-version: 1.0.0
-appVersion: '1.0.0'
+name: lsdcontainer-bastion
+version: "1.0.0"
+kubeVersion: "v1.19.4"
+description: All the services LSD uses to create a bastion server for OKD/RKE/K8S deployments
+keywords:
+  - lsdcontainer
+  - kubernetes
+  - bastion
+home: https://github.com/lsdopen/charts
+sources:
+  - https://github.com/lsdopen
+maintainers: 
+  - name: LSD
+    email: support@lsdopen.io
+    url: https://lsdopen.io
+deprecated: false
+tillerVersion: "=>v3.2.1"
