@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   ahoy:
   - apiVersion: v2
-    created: "2020-11-27T10:25:30.241519189Z"
+    created: "2020-11-27T10:31:26.235961237Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -10,7 +10,7 @@ entries:
     - name: keycloak
       repository: https://codecentric.github.io/helm-charts
       version: 9.0.1
-    digest: fc5e834e591d5504e01bed372bf4d138b877adc653ecf285ec31dafa4877e4dd
+    digest: 156f6d5355bfdea20b6cf0415ff15d324303ab9c9b116bb0e0e60e475e2496aa
     name: ahoy
     urls:
     - https://lsdopen.github.io/charts/ahoy-1.0.0-SNAPSHOT.tgz
@@ -18,7 +18,7 @@ entries:
   lsd-observe:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-11-27T10:25:30.264732317Z"
+    created: "2020-11-27T10:31:26.25733247Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -46,12 +46,12 @@ entries:
     - https://lsdopen.github.io/charts/lsd-observe-0.1.0.tgz
     version: 0.1.0
   lsdcontainer-bastion:
-  - apiVersion: v1
+  - apiVersion: v2
     appVersion: 1.0.0
-    created: "2020-11-27T10:25:30.265821523Z"
-    description: All the services LSD uses to create a bastion server for OKD/RKE/K8S
-      deployments
-    digest: 9f3a1ac926f9065ac531848e5e8295e5b74d21693abed1e84a8f76933b1f46bd
+    created: "2020-11-27T10:31:26.25824161Z"
+    description: A Helm chart for LSDContainer for a bastion server that will house
+      all services LSD uses for OKD/RKE/K8S deployments
+    digest: 1620d75c7406cbd5a6cde0f915899ea8f0417c78b2b7be821884f2e753235b45
     home: https://github.com/lsdopen/charts
     keywords:
     - lsdcontainer
@@ -70,7 +70,7 @@ entries:
     version: 1.0.2
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2020-11-27T10:25:30.265482221Z"
+    created: "2020-11-27T10:31:26.257965098Z"
     description: All the services LSD uses to create a bastion server for OKD/RKE/K8S
       deployments
     digest: eecc559ccc8907f418f444ad0b4343454f465d1932291f5267babbb295cc8636
@@ -91,7 +91,7 @@ entries:
     - https://lsdopen.github.io/charts/lsdcontainer-bastion-1.0.1.tgz
     version: 1.0.1
   - apiVersion: v1
-    created: "2020-11-27T10:25:30.265129619Z"
+    created: "2020-11-27T10:31:26.257681985Z"
     description: All the services LSD uses to create a bastion server for OKD/RKE/K8S
       deployments
     digest: c2de7e541d36e0528e4da598305a1a3a033ccebdd61f4ffa79cdcee3ad24b64c
@@ -111,4 +111,47 @@ entries:
     urls:
     - https://lsdopen.github.io/charts/lsdcontainer-bastion-1.0.0.tgz
     version: 1.0.0
-generated: "2020-11-27T10:25:30.230589329Z"
+  lsdobserve:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2020-11-27T10:31:26.280561784Z"
+    dependencies:
+    - name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 11.16.9
+    - name: prometheus-blackbox-exporter
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 4.10.0
+    - name: prometheus-elasticsearch-exporter
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 4.0.0
+    - name: eck-operator-crds
+      repository: https://helm.elastic.co
+      version: 1.3.0
+    - name: eck-operator
+      repository: https://helm.elastic.co
+      version: 1.3.0
+    - name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 6.1.5
+    description: A Helm chart for LSDObserve
+    digest: 46af96383e6f45b2dd608f65f3985021d9acdd6a7bfa5a600f97bc2755097cb0
+    home: https://github.com/lsdopen/charts
+    keywords:
+    - lsdobserve
+    - kubernetes
+    - grafana
+    - prometheus
+    - elastic
+    kubeVersion: v1.19.4
+    maintainers:
+    - email: support@lsdopen.io
+      name: LSD
+      url: https://lsdopen.io
+    name: lsdobserve
+    sources:
+    - https://github.com/lsdopen
+    urls:
+    - https://lsdopen.github.io/charts/lsdobserve-1.0.0.tgz
+    version: 1.0.0
+generated: "2020-11-27T10:31:26.227810481Z"
