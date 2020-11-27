@@ -2,10 +2,11 @@ apiVersion: v1
 entries:
   lsdcontainer-bastion:
   - apiVersion: v1
-    created: "2020-11-27T11:11:27.90206088+02:00"
+    appVersion: 1.0.0
+    created: "2020-11-27T11:48:34.877389672+02:00"
     description: All the services LSD uses to create a bastion server for OKD/RKE/K8S
       deployments
-    digest: c43853ba7bf093aaf1f43f948f4aca8297124e4760445815b62208e268ea8dbd
+    digest: eecc559ccc8907f418f444ad0b4343454f465d1932291f5267babbb295cc8636
     home: https://github.com/lsdopen/charts
     keywords:
     - lsdcontainer
@@ -20,6 +21,6 @@ entries:
     sources:
     - https://github.com/lsdopen
     urls:
-    - https://lsdopen.github.io/charts/lsdcontainer-bastion-1.0.0.tgz
-    version: 1.0.0
-generated: "2020-11-27T11:11:27.901201269+02:00"
+    - https://lsdopen.github.io/charts/lsdcontainer-bastion-1.0.1.tgz
+    version: 1.0.1
+generated: "2020-11-27T11:48:34.876799801+02:00"
