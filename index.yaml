@@ -1,27 +1,25 @@
 apiVersion: v1
 entries:
-  ahoy:
-  - apiVersion: v2
-    created: "2020-11-26T18:28:02.859149333Z"
-    dependencies:
-    - name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 8.10.4
-    - name: keycloak
-      repository: https://codecentric.github.io/helm-charts
-      version: 9.0.1
-    digest: 4ff72a2e261bcabd9882c664976e5592980827d3e931cb5c6c5ccaf3ced9e1db
-    name: ahoy
-    urls:
-    - https://lsdopen.github.io/charts/ahoy-1.0.0-SNAPSHOT.tgz
-    version: 1.0.0-SNAPSHOT
-  dhcp-server:
+  lsdcontainer-bastion:
   - apiVersion: v1
-    appVersion: latest
-    created: "2020-11-26T18:28:02.859540946Z"
-    digest: cb999a3bebc4d43f4247e1fc40460edb2dbf2a7772cfe5acfb8735a6c84ada9d
-    name: dhcp-server
+    created: "2020-11-27T11:11:27.90206088+02:00"
+    description: All the services LSD uses to create a bastion server for OKD/RKE/K8S
+      deployments
+    digest: c43853ba7bf093aaf1f43f948f4aca8297124e4760445815b62208e268ea8dbd
+    home: https://github.com/lsdopen/charts
+    keywords:
+    - lsdcontainer
+    - kubernetes
+    - bastion
+    kubeVersion: v1.19.4
+    maintainers:
+    - email: support@lsdopen.io
+      name: LSD
+      url: https://lsdopen.io
+    name: lsdcontainer-bastion
+    sources:
+    - https://github.com/lsdopen
     urls:
-    - https://lsdopen.github.io/charts/dhcp-server-1.0.1.tgz
-    version: 1.0.1
-generated: "2020-11-26T18:28:02.845898878Z"
+    - https://lsdopen.github.io/charts/lsdcontainer-bastion-1.0.0.tgz
+    version: 1.0.0
+generated: "2020-11-27T11:11:27.901201269+02:00"
