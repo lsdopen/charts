@@ -23,3 +23,36 @@ dhcpserver:
     
       deny unknown-clients;
     }
+
+dnsmasq:
+  enabled: true
+  image:
+    registry: "docker.io"
+    repository: "lsdopen/dnsmasq-docker"
+    tag: "latest"
+  # Below is a standard dhcpd.conf configuration. Modify appropriately
+  config: |
+    resolv-file=/etc/resolv.conf
+    dhcp-leasefile=/var/lib/misc/dnsmasq.leases
+    strict-order
+    expand-hosts
+    domain=lab-01.okd.lsdopen.io
+    local=/lab-01.okd.lsdopen.io/
+    domain-needed
+    bogus-priv
+    dhcp-authoritative
+    cache-size=2048
+    bind-interfaces
+    # TFTP
+    #enable-tftp
+    #log-dhcp
+    #tftp-root=/tftpboot/pxes
+    #dhcp-boot=pxelinux.0
+
+    # DHCP & DNS & PTR
+    ## Gateway
+    dhcp-option=3,10.1.0.14
+    ## DHCP Static IP to MAC
+    dhcp-host=10.1.0.2,00:50:56:01:15:96,bootstrap-01,86400
+    ptr-record=2.0.1.10.in-addr.arpa.,"bootstrap-01"
+    address=/bootstrap-01/10.1.0.2

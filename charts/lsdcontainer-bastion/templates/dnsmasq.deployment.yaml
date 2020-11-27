@@ -1,0 +1,48 @@
+{{- if .Values.dnsmasq.enabled -}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dnsmasq
+  labels:
+    app: dnsmasq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dnsmasq
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: dnsmasq
+    spec:
+      hostNetwork: true
+      containers:
+      - name: dnsmasq
+        image: {{ .Values.dnsmasq.image.registry }}/{{ .Values.dnsmasq.image.repository }}:{{ tpl .Values.dnsmasq.image.tag . }}
+        ports:
+        - containerPort: 53
+          protocol: UDP
+        - containerPort: 53
+          protocol: TCP
+        - containerPort: 67
+          protocol: UDP
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+        volumeMounts:
+          - name: dnsmasq
+            mountPath: /etc/dnsmasq.conf
+            subPath: mounts/dnsmasq.conf
+      volumes:
+        - name: dnsmasq
+          configMap:
+            name: dnsmasq
+            items:
+             - key: config
+               path: mounts/dnsmasq.conf
+
+{{- end }}
