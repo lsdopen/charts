@@ -1,0 +1,183 @@
+# LSD-Observe
+lsdobserve:
+  # There are your options:
+  # openshift
+  # gke
+  # rancher
+  clusterType: openshift
+  # adminUsername is the general username to configure for all tools, so each tool uses the same username
+  adminUsername: "lsd-observe"
+  # adminPsername is the general password to configure for all tools, so each tool uses the same password
+  adminPassword: "$apr1$I6y4hNpr$UAyK2cQlj9g0IYr3SB3ZJ."
+  # the domain to use as a suffix for all ingress traffic. Example grafana-lsd-observe.$domain
+  domain: apps.lsdopen.io
+  smtp:
+    host: "smtp.lsdopen.io"
+    port: "25"
+    username: ""
+    password: ""
+    fromAddress: "lsdobserve+noreply+FULL-CLUSTER-NAME@lsdopen.io"
+    fromName: "LSD-Observe - CLIENT - FULL-CLUSTER-NAME"
+  letsencrypt: false
+  # letsencrypt-staging for staging
+  # letsencrypt for production
+  letsencryptIssuer: letsencrypt-staging
+  grafana:
+    enabled: true
+    ingress:
+      url: grafana.apps.cluster-01.gke.lsd.co.za
+  elastic:
+    enabled: true
+    filebeat:
+      enabled: true
+    apm:
+      enabled: true
+    kibana:
+      enabled: true
+      ingress:
+        url: kibana.apps.cluster-01.gke.lsd.co.za
+
+    
+# Prometheus
+# To get a latest values you can run:
+# helm show values prometheus-community/prometheus
+prometheus:
+  server:
+    replicaCount: 2
+    statefulSet:
+      enabled: true
+    ingress:
+      enabled: true
+      hosts: 
+        - prometheus.apps.cluster-01.gke.lsd.co.za
+    persistence:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      size: 10Gi
+  alertmanager:
+    replicaCount: 3
+    statefulSet:
+      enabled: true
+    image:
+      repository: prom/alertmanager
+    ingress:
+      enabled: true
+      hosts:
+        - alertmanager.apps.cluster-01.gke.lsd.co.za
+    resources: 
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 32Mi
+    persistence:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      size: 1Gi
+    config:
+      global: {}
+        # slack_api_url: ''
+      receivers:
+        - name: default-receiver
+          # slack_configs:
+          #  - channel: '@you'
+          #    send_resolved: true
+      route:
+        group_wait: 10s
+        group_interval: 5m
+        receiver: default-receiver
+        repeat_interval: 3h
+  
+# Elasticsearch Exporter
+# To get a latest values you can run:
+# helm show values prometheus-community/prometheus-elasticsearch-exporter
+prometheus-elasticsearch-exporter:
+  replicaCount: 1
+
+# Elasticsearch Exporter
+# To get a latest values you can run:
+# helm show values elastic/eck-operator
+eck-operator:
+  replicaCount: 1
+  installCRDs: false
+  managedNamespaces:
+    - lsd-observe
+  createClusterScopedResources: false
+  webhook:
+    enabled: false
+  config:
+    validateStorageClass: false
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 150Mi
+
+# Grafana
+# To get a latest values you can run:
+# helm show values grafana/grafana
+grafana:
+  adminUser: admin
+  adminPassword: pho0iar5zo2oob8geevohd0ahr4hieNi
+  replicas: 1
+  # ingress is disable because it is created via the lsd-observe template
+  ingress:
+    enabled: false
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  datasources: 
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: LSD-Observe - Prometheus
+        type: prometheus
+        url: http://lsd-observe-prometheus-server
+        isDefault: true
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'ds-01'
+        orgId: 1
+        folder: 'LSD-Observe'
+        type: file
+        disableDeletion: false
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/ds-01
+  dashboardsConfigMaps:
+    ds-01: "grafana-dashboard-kubernetes-overview"
+    ds-02: "grafana-dashboard-namespace-details"
+    ds-03: "grafana-dashboard-node-namespace-details"
+    ds-04: "grafana-dashboard-apiserver"
+  imageRenderer:
+    enabled: true
+    replicas: 1
+    image:
+      repository: grafana/grafana-image-renderer
+      tag: latest
+    service:
+      portName: 'http'
+      port: 8081
+    podPortName: http
+    revisionHistoryLimit: 10
+    networkPolicy:
+      limitIngress: true
+      limitEgress: false
+    resources: 
+     limits:
+       cpu: 100m
+       memory: 100Mi
+     requests:
+       cpu: 50m
+       memory: 50Mi

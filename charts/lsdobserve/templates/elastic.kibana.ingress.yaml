@@ -1,0 +1,24 @@
+# Kibana Ingress
+{{- if or (eq .Values.lsdobserve.clusterType "gke") (eq .Values.lsdobserve.clusterType "rancher") -}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+  labels:
+    app: kibana
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"    
+  name: lsd-observe-kb
+spec:
+  rules:
+  - host: {{ .Values.lsdobserve.elastic.kibana.ingress.url }}
+    http:
+      paths:
+      - backend:
+          serviceName: lsd-observe-kb-http
+          servicePort: 5601
+        path: /
+        pathType: ImplementationSpecific
+{{- end }}

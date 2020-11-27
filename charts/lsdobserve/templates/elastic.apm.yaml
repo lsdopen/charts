@@ -1,0 +1,13 @@
+# Elastic APM
+{{- if .Values.lsdobserve.elastic.apm.enabled -}}
+---
+apiVersion: apm.k8s.elastic.co/v1
+kind: ApmServer
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  version: 7.10.0
+  count: 1
+  elasticsearchRef:
+    name: lsd-observe
+{{- end }}

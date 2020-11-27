@@ -1,0 +1,30 @@
+# Kibana CRD
+{{- if .Values.lsdobserve.elastic.kibana.enabled -}}
+---
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  version: 7.10.0
+  count: 1
+  elasticsearchRef:
+    name: {{ .Release.Name }}
+  podTemplate:
+    spec:
+      containers:
+      - name: kibana
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 50m
+          limits:
+            memory: 2Gi
+            cpu: 1
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+{{- end }}

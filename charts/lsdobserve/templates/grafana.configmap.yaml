@@ -1,0 +1,72 @@
+---
+apiVersion: v1
+data:
+  dashboardproviders.yaml: |
+    apiVersion: 1
+    providers:
+    - disableDeletion: false
+      editable: false
+      folder: LSD-Observe
+      name: ds-01
+      options:
+        path: /var/lib/grafana/dashboards/ds-01
+      orgId: 1
+      type: file
+    - disableDeletion: false
+      editable: false
+      folder: LSD-Observe
+      name: ds-02
+      options:
+        path: /var/lib/grafana/dashboards/ds-02
+      orgId: 1
+      type: file
+    - disableDeletion: false
+      editable: false
+      folder: LSD-Observe
+      name: ds-03
+      options:
+        path: /var/lib/grafana/dashboards/ds-03
+      orgId: 1
+      type: file
+    - disableDeletion: false
+      editable: false
+      folder: Kubernetes
+      name: ds-04
+      options:
+        path: /var/lib/grafana/dashboards/ds-04
+      orgId: 1
+      type: file
+  datasources.yaml: |
+    apiVersion: 1
+    datasources:
+    - isDefault: true
+      name: LSD-Observe - Prometheus
+      type: prometheus
+      url: http://lsd-observe-prometheus-server
+  grafana.ini: |
+    [analytics]
+    check_for_updates = true
+    [grafana_net]
+    url = https://{{ .Values.lsdobserve.grafana.ingress.url }}
+    [smtp]
+    enabled = true
+    host = {{ .Values.lsdobserve.smtp.host }}:{{ .Values.lsdobserve.smtp.port }}
+    skip_verify = true
+    from_address = {{ .Values.lsdobserve.smtp.fromAddress }}
+    from_name = {{ .Values.lsdobserve.smtp.fromName }}
+    [emails]
+    welcome_email_on_sign_up = true
+    templates_pattern = emails/*.html
+    [log]
+    mode = console
+    [paths]
+    data = /var/lib/grafana/data
+    logs = /var/log/grafana
+    plugins = /var/lib/grafana/plugins
+    provisioning = /etc/grafana/provisioning
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+  name: lsd-observe-grafana

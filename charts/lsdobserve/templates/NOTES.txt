@@ -1,0 +1,8 @@
+LSD-Observe Deployed!
+
+Take note of all these details
+
+Grafana URL: https://{{ .Values.lsdobserve.grafana.ingress.url }}
+Kibana URL: https://{{ .Values.lsdobserve.elastic.kibana.ingress.url }}
+
+

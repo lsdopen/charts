@@ -1,0 +1,25 @@
+
+# Grafana Ingress
+{{- if or (eq .Values.lsdobserve.clusterType "gke") (eq .Values.lsdobserve.clusterType "rancher") -}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+  labels:
+    app: grafana
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"    
+  name: lsd-observe-grafana
+spec:
+  rules:
+  - host: {{ .Values.lsdobserve.grafana.ingress.url }}
+    http:
+      paths:
+      - backend:
+          serviceName: lsd-observe-grafana
+          servicePort: 80
+        path: /
+        pathType: ImplementationSpecific
+{{- end }}

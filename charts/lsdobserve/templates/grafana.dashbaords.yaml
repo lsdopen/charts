@@ -1,0 +1,33 @@
+# Grafana Dashboards
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-kubernetes-overview
+data:
+  grafana-dashboard-kubernetes-overview.json: |-
+{{ .Files.Get "dashboards/lsd-observe/grafana-dashboard-kubernetes-overview.json" | indent 4}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-namespace-details
+data:
+  grafana-dashboard-namespace-details.json: |-
+{{ .Files.Get "dashboards/lsd-observe/grafana-dashboard-namespace-details.json" | indent 4}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-node-namespace-details
+data:
+  grafana-dashboard-node-namespace-details.json: |-
+{{ .Files.Get "dashboards/lsd-observe/grafana-dashboard-node-namespace-details.json" | indent 4}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-apiserver
+data:
+  apiserver.json: |-
+{{ .Files.Get "dashboards/kubernetes/apiserver.json" | indent 4}}
