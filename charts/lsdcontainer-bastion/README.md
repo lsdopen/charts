@@ -25,3 +25,8 @@ helm show values lsdopen/lsdcontainer-bastion > /tmp/lsdcontainer-bastion.values
 
 Modify /tmp/lsdcontainer-bastion.values.yaml with:
 - correct MAC address for DHCP
+
+Deploy release
+```
+helm install bastion lsdopen/lsdcontainer-bastion -n lsdcontainer --create-namespace --values /tmp/lsdcontainer-bastion.values.yaml
+```
