@@ -11,6 +11,11 @@ This chart will deploy the following services:
 
 ## Installation and use
 
+Disable Firewalld or allow ports for DHCP/DNS/whatever else
+```
+systemctl disable firewalld --now
+```
+
 Add Chart
 
 ```

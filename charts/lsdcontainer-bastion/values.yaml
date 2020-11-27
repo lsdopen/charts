@@ -43,16 +43,16 @@ dnsmasq:
     dhcp-authoritative
     cache-size=2048
     bind-interfaces
-    # TFTP
-    #enable-tftp
-    #log-dhcp
-    #tftp-root=/tftpboot/pxes
-    #dhcp-boot=pxelinux.0
 
     # DHCP & DNS & PTR
+    log-dhcp
+    dhcp-authoritative
     ## Gateway
-    dhcp-option=3,10.1.0.14
-    ## DHCP Static IP to MAC
-    dhcp-host=10.1.0.2,00:50:56:01:15:96,bootstrap-01,86400
+    dhcp-option=option:router,10.1.0.14
+    ## The IP address of the Bastion (this server)
+    dhcp-option=option:dns-server,10.1.0.1
+    ## Statically assigned IP addresses
+    dhcp-range=10.1.0.2,10.1.0.10,255.255.255.240,12h
+    dhcp-host=10.1.0.2,00:50:56:01:15:96,bootstrap-01,24h
     ptr-record=2.0.1.10.in-addr.arpa.,"bootstrap-01"
     address=/bootstrap-01/10.1.0.2
