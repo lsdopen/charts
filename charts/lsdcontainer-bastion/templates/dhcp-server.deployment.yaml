@@ -11,6 +11,8 @@ spec:
   selector:
     matchLabels:
       app: dhcp-server
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
