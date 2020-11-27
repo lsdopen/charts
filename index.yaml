@@ -15,36 +15,6 @@ entries:
     urls:
     - https://lsdopen.github.io/charts/ahoy-1.0.0-SNAPSHOT.tgz
     version: 1.0.0-SNAPSHOT
-  lsd-observe:
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2020-11-27T10:33:57.60383416Z"
-    dependencies:
-    - name: prometheus
-      repository: https://prometheus-community.github.io/helm-charts
-      version: 11.16.9
-    - name: prometheus-blackbox-exporter
-      repository: https://prometheus-community.github.io/helm-charts
-      version: 4.10.0
-    - name: prometheus-elasticsearch-exporter
-      repository: https://prometheus-community.github.io/helm-charts
-      version: 4.0.0
-    - name: eck-operator-crds
-      repository: https://helm.elastic.co
-      version: 1.3.0
-    - name: eck-operator
-      repository: https://helm.elastic.co
-      version: 1.3.0
-    - name: grafana
-      repository: https://grafana.github.io/helm-charts
-      version: 6.1.5
-    description: A Helm chart for LSD-Observe
-    digest: ba9c179ed76836a5e59bcc98fa11025b0aad06385e1eda3430a0da5d2a00efad
-    name: lsd-observe
-    type: application
-    urls:
-    - https://lsdopen.github.io/charts/lsd-observe-0.1.0.tgz
-    version: 0.1.0
   lsdcontainer-bastion:
   - apiVersion: v2
     appVersion: 1.0.0
