@@ -11,18 +11,30 @@ dnsmasq:
     expand-hosts
     domain=lab-01.okd.lsdopen.io
     local=/lab-01.okd.lsdopen.io/
+    address=/lab-01.okd.lsdopen.io/10.1.0.2
     domain-needed
     bind-interfaces
 
     # DHCP & DNS & PTR
     log-dhcp
     dhcp-authoritative
+    ## DHPC Range
+    dhcp-range=10.1.0.2,10.1.0.10,255.255.255.240,12h
     ## Gateway
     dhcp-option=option:router,10.1.0.14
     ## The IP address of the Bastion (this server)
     dhcp-option=option:dns-server,10.1.0.1
     ## Statically assigned IP addresses
-    dhcp-range=10.1.0.2,10.1.0.10,255.255.255.240,12h
+    ### bootstrap-01.lab-01.okd.lsdopen.io
     dhcp-host=10.1.0.2,00:50:56:01:15:96,bootstrap-01,24h
-    ptr-record=2.0.1.10.in-addr.arpa.,"bootstrap-01"
-    address=/bootstrap-01/10.1.0.2
+    ptr-record=2.0.1.10.in-addr.arpa.,"bootstrap-01.lab-01.okd.lsdopen.io"
+    ### controlplane-01.lab-01.okd.lsdopen.io
+    dhcp-host=10.1.0.3,00:50:56:01:17:76,controlplane-01,24h
+    ptr-record=3.0.1.10.in-addr.arpa.,"controlplane-01.lab-01.okd.lsdopen.io"
+    ### controlplane-02.lab-01.okd.lsdopen.io
+    dhcp-host=10.1.0.4,00:50:56:01:14:74,controlplane-02,24h
+    ptr-record=4.0.1.10.in-addr.arpa.,"controlplane-02.lab-01.okd.lsdopen.io"
+    ### controlplane-03.lab-01.okd.lsdopen.io
+    dhcp-host=10.1.0.5,00:50:56:01:11:76,controlplane-03,24h
+    ptr-record=5.0.1.10.in-addr.arpa.,"controlplane-03.lab-01.okd.lsdopen.io"
+
