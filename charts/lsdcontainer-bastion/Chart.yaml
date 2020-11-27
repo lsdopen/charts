@@ -1,9 +1,9 @@
-apiVersion: v1
+apiVersion: v2
 name: lsdcontainer-bastion
 version: "1.0.2"
 appVersion: "1.0.0"
 kubeVersion: "v1.19.4"
-description: All the services LSD uses to create a bastion server for OKD/RKE/K8S deployments
+description: A Helm chart for LSDContainer for a bastion server that will house all services LSD uses for OKD/RKE/K8S deployments
 keywords:
   - lsdcontainer
   - kubernetes
