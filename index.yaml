@@ -1,12 +1,49 @@
 apiVersion: v1
 entries:
+  ahoy:
+  - apiVersion: v2
+    created: "2020-11-27T10:01:52.007209736Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.10.4
+    - name: keycloak
+      repository: https://codecentric.github.io/helm-charts
+      version: 9.0.1
+    digest: 8c507b2f24b2e3c63c09078355d4a932e2259c5db2c93ec1677b41eac2d40254
+    name: ahoy
+    urls:
+    - https://lsdopen.github.io/charts/ahoy-1.0.0-SNAPSHOT.tgz
+    version: 1.0.0-SNAPSHOT
   lsdcontainer-bastion:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2020-11-27T11:53:31.87420231+02:00"
+    created: "2020-11-27T10:01:52.008904338Z"
     description: All the services LSD uses to create a bastion server for OKD/RKE/K8S
       deployments
-    digest: d18159723a048c6681d09408e66c40b8c6d10fcd316b8b574b36cd25cdb45b42
+    digest: 21ae9701c0f91b4278e3b7d665db8ea3c969244dd8cb73e30a6cf3ce061bd4ab
+    home: https://github.com/lsdopen/charts
+    keywords:
+    - lsdcontainer
+    - kubernetes
+    - bastion
+    kubeVersion: v1.19.4
+    maintainers:
+    - email: support@lsdopen.io
+      name: LSD
+      url: https://lsdopen.io
+    name: lsdcontainer-bastion
+    sources:
+    - https://github.com/lsdopen
+    urls:
+    - https://lsdopen.github.io/charts/lsdcontainer-bastion-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v1
+    appVersion: 1.0.0
+    created: "2020-11-27T10:01:52.008543238Z"
+    description: All the services LSD uses to create a bastion server for OKD/RKE/K8S
+      deployments
+    digest: eecc559ccc8907f418f444ad0b4343454f465d1932291f5267babbb295cc8636
     home: https://github.com/lsdopen/charts
     keywords:
     - lsdcontainer
@@ -23,4 +60,25 @@ entries:
     urls:
     - https://lsdopen.github.io/charts/lsdcontainer-bastion-1.0.1.tgz
     version: 1.0.1
-generated: "2020-11-27T11:53:31.873594567+02:00"
+  - apiVersion: v1
+    created: "2020-11-27T10:01:52.008200138Z"
+    description: All the services LSD uses to create a bastion server for OKD/RKE/K8S
+      deployments
+    digest: c2de7e541d36e0528e4da598305a1a3a033ccebdd61f4ffa79cdcee3ad24b64c
+    home: https://github.com/lsdopen/charts
+    keywords:
+    - lsdcontainer
+    - kubernetes
+    - bastion
+    kubeVersion: v1.19.4
+    maintainers:
+    - email: support@lsdopen.io
+      name: LSD
+      url: https://lsdopen.io
+    name: lsdcontainer-bastion
+    sources:
+    - https://github.com/lsdopen
+    urls:
+    - https://lsdopen.github.io/charts/lsdcontainer-bastion-1.0.0.tgz
+    version: 1.0.0
+generated: "2020-11-27T10:01:51.996519725Z"
