@@ -32,16 +32,12 @@ dnsmasq:
     tag: "latest"
   # Below is a standard dhcpd.conf configuration. Modify appropriately
   config: |
-    resolv-file=/etc/resolv.conf
-    dhcp-leasefile=/var/lib/misc/dnsmasq.leases
-    strict-order
+    bogus-priv
+    filterwin2k
     expand-hosts
     domain=lab-01.okd.lsdopen.io
     local=/lab-01.okd.lsdopen.io/
     domain-needed
-    bogus-priv
-    dhcp-authoritative
-    cache-size=2048
     bind-interfaces
 
     # DHCP & DNS & PTR
