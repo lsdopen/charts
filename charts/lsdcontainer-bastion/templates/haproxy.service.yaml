@@ -1,0 +1,32 @@
+{{- if .Values.haproxy.enabled -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "haproxy"
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    name: http
+    targetPort: 80
+    protocol: UDP
+  - port: 443
+    name: https
+    targetPort: 443
+    protocol: TCP
+  - port: 6443
+    name: k8s-api
+    targetPort: 6443
+    protocol: TCP
+  - port: 22623
+    name: mco
+    targetPort: 22623
+    protocol: TCP
+  - port: 9000
+    name: haproxy
+    targetPort: 9000
+    protocol: TCP
+  selector:
+    app: "haproxy"
+{{- end }}

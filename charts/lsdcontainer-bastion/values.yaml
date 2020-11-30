@@ -4,7 +4,7 @@ dnsmasq:
     registry: "docker.io"
     repository: "lsdopen/dnsmasq-docker"
     tag: "latest"
-  # Below is a standard dhcpd.conf configuration. Modify appropriately
+  # Below is a standard dnsmasq.conf configuration. Modify appropriately
   config: |
     bogus-priv
     filterwin2k
@@ -38,3 +38,105 @@ dnsmasq:
     dhcp-host=10.1.0.5,00:50:56:01:11:76,controlplane-03,24h
     ptr-record=5.0.1.10.in-addr.arpa.,"controlplane-03.lab-01.okd.lsdopen.io"
 
+haproxy:
+  enabled: true
+  image:
+    registry: "docker.io"
+    repository: "haproxy"
+    tag: "alpine"
+  # Below is a standard haproxy.conf configuration. Modify appropriately
+  config: |
+    # Global settings
+    #---------------------------------------------------------------------
+    global
+        maxconn     20000
+        log         /dev/log local0 infrao
+        chroot      /var/lib/haproxy
+        pidfile     /var/run/haproxy.pid
+        user        haproxy
+        group       haproxy
+        daemon
+   
+        # turn on stats unix socket
+        stats socket /var/lib/haproxy/stats
+   
+    #---------------------------------------------------------------------
+    # common defaults that all the 'listen' and 'backend' sections will
+    # use if not designated in their block
+    #---------------------------------------------------------------------
+    defaults
+        mode                    http
+        log                     global
+        option                  httplog
+        option                  dontlognull
+        option forwardfor       except 127.0.0.0/8
+        option                  redispatch
+        retries                 3
+        timeout http-request    10s
+        timeout queue           1m
+        timeout connect         10s
+        timeout client          300s
+        timeout server          300s
+        timeout http-keep-alive 10s
+        timeout check           10s
+        maxconn                 20000
+   
+   listen stats
+       bind :9000
+       mode http
+       stats enable
+       stats uri /
+   
+   frontend  kube-api
+       bind *:6443
+       default_backend kube-api
+       mode tcp
+       option tcplog
+   
+   backend kube-api
+        balance source
+        mode tcp   
+        server      bootstrap1    10.1.0.2:6443 check 
+        server      controlplane1 10.1.0.3:6443 check check fall 2 rise 2
+        server      controlplane2 10.1.0.4:6443 check check fall 2 rise 2
+        server      controlplane3 10.1.0.5:6443 check check fall 2 rise 2
+   
+   frontend machine-config
+       bind *:22623
+       default_backend machine-config
+       mode tcp
+       option tcplog
+   
+   backend machine-config
+        balance source
+        mode tcp
+        server      bootstrap1    10.1.0.2:22623 check
+        server      controlplane1 10.1.0.3:22623 check fall 2 rise 2
+        server      controlplane2 10.1.0.4:22623 check fall 2 rise 2
+        server      controlplane3 10.1.0.5:22623 check fall 2 rise 2
+   
+   frontend openshift-router-http
+       bind *:80
+       default_backend openshift-router-http
+       mode http
+   
+   backend openshift-router-http
+       balance source
+       mode http
+       server      infra1 10.1.0.6:80 check fall 3 rise 2
+       server      infra2 10.1.0.7:80 check fall 3 rise 2
+       server      infra3 10.1.0.8:80 check fall 3 rise 2
+   
+   frontend  openshift-router-https
+       bind *:443
+       default_backend openshift-router-https
+       mode tcp
+       option tcplog
+   
+   backend openshift-router-https
+       balance source
+       mode tcp
+       server      infra1 10.1.0.6:443 check fall 3 rise 2
+       server      infra2 10.1.0.7:443 check fall 3 rise 2
+       server      infra3 10.1.0.8:443 check fall 3 rise 2
+   
