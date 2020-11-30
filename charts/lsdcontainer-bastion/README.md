@@ -4,9 +4,7 @@ The purpose of this Helm chart is to deploy all the services that are typically 
 
 This chart will deploy the following services:
 
-- dhcp-server (dynamic IP addresses)
-- bind (DNS)
-- tftp-server (PXE)
+- dnsmasq (dns + dhcp + tftp)
 - haproxy (load balancer)
 
 ## Installation and use
