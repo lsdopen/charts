@@ -46,24 +46,8 @@ haproxy:
     tag: "alpine"
   # Below is a standard haproxy.conf configuration. Modify appropriately
   config: |
-    # Global settings
-    #---------------------------------------------------------------------
     global
-        maxconn     20000
-        log         /dev/log local0 infrao
-        chroot      /var/lib/haproxy
-        pidfile     /var/run/haproxy.pid
-        user        haproxy
-        group       haproxy
         daemon
-   
-        # turn on stats unix socket
-        stats socket /var/lib/haproxy/stats
-   
-    #---------------------------------------------------------------------
-    # common defaults that all the 'listen' and 'backend' sections will
-    # use if not designated in their block
-    #---------------------------------------------------------------------
     defaults
         mode                    http
         log                     global
@@ -81,12 +65,6 @@ haproxy:
         timeout check           10s
         maxconn                 20000
    
-    listen stats
-        bind :9000
-        mode http
-        stats enable
-        stats uri /
-    
     frontend  kube-api
         bind *:6443
         default_backend kube-api
@@ -139,4 +117,3 @@ haproxy:
         server      infra1 10.1.0.6:443 check fall 3 rise 2
         server      infra2 10.1.0.7:443 check fall 3 rise 2
         server      infra3 10.1.0.8:443 check fall 3 rise 2
-    

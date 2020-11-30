@@ -20,29 +20,45 @@ spec:
     spec:
       hostNetwork: true
       containers:
-      - name: dnsmasq
-        image: {{ .Values.dnsmasq.image.registry }}/{{ .Values.dnsmasq.image.repository }}:{{ tpl .Values.dnsmasq.image.tag . }}
+      - image: {{ .Values.dnsmasq.image.registry }}/{{ .Values.dnsmasq.image.repository }}:{{ tpl .Values.dnsmasq.image.tag . }}
+        name: dnsmasq
         ports:
         - containerPort: 53
+          hostPort: 53
           protocol: UDP
         - containerPort: 53
+          hostPort: 53
           protocol: TCP
         - containerPort: 67
+          hostPort: 67
           protocol: UDP
         securityContext:
           capabilities:
             add:
             - NET_ADMIN
         volumeMounts:
-          - name: dnsmasq
-            mountPath: /etc/dnsmasq.conf
-            subPath: mounts/dnsmasq.conf
+        - mountPath: /etc/dnsmasq.conf
+          name: dnsmasq
+          subPath: mounts/dnsmasq.conf
+        - mountPath: /var/lib/tftpboot
+          name: pxe
+        - mountPath: /var/lib/tftpboot/pxelinux.cfg
+          name: pxelinux-cfg-default
+      hostNetwork: true
       volumes:
-        - name: dnsmasq
-          configMap:
-            name: dnsmasq
-            items:
-             - key: config
-               path: mounts/dnsmasq.conf
-
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: config
+            path: mounts/dnsmasq.conf
+          name: dnsmasq
+        name: dnsmasq
+      - configMap:
+          defaultMode: 420
+          name: pxe
+        name: pxe
+      - configMap:
+          defaultMode: 420
+          name: pxelinux-cfg-default
+        name: pxelinux-cfg-default
 {{- end }}
