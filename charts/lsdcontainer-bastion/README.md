@@ -15,7 +15,6 @@ systemctl disable firewalld --now
 ```
 
 Add Chart
-
 ```
 helm repo add lsdopen https://lsdopen.github.io/charts
 helm repo update
@@ -28,6 +27,7 @@ helm show values lsdopen/lsdcontainer-bastion > /tmp/lsdcontainer-bastion.values
 
 Modify /tmp/lsdcontainer-bastion.values.yaml with:
 - correct MAC address for DHCP
+- add the correct IP address for HAProxy
 
 Deploy release
 ```
