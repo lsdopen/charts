@@ -26,13 +26,13 @@ spec:
         - containerPort: 80
           protocol: TCP
         - containerPort: 443
-          protocol: tcp
+          protocol: TCP
         - containerPort: 6443
-          protocol: tcp
+          protocol: TCP
         - containerPort: 22623
-          protocol: tcp
+          protocol: TCP
         - containerPort: 9000
-          protocol: tcp
+          protocol: TCP
         securityContext:
           capabilities:
             add:
