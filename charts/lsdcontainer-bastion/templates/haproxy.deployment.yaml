@@ -39,7 +39,7 @@ spec:
             - NET_ADMIN
         volumeMounts:
           - name: haproxy
-            mountPath: /etc/haproxy.conf
+            mountPath: /usr/local/etc/haproxy/haproxy.cfg
             subPath: mounts/haproxy.conf
       volumes:
         - name: haproxy
