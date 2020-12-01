@@ -55,10 +55,9 @@ spec:
         name: dnsmasq
       - configMap:
           defaultMode: 420
-          name: pxe
-        name: pxe
-      - configMap:
-          defaultMode: 420
           name: pxelinux-cfg-default
         name: pxelinux-cfg-default
+      - name: pxe
+        secret:
+          secretName: pxe
 {{- end }}

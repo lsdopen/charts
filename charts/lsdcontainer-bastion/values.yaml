@@ -53,7 +53,7 @@ haproxy:
     repository: "haproxy"
     tag: "alpine"
   # Below is a standard haproxy.conf configuration. Modify appropriately
-  config: |
+  config: |-
     global
       daemon
     defaults
@@ -79,11 +79,11 @@ haproxy:
       option tcplog
     backend kube-api
        balance source
-       mode tcp   
-       server      bootstrap1    10.1.0.2:6443 check 
-       server      controlplane1 10.1.0.3:6443 check check fall 2 rise 2
-       server      controlplane2 10.1.0.4:6443 check check fall 2 rise 2
-       server      controlplane3 10.1.0.5:6443 check check fall 2 rise 2
+       mode tcp
+       server bootstrap1    10.1.0.2:6443 check
+       server controlplane1 10.1.0.3:6443 check check fall 2 rise 2
+       server controlplane2 10.1.0.4:6443 check check fall 2 rise 2
+       server controlplane3 10.1.0.5:6443 check check fall 2 rise 2
     frontend machine-config
       bind *:22623
       default_backend machine-config
@@ -92,10 +92,10 @@ haproxy:
     backend machine-config
        balance source
        mode tcp
-       server      bootstrap1    10.1.0.2:22623 check
-       server      controlplane1 10.1.0.3:22623 check fall 2 rise 2
-       server      controlplane2 10.1.0.4:22623 check fall 2 rise 2
-       server      controlplane3 10.1.0.5:22623 check fall 2 rise 2
+       server bootstrap1    10.1.0.2:22623 check
+       server controlplane1 10.1.0.3:22623 check fall 2 rise 2
+       server controlplane2 10.1.0.4:22623 check fall 2 rise 2
+       server controlplane3 10.1.0.5:22623 check fall 2 rise 2
     frontend openshift-router-http
       bind *:80
       default_backend openshift-router-http
@@ -103,10 +103,10 @@ haproxy:
     backend openshift-router-http
       balance source
       mode http
-      server      infra1 10.1.0.6:80 check fall 3 rise 2
-      server      infra2 10.1.0.7:80 check fall 3 rise 2
-      server      infra3 10.1.0.8:80 check fall 3 rise 2
-    frontend  openshift-router-https
+      server infra1 10.1.0.6:80 check fall 3 rise 2
+      server infra2 10.1.0.7:80 check fall 3 rise 2
+      server infra3 10.1.0.8:80 check fall 3 rise 2
+    frontend openshift-router-https
       bind *:443
       default_backend openshift-router-https
       mode tcp
@@ -114,6 +114,6 @@ haproxy:
     backend openshift-router-https
       balance source
       mode tcp
-      server      infra1 10.1.0.6:443 check fall 3 rise 2
-      server      infra2 10.1.0.7:443 check fall 3 rise 2
-      server      infra3 10.1.0.8:443 check fall 3 rise 2
+      server infra1 10.1.0.6:443 check fall 3 rise 2
+      server infra2 10.1.0.7:443 check fall 3 rise 2
+      server infra3 10.1.0.8:443 check fall 3 rise 2
