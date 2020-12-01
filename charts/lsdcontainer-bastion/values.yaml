@@ -38,6 +38,14 @@ dnsmasq:
     dhcp-host=10.1.0.5,00:50:56:01:11:76,controlplane-03,24h
     ptr-record=5.0.1.10.in-addr.arpa.,"controlplane-03.lab-01.okd.lsdopen.io"
 
+  default: |- 
+    DEFAULT pxeboot
+    TIMEOUT 20
+    PROMPT 0
+    LABEL pxeboot
+        KERNEL http://<HTTP_server>/rhcos-<version>-live-kernel-<architecture> 
+        APPEND initrd=http://<HTTP_server>/rhcos-<version>-live-initramfs.<architecture>.img coreos.live.rootfs_url=http://<HTTP_server>/rhcos-<version>-live-rootfs.<architecture>.img coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url=http://<HTTP_server>/bootstrap.ign  
+
 haproxy:
   enabled: true
   image:
