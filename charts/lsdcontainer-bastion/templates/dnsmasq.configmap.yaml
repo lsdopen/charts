@@ -42,3 +42,4 @@ data:
 {{ .Files.Get "files/pxe/menu.c32" | indent 4}}
   pxelinux.0: |-
 {{ .Files.Get "files/pxe/pxelinux.0" | indent 4}}
+{{- end}}
