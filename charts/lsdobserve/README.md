@@ -1,4 +1,4 @@
-# LSD-Observe Helm Chart
+# LSDobserve Helm Chart
 
 ## Quick and Dirty Install
 
@@ -9,14 +9,14 @@ helm repo update
 
 Install on GKE with Admin Password set
 ```
-helm install lsd-observe -n lsd-observe --create-namespace  --set grafana.adminPassword=neiliscool --set lsdobserve.clusterType=gke
+helm install lsdobserve -n lsdobserve --create-namespace  --set grafana.adminPassword=neiliscool --set lsdobserve.clusterType=gke
 
-helm install lsd-observe -n lsd-observe --create-namespace --set grafana.adminPassword=neiliscool
+helm install lsdobserve -n lsdobserve --create-namespace --set grafana.adminPassword=neiliscool
 ```
 
 Install on GKE with Admin Password and Elastic disabled
 ```
-helm install lsd-observe -n lsd-observe --create-namespace \
+helm install lsdobserve -n lsdobserve --create-namespace \
 --set lsdobserve.clusterType=gke \
 --set lsdobserve.elastic.enabled=false \
 --set grafana.adminPassword=neiliscool
@@ -24,14 +24,14 @@ helm install lsd-observe -n lsd-observe --create-namespace \
 
 Install on Rancher with Admin Password and SMTP details and Elastic disabled
 ```
-helm install lsd-observe -n lsd-observe --create-namespace \
+helm install lsdobserve -n lsdobserve --create-namespace \
 --set lsdobserve.clusterType=rancher \
 --set lsdobserve.elastic.enabled=false \
 --set grafana.adminPassword=neiliscool \
 --set lsdobserve.smtp.host=smtp.lsdopen.io \
 --set lsdobserve.smtp.port=25 \
 --set lsdobserve.smtp.fromAddress="lsdobserve+noreply+api.mycluster.lsdopen.io@lsdopen.io" \
---set lsdobserve.smtp.fromName="LSD-Observe - LSD - api.mycluster.lsdopen.io"
+--set lsdobserve.smtp.fromName="LSDobserve - LSD - api.mycluster.lsdopen.io"
 ```
 
 ## Adding New Dashboards to Grafana

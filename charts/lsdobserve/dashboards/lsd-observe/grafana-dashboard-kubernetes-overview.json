@@ -2,7 +2,7 @@
   "__inputs": [
     {
       "name": "DS_LSD-OBSERVE_- PROMETHEUS",
-      "label": "LSD-Observe - Prometheus",
+      "label": "LSDobserve - Prometheus",
       "description": "",
       "type": "datasource",
       "pluginId": "prometheus",
@@ -80,7 +80,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -108,7 +108,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -123,7 +123,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "This aggregates all available CPU cores and what is currently allocated. If this graph it's 100% no more pods will be able to start because no more CPU requests are available. We have purposely adjusted this by 112% and not 100% to give you some breathing room.",
       "fieldConfig": {
         "defaults": {
@@ -195,7 +195,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "This aggregates all available CPU cores and CPU usage of the entire cluster. If this hits 80-100% the entire cluster will suffer from poor performance.",
       "fieldConfig": {
         "defaults": {
@@ -267,7 +267,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "The sum of all the CPU Requests of all the Quotas. This will give you an indication if your cluster is over subscribed with CPU request for all the projects. If all the namespaces were to ask for promised qutoas, and this graph is over 100%, the cluster would not be able to fulfill the request.",
       "fieldConfig": {
         "defaults": {
@@ -346,7 +346,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 2,
       "fieldConfig": {
         "defaults": {
@@ -436,7 +436,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 2,
       "fieldConfig": {
         "defaults": {
@@ -526,7 +526,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
@@ -608,7 +608,7 @@
     {
       "dashboardFilter": "",
       "dashboardTags": [],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -635,7 +635,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "This aggregates all available CPU cores and what is currently allocated. If this graph it's 100% no more pods will be able to start because no more CPU requests are available. We have purposely adjusted this by 112% and not 100% to give you some breathing room.",
       "fieldConfig": {
         "defaults": {
@@ -707,7 +707,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "This aggregates all available Memory on compute nodes and displays Used Memory. Once this hits 100% pods will start dying from Out Of Memory (OOM) errors",
       "fieldConfig": {
         "defaults": {
@@ -780,7 +780,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "The sum of all the Memory Requests of all the Quotas. This will give you an indication if your cluster is over subscribed with Memory request for all the projects. If all the namespaces were to ask for promised qutoas, and this graph is over 100%, the cluster would not be able to fulfill the request.",
       "fieldConfig": {
         "defaults": {
@@ -859,7 +859,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 1,
       "fieldConfig": {
         "defaults": {
@@ -951,7 +951,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 1,
       "fieldConfig": {
         "defaults": {
@@ -1035,7 +1035,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "The maximum number of pods you can run on the system",
       "fieldConfig": {
         "defaults": {
@@ -1153,7 +1153,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1298,7 +1298,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1406,7 +1406,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1519,7 +1519,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1666,7 +1666,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1779,7 +1779,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "Percentage total CPUs are overloaded, i.e. the percentage of time processes were waiting for CPU.",
       "fieldConfig": {
         "defaults": {
@@ -1896,7 +1896,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "description": "Per disk utilization across all instances",
       "fieldConfig": {
         "defaults": {
@@ -2036,7 +2036,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2164,7 +2164,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2267,7 +2267,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2406,7 +2406,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2522,7 +2522,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
@@ -2628,7 +2628,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 1,
       "description": "Physical network I/O pressure",
       "editable": true,
@@ -2755,7 +2755,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2857,7 +2857,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2871,7 +2871,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -2971,7 +2971,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -3106,7 +3106,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -3301,7 +3301,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -3464,7 +3464,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 0,
           "fieldConfig": {
             "defaults": {
@@ -3548,7 +3548,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3630,7 +3630,7 @@
           "cacheTimeout": null,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -3738,7 +3738,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 0,
           "fieldConfig": {
             "defaults": {
@@ -3829,7 +3829,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 0,
           "fieldConfig": {
             "defaults": {
@@ -3920,7 +3920,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": null,
           "fieldConfig": {
             "defaults": {
@@ -4002,7 +4002,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -4080,7 +4080,7 @@
           "cacheTimeout": null,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -4190,7 +4190,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": null,
           "fieldConfig": {
             "defaults": {
@@ -4279,7 +4279,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": null,
           "fieldConfig": {
             "defaults": {
@@ -4362,7 +4362,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -4440,7 +4440,7 @@
           "cacheTimeout": null,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -4547,7 +4547,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": null,
           "fieldConfig": {
             "defaults": {
@@ -4636,7 +4636,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": null,
           "fieldConfig": {
             "defaults": {
@@ -4716,7 +4716,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -4794,7 +4794,7 @@
           "cacheTimeout": null,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -4901,7 +4901,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": null,
           "fieldConfig": {
             "defaults": {
@@ -4988,7 +4988,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": null,
           "fieldConfig": {
             "defaults": {
@@ -5068,7 +5068,7 @@
         },
         {
           "cacheTimeout": null,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -5146,7 +5146,7 @@
           "cacheTimeout": null,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -5253,7 +5253,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": null,
           "fieldConfig": {
             "defaults": {
@@ -5337,7 +5337,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -5351,7 +5351,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -5532,7 +5532,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 0,
           "description": "VMware has a limit  of 64 block devices it can attach to a VM. This metric is important because Kubernetes can schedule a pod onto a node that cannot attach any more disk.",
           "fieldConfig": {
@@ -5646,7 +5646,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -5750,7 +5750,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -5895,7 +5895,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -6041,7 +6041,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -6162,7 +6162,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -6181,7 +6181,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -6324,7 +6324,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -6463,7 +6463,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -6477,7 +6477,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -6616,7 +6616,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -6759,7 +6759,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -6903,7 +6903,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -7046,7 +7046,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -7189,7 +7189,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -7299,7 +7299,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -7313,7 +7313,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 0,
           "fieldConfig": {
             "defaults": {
@@ -7419,7 +7419,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -7532,7 +7532,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 0,
           "fieldConfig": {
             "defaults": {
@@ -7641,7 +7641,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -7655,7 +7655,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -7753,7 +7753,7 @@
         },
         {
           "columns": [],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}

@@ -3,7 +3,7 @@ name: lsdobserve
 version: "1.0.0"
 appVersion: "1.0.0"
 kubeVersion: "v1.19.4"
-description: A Helm chart for LSDObserve
+description: A Helm chart for LSDobserve
 keywords:
   - lsdobserve
   - kubernetes
@@ -13,7 +13,7 @@ keywords:
 home: https://github.com/lsdopen/charts
 sources:
   - https://github.com/lsdopen
-maintainers: 
+maintainers:
   - name: LSD
     email: support@lsdopen.io
     url: https://lsdopen.io
