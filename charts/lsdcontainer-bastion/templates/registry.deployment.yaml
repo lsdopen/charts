@@ -1,0 +1,34 @@
+{{- if .Values.registry.enabled -}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry
+  labels:
+    app: registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      hostNetwork: true
+      containers:
+      - image: {{ .Values.registry.image.registry }}/{{ .Values.registry.image.repository }}:{{ tpl .Values.registry.image.tag . }}
+        name: registry
+        ports:
+        - containerPort: 5000
+          hostPort: 5000
+          protocol: TCP
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+      hostNetwork: true
+{{- end }}

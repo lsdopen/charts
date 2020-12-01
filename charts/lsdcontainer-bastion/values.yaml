@@ -1,3 +1,31 @@
+registry:
+  enabled: true
+  image:
+    registry: "docker.io"
+    repository: "registry"
+    tag: "2"
+
+nginx:
+  enabled: true
+  image:
+    registry: "docker.io"
+    repository: "nginx"
+    tag: "stable-alpine"
+  config: |-
+    server {
+        listen       8080;
+        listen  [::]:8080;
+        server_name  localhost;
+        location / {
+            root   /usr/share/nginx/html;
+            index  index.html index.htm;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
+        }
+    }
+
 dnsmasq:
   enabled: true
   image:
@@ -14,6 +42,13 @@ dnsmasq:
     address=/lab-01.okd.lsdopen.io/10.1.0.2
     domain-needed
     bind-interfaces
+    
+    # PXE
+    enable-tftp
+    tftp-root=/var/lib/tftpboot/
+    dhcp-boot=pxelinux.0
+    pxe-prompt="Press F8 for PXE Network boot.", 5
+    pxe-service=x86PC, "Install Fedora CoreOS via PXE",pxelinux
 
     # DHCP & DNS & PTR
     log-dhcp
@@ -43,8 +78,8 @@ dnsmasq:
     TIMEOUT 20
     PROMPT 0
     LABEL pxeboot
-        KERNEL http://<HTTP_server>/rhcos-<version>-live-kernel-<architecture> 
-        APPEND initrd=http://<HTTP_server>/rhcos-<version>-live-initramfs.<architecture>.img coreos.live.rootfs_url=http://<HTTP_server>/rhcos-<version>-live-rootfs.<architecture>.img coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url=http://<HTTP_server>/bootstrap.ign  
+      KERNEL http://10.1.0.1:8080/fedora-coreos-32.20201104.3.0-live-kernel-x86_64
+      APPEND initrd=http://10.1.0.1:8080/fedora-coreos-32.20201104.3.0-live-initramfs.x86_64.img coreos.live.rootfs_url=http://10.1.0.1:8080/fedora-coreos-32.20201104.3.0-live-rootfs.x86_64.img coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url=http://10.1.0.1:8080/bootstrap.ign  
 
 haproxy:
   enabled: true
