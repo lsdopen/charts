@@ -6,7 +6,7 @@ metadata:
 spec:
   hard:
     requests.cpu: "6"
-    limits.cpu: "10"
+    limits.cpu: "20"
     requests.memory: "24Gi"
     limits.memory: "32Gi"
     requests.storage: "1Ti"

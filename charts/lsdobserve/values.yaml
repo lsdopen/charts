@@ -59,6 +59,13 @@ prometheus:
       accessModes:
         - ReadWriteOnce
       size: 30Gi
+  resources: 
+    limits:
+      cpu: 500m
+      memory: 4Gi
+    requests:
+      cpu: 100m
+      memory: 512Mi
   alertmanager:
     replicaCount: 3
     statefulSet:
@@ -121,7 +128,7 @@ eck-operator:
 grafana:
   adminUser: admin
   adminPassword: pho0iar5zo2oob8geevohd0ahr4hieNi
-  replicas: 2
+  replicas: 1
   # ingress is disable because it is created via the lsd-observe template
   ingress:
     enabled: false
