@@ -59,13 +59,13 @@ prometheus:
       accessModes:
         - ReadWriteOnce
       size: 30Gi
-  resources: 
-    limits:
-      cpu: 500m
-      memory: 4Gi
-    requests:
-      cpu: 100m
-      memory: 512Mi
+    resources: 
+      limits:
+        cpu: 500m
+        memory: 4Gi
+      requests:
+        cpu: 100m
+        memory: 512Mi
   alertmanager:
     replicaCount: 3
     statefulSet:
