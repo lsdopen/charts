@@ -1,4 +1,4 @@
-# LSD-Observe
+# LSDobserve
 lsdobserve:
   # There are your options:
   # openshift
@@ -6,7 +6,7 @@ lsdobserve:
   # rancher
   clusterType: openshift
   # adminUsername is the general username to configure for all tools, so each tool uses the same username
-  adminUsername: "lsd-observe"
+  adminUsername: "lsdobserve"
   # adminPsername is the general password to configure for all tools, so each tool uses the same password
   adminPassword: "$apr1$I6y4hNpr$UAyK2cQlj9g0IYr3SB3ZJ."
   # the domain to use as a suffix for all ingress traffic. Example grafana-lsd-observe.$domain
@@ -17,7 +17,7 @@ lsdobserve:
     username: "XXXXX"
     password: "XXXXX"
     fromAddress: "lsdobserve+noreply+FULL-CLUSTER-NAME@lsdopen.io"
-    fromName: "LSD-Observe - CLIENT - FULL-CLUSTER-NAME"
+    fromName: "LSDobserve - CLIENT - FULL-CLUSTER-NAME"
   letsencrypt: false
   # letsencrypt-staging for staging
   # letsencrypt for production
@@ -37,7 +37,7 @@ lsdobserve:
       ingress:
         url: kibana.apps.cluster-01.lsdopen.io
 
-    
+
 # Prometheus
 # To get a latest values you can run:
 # helm show values prometheus-community/prometheus
@@ -48,7 +48,7 @@ prometheus:
       enabled: true
     ingress:
       enabled: true
-      hosts: 
+      hosts:
         - prometheus.apps.cluster-01.lsdopen.io
     persistence:
       enabled: true
@@ -65,7 +65,7 @@ prometheus:
       enabled: true
       hosts:
         - alertmanager.apps.cluster-01.lsdopen.io
-    resources: 
+    resources:
       limits:
         cpu: 100m
         memory: 128Mi
@@ -90,7 +90,7 @@ prometheus:
         group_interval: 5m
         receiver: default-receiver
         repeat_interval: 3h
-  
+
 # Elasticsearch Exporter
 # To get a latest values you can run:
 # helm show values prometheus-community/prometheus-elasticsearch-exporter
@@ -104,7 +104,7 @@ eck-operator:
   replicaCount: 1
   installCRDs: false
   managedNamespaces:
-    - lsd-observe
+    - lsdobserve
   createClusterScopedResources: false
   webhook:
     enabled: false
@@ -128,20 +128,20 @@ grafana:
   # ingress is disable because it is created via the lsd-observe template
   ingress:
     enabled: false
-  resources: 
+  resources:
     limits:
       cpu: 100m
       memory: 128Mi
     requests:
       cpu: 100m
       memory: 128Mi
-  datasources: 
+  datasources:
     datasources.yaml:
       apiVersion: 1
       datasources:
-      - name: LSD-Observe - Prometheus
+      - name: LSDobserve - Prometheus
         type: prometheus
-        url: http://lsd-observe-prometheus-server
+        url: http://lsdobserve-prometheus-server
         isDefault: true
   dashboardProviders:
     dashboardproviders.yaml:
@@ -149,7 +149,7 @@ grafana:
       providers:
       - name: 'ds-01'
         orgId: 1
-        folder: 'LSD-Observe'
+        folder: 'LSDobserve'
         type: file
         disableDeletion: false
         editable: false
@@ -174,7 +174,7 @@ grafana:
     networkPolicy:
       limitIngress: true
       limitEgress: false
-    resources: 
+    resources:
      limits:
        cpu: 100m
        memory: 100Mi

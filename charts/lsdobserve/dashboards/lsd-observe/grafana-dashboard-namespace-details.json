@@ -69,8 +69,8 @@
   "links": [],
   "panels": [
     {
-      "content": "\n<p style=\"text-align:center;\">LSD-Observe - Kubernetes Namespace Details - Version 2.20</p>",
-      "datasource": "LSD-Observe - Prometheus",
+      "content": "\n<p style=\"text-align:center;\">LSDobserve - Kubernetes Namespace Details - Version 2.20</p>",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 2,
         "w": 24,
@@ -94,7 +94,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -115,7 +115,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -197,7 +197,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 3,
       "format": "none",
       "gauge": {
@@ -280,7 +280,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -363,7 +363,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 3,
       "format": "none",
       "gauge": {
@@ -447,7 +447,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 0,
       "format": "bytes",
       "gauge": {
@@ -530,7 +530,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 0,
       "format": "bytes",
       "gauge": {
@@ -613,7 +613,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 0,
       "format": "bytes",
       "gauge": {
@@ -696,7 +696,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 0,
       "format": "bytes",
       "gauge": {
@@ -779,7 +779,7 @@
         "#B877D9",
         "#F2495C"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -862,7 +862,7 @@
         "#B877D9",
         "#F2495C"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -946,7 +946,7 @@
         "#B877D9",
         "#F2495C"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -1029,7 +1029,7 @@
         "#B877D9",
         "#F2495C"
       ],
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -1111,7 +1111,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -1232,7 +1232,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1351,7 +1351,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1467,7 +1467,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 3,
       "editable": true,
       "error": false,
@@ -1584,7 +1584,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -1708,7 +1708,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 3,
       "description": "This displays the CPU requests vs actual CPUusage. For example if you see 5 cores here, that means this project is request 5 cores more than it requires.",
       "fill": 1,
@@ -1821,7 +1821,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 0,
       "description": "This displays the memory requests vs actual usage. For example if you see 5GiB here, that means this project is request 5GiB more than it requires.",
       "fill": 1,
@@ -1924,7 +1924,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 0,
       "fill": 1,
       "fillGradient": 0,
@@ -2020,7 +2020,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -2110,7 +2110,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2124,7 +2124,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 3,
           "fill": 1,
           "fillGradient": 0,
@@ -2222,7 +2222,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 3,
           "fill": 1,
           "fillGradient": 0,
@@ -2320,7 +2320,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 3,
           "editable": true,
           "error": false,
@@ -2423,7 +2423,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 3,
           "editable": true,
           "error": false,
@@ -2548,7 +2548,7 @@
         },
         {
           "columns": [],
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "description": "Table to help you decide the correct requests and limits to set on a deployment",
           "fontSize": "100%",
           "gridPos": {
@@ -2698,7 +2698,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2712,7 +2712,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 0,
           "editable": true,
           "error": false,
@@ -2817,7 +2817,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 0,
           "editable": true,
           "error": false,
@@ -2922,7 +2922,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -3026,7 +3026,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -3151,7 +3151,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSD-Observe - Prometheus",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3165,7 +3165,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -3278,7 +3278,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSD-Observe - Prometheus",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -3449,7 +3449,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "LSD-Observe - Prometheus",
+        "datasource": "LSDobserve - Prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": true,

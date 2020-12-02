@@ -6,7 +6,7 @@ data:
     providers:
     - disableDeletion: false
       editable: false
-      folder: LSD-Observe
+      folder: LSDobserve
       name: ds-01
       options:
         path: /var/lib/grafana/dashboards/ds-01
@@ -14,7 +14,7 @@ data:
       type: file
     - disableDeletion: false
       editable: false
-      folder: LSD-Observe
+      folder: LSDobserve
       name: ds-02
       options:
         path: /var/lib/grafana/dashboards/ds-02
@@ -22,7 +22,7 @@ data:
       type: file
     - disableDeletion: false
       editable: false
-      folder: LSD-Observe
+      folder: LSDobserve
       name: ds-03
       options:
         path: /var/lib/grafana/dashboards/ds-03
@@ -40,7 +40,7 @@ data:
     apiVersion: 1
     datasources:
     - isDefault: true
-      name: LSD-Observe - Prometheus
+      name: LSDobserve - Prometheus
       type: prometheus
       url: http://lsd-observe-prometheus-server
   grafana.ini: |
