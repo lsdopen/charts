@@ -2,6 +2,40 @@
 # Elastic Filebeat
 {{- if .Values.lsdobserve.elastic.filebeat.enabled -}}
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: filebeat
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: elastic-beat-autodiscover-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: elastic-beat-autodiscover
+subjects:
+- kind: ServiceAccount
+  name: filebeat
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: elastic-beat-autodiscover
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - namespaces
+  - events
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+---
 apiVersion: beat.k8s.elastic.co/v1beta1
 kind: Beat
 metadata:
@@ -16,15 +50,29 @@ spec:
     - type: container
       paths:
       - /var/log/containers/*.log
+      processors:
+      - add_kubernetes_metadata:
+          host: ${NODE_NAME}
+          matchers:
+          - logs_path:
+              logs_path: /var/log/containers/
   daemonSet:
     podTemplate:
       spec:
         dnsPolicy: ClusterFirstWithHostNet
         hostNetwork: true
+        serviceAccount: filebeat
+        automountServiceAccountToken: true
+        securityContext:
         securityContext:
           runAsUser: 0
         containers:
-        - name: filebeat
+        - env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          name: filebeat
           volumeMounts:
           - name: varlogcontainers
             mountPath: /var/log/containers

@@ -43,6 +43,9 @@ helm install lsdobserve -n lsdobserve --create-namespace \
 ## Todo
 - SMTP
 - curation for elastic
+- metadata on filebeat
+- ceph dashboards
+- harbor dashboards
 - alerts for alertmanager
 - alertmanager dashbaord
 - Keycloak
