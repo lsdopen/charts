@@ -9,7 +9,7 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   version: 7.10.0
-  count: {{ .Values.lsdobserve.kibana.count }}
+  count: {{ .Values.lsdobserve.elastic.kibana.count }}
   elasticsearchRef:
     name: {{ .Release.Name }}
   podTemplate:

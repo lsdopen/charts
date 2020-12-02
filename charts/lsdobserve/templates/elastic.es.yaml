@@ -9,25 +9,23 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   version: 7.10.0
-  auth:
-    fileRealm:
-    - secretName: lsdobserve-filerealm-01
   nodeSets:
   - name: default
     count: {{ .Values.lsdobserve.elastic.count }}
     volumeClaimTemplates:
     - metadata:
-        name: elasticsearch-data
-    config:
-      node.store.allow_mmap: false
-    podTemplate:
+        name: storage-volume
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: {{ .Values.lsdobserve.elastic.storage }}
-        storageClassName: {{ .Values.lsdobserve.elastic.storageClassName }}
+            storage: "{{ .Values.lsdobserve.elastic.storage }}"
+        storageClassName: "{{ .Values.lsdobserve.elastic.storageClassName }}"
+    config:
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
         containers:
         - name: elasticsearch
           env:
