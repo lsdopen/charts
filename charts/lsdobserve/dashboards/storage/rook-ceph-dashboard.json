@@ -78,7 +78,7 @@
   "panels": [
     {
       "collapsed": false,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -93,7 +93,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -192,7 +192,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -261,7 +261,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -330,7 +330,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -399,7 +399,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -476,7 +476,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -552,7 +552,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -621,7 +621,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -690,7 +690,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -759,7 +759,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -828,7 +828,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -897,7 +897,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -966,7 +966,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1037,7 +1037,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1114,7 +1114,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1191,7 +1191,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1268,7 +1268,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1341,7 +1341,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1414,7 +1414,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1491,7 +1491,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1568,7 +1568,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1645,7 +1645,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1721,7 +1721,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1797,7 +1797,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1818,7 +1818,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -1952,7 +1952,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -2070,7 +2070,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2179,7 +2179,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 0,
           "editable": true,
           "error": false,
@@ -2298,7 +2298,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2398,7 +2398,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2500,7 +2500,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2603,7 +2603,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2711,7 +2711,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2815,7 +2815,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2837,7 +2837,7 @@
             "mode": "opacity"
           },
           "dataFormat": "timeseries",
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2907,7 +2907,7 @@
             "mode": "opacity"
           },
           "dataFormat": "timeseries",
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2976,7 +2976,7 @@
             "mode": "opacity"
           },
           "dataFormat": "timeseries",
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3045,7 +3045,7 @@
             "mode": "opacity"
           },
           "dataFormat": "timeseries",
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3108,7 +3108,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3216,7 +3216,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": null,
           "fieldConfig": {
             "defaults": {
@@ -3335,7 +3335,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3349,7 +3349,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3459,7 +3459,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3740,7 +3740,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3868,7 +3868,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "editable": true,
           "error": false,
           "fieldConfig": {
@@ -3975,7 +3975,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3986,7 +3986,7 @@
       "panels": [
         {
           "columns": [],
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4049,7 +4049,7 @@
         },
         {
           "columns": [],
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4112,7 +4112,7 @@
         },
         {
           "columns": [],
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4180,7 +4180,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -4194,7 +4194,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4294,7 +4294,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4394,7 +4394,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4494,7 +4494,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4701,7 +4701,7 @@
       {
         "allValue": "cephpolbo|cepherin|cephkelly",
         "current": {},
-        "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
+        "datasource": "LSDobserve - Prometheus",
         "definition": "label_values(rook_cluster)",
         "error": null,
         "hide": 0,
@@ -4753,7 +4753,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Stroage / Rook Ceph",
+  "title": "Rook Ceph",
   "uid": "r6lloPJmz",
   "version": 6
 }

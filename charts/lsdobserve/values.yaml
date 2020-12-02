@@ -157,7 +157,7 @@ grafana:
     ds-02: "grafana-dashboard-namespace-details"
     ds-03: "grafana-dashboard-node-namespace-details"
     ds-04: "grafana-dashboard-apiserver"
-    ds-05: "rook-ceph-dashboard"
+    ds-05: "grafana-dashboard-rook-ceph-overview"
   imageRenderer:
     enabled: true
     replicas: 1

@@ -36,6 +36,14 @@ data:
         path: /var/lib/grafana/dashboards/ds-04
       orgId: 1
       type: file
+    - disableDeletion: false
+      editable: false
+      folder: Storage
+      name: ds-05
+      options:
+        path: /var/lib/grafana/dashboards/ds-05
+      orgId: 1
+      type: file
   datasources.yaml: |
     apiVersion: 1
     datasources:

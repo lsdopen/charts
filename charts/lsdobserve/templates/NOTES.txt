@@ -2,7 +2,10 @@ LSDobserve Deployed!
 
 Take note of all these details
 
-Grafana URL: https://{{ .Values.lsdobserve.grafana.ingress.url }}
-Kibana URL: https://{{ .Values.lsdobserve.elastic.kibana.ingress.url }}
+Grafana URL:      https://{{ .Values.lsdobserve.grafana.ingress.url }}
+Grafana Username: admin
+Grafana Password: {{ .Values.grafana.adminPassword }}
 
-
+Kibana URL:      https://{{ .Values.lsdobserve.elastic.kibana.ingress.url }}
+Kibana Username: elastic
+Kibana Password: 

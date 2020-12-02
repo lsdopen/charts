@@ -7,8 +7,8 @@ spec:
   hard:
     requests.cpu: "6"
     limits.cpu: "10"
-    requests.memory: "16Gi"
-    limits.memory: "20Gi"
+    requests.memory: "24Gi"
+    limits.memory: "32Gi"
     requests.storage: "1Ti"
     persistentvolumeclaims: "20"
     requests.nvidia.com/gpu: 4
