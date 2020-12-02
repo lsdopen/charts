@@ -14,7 +14,7 @@ spec:
     count: {{ .Values.lsdobserve.elastic.count }}
     volumeClaimTemplates:
     - metadata:
-        name: storage-volume
+        name: elasticsearch-data
       spec:
         accessModes:
         - ReadWriteOnce
