@@ -41,7 +41,6 @@ lsdobserve:
       ingress:
         url: kibana.apps.cluster-01.lsdopen.io
 
-
 # Prometheus
 # To get a latest values you can run:
 # helm show values prometheus-community/prometheus
@@ -62,10 +61,12 @@ prometheus:
     resources: 
       limits:
         cpu: 500m
-        memory: 4Gi
+        memory: 2Gi
       requests:
         cpu: 100m
         memory: 512Mi
+  pushgateway:
+    enabled: false
   alertmanager:
     replicaCount: 3
     statefulSet:
@@ -88,19 +89,44 @@ prometheus:
       accessModes:
         - ReadWriteOnce
       size: 1Gi
-    config:
-      global: {}
-        # slack_api_url: ''
+  alertmanagerFiles:
+    alertmanager.yml:
+      global:
+        resolve_timeout: 5m
       receivers:
-        - name: default-receiver
-          # slack_configs:
-          #  - channel: '@you'
-          #    send_resolved: true
+        - name: LSD Support
+          email_configs:
+            - to: support+discoverybank@lsd.co.za
+              from: lsdobserve+noreply+FULL-CLUSTER-NAME@lsdopen.io
+              smarthost: 'smtp.lsdopen.io:25'
+              require_tls: false
       route:
-        group_wait: 10s
+        group_by:
+          - job
         group_interval: 5m
-        receiver: default-receiver
-        repeat_interval: 3h
+        group_wait: 30s
+        receiver: 'LSD Support'
+        repeat_interval: 12h
+        routes:
+          - receiver: LSD Support
+            match:
+              severity: warning
+          - receiver: LSD Support
+            match:
+              severity: critical
+  serverFiles:
+    alerting_rules.yml:
+      groups:
+      - name: Instances
+        rules:
+          - alert: InstanceDown
+            expr: up == 0
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+              summary: 'Instance {{ $labels.instance }} down'
 
 # Elasticsearch Exporter
 # To get a latest values you can run:
