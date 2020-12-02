@@ -31,3 +31,10 @@ metadata:
 data:
   apiserver.json: |-
 {{ .Files.Get "dashboards/kubernetes/apiserver.json" | indent 4}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rook-ceph-dashboard
+data:
+  apiserver.json: |-
+{{ .Files.Get "dashboards/storage/rook-ceph-dashboard.json" | indent 4}}
