@@ -2,6 +2,19 @@
 # Elastic Filebeat
 {{- if .Values.lsdobserve.elastic.filebeat.enabled -}}
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: elastic-beat-autodiscover-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: elastic-beat-autodiscover
+subjects:
+- kind: ServiceAccount
+  name: filebeat
+  namespace: {{ .Release.Name }}
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
