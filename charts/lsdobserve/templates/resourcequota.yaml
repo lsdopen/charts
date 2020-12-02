@@ -45,7 +45,7 @@ spec:
     maxLimitRequestRatio:
       cpu: "20"
     min:
-      cpu: 100m
+      cpu: 10m
       memory: 4Mi
     type: Container
 

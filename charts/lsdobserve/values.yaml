@@ -54,11 +54,11 @@ prometheus:
       enabled: true
       hosts:
         - prometheus.apps.cluster-01.lsdopen.io
-    persistence:
+    persistentVolume:
       enabled: true
       accessModes:
         - ReadWriteOnce
-      size: 10Gi
+      size: 30Gi
   alertmanager:
     replicaCount: 3
     statefulSet:
@@ -76,7 +76,7 @@ prometheus:
       requests:
         cpu: 10m
         memory: 32Mi
-    persistence:
+    persistentVolume:
       enabled: true
       accessModes:
         - ReadWriteOnce
@@ -121,7 +121,7 @@ eck-operator:
 grafana:
   adminUser: admin
   adminPassword: pho0iar5zo2oob8geevohd0ahr4hieNi
-  replicas: 1
+  replicas: 2
   # ingress is disable because it is created via the lsd-observe template
   ingress:
     enabled: false
