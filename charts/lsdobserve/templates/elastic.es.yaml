@@ -11,7 +11,7 @@ spec:
   version: 7.10.0
   auth:
     fileRealm:
-    - secretName: lsd-observe-filerealm-01
+    - secretName: lsdobserve-filerealm-01
   nodeSets:
   - name: default
     count: 1

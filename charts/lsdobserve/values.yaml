@@ -102,14 +102,7 @@ prometheus-elasticsearch-exporter:
 # helm show values elastic/eck-operator
 eck-operator:
   replicaCount: 1
-  installCRDs: false
-  managedNamespaces:
-    - lsdobserve
-  createClusterScopedResources: false
-  webhook:
-    enabled: false
-  config:
-    validateStorageClass: false
+  installCRDs: true
   resources:
     limits:
       cpu: 500m

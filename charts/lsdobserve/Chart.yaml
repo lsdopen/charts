@@ -2,7 +2,7 @@ apiVersion: v2
 name: lsdobserve
 version: "1.0.2"
 appVersion: "1.0.0"
-kubeVersion: "v1.19.4"
+kubeVersion: ">=v1.15.0"
 description: A Helm chart for LSDobserve
 keywords:
   - lsdobserve
@@ -18,7 +18,7 @@ maintainers:
     email: support@lsdopen.io
     url: https://lsdopen.io
 deprecated: false
-tillerVersion: "=>v3.2.1"
+tillerVersion: ">=v3.2.1"
 
 dependencies:
 - name: prometheus

@@ -11,14 +11,14 @@ metadata:
   labels:
     app: grafana
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"    
-  name: lsd-observe-grafana
+  name: lsdobserve-grafana
 spec:
   rules:
   - host: {{ .Values.lsdobserve.grafana.ingress.url }}
     http:
       paths:
       - backend:
-          serviceName: lsd-observe-grafana
+          serviceName: lsdobserve-grafana
           servicePort: 80
         path: /
         pathType: ImplementationSpecific

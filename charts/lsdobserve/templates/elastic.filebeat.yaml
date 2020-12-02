@@ -7,35 +7,6 @@ kind: ServiceAccount
 metadata:
   name: filebeat
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: elastic-beat-autodiscover-binding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: elastic-beat-autodiscover
-subjects:
-- kind: ServiceAccount
-  name: filebeat
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: elastic-beat-autodiscover
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - nodes
-  - namespaces
-  - events
-  - pods
-  verbs:
-  - get
-  - list
-  - watch
----
 apiVersion: beat.k8s.elastic.co/v1beta1
 kind: Beat
 metadata:

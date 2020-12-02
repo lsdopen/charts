@@ -10,14 +10,14 @@ metadata:
   labels:
     app: kibana
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"    
-  name: lsd-observe-kb
+  name: lsdobserve-kb
 spec:
   rules:
   - host: {{ .Values.lsdobserve.elastic.kibana.ingress.url }}
     http:
       paths:
       - backend:
-          serviceName: lsd-observe-kb-http
+          serviceName: lsdobserve-kb-http
           servicePort: 5601
         path: /
         pathType: ImplementationSpecific

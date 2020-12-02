@@ -9,5 +9,5 @@ spec:
   version: 7.10.0
   count: 1
   elasticsearchRef:
-    name: lsd-observe
+    name: lsdobserve
 {{- end }}

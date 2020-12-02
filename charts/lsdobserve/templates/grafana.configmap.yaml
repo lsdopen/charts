@@ -42,7 +42,7 @@ data:
     - isDefault: true
       name: LSDobserve - Prometheus
       type: prometheus
-      url: http://lsd-observe-prometheus-server
+      url: http://lsdobserve-prometheus-server
   grafana.ini: |
     [analytics]
     check_for_updates = true
@@ -69,4 +69,4 @@ metadata:
   annotations:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
-  name: lsd-observe-grafana
+  name: lsdobserve-grafana
