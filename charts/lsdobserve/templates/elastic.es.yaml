@@ -14,11 +14,20 @@ spec:
     - secretName: lsdobserve-filerealm-01
   nodeSets:
   - name: default
-    count: 1
+    count: {{ .Values.lsdobserve.elastic.count }}
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
     config:
       node.store.allow_mmap: false
     podTemplate:
       spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.lsdobserve.elastic.storage }}
+        storageClassName: {{ .Values.lsdobserve.elastic.storageClassName }}
         containers:
         - name: elasticsearch
           env:

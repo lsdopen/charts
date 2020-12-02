@@ -28,12 +28,16 @@ lsdobserve:
       url: grafana.apps.cluster-01.lsdopen.io
   elastic:
     enabled: true
+    count: "3"
+    storage: "50Gi"
+    storageClassName: "rook-ceph-block"
     filebeat:
       enabled: true
     apm:
       enabled: true
     kibana:
       enabled: true
+      count: "2"
       ingress:
         url: kibana.apps.cluster-01.lsdopen.io
 
@@ -105,10 +109,10 @@ eck-operator:
   installCRDs: true
   resources:
     limits:
-      cpu: 500m
+      cpu: 200m
       memory: 512Mi
     requests:
-      cpu: 100m
+      cpu: 20m
       memory: 150Mi
 
 # Grafana
