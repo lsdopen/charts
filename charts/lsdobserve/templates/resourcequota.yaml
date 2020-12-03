@@ -30,7 +30,7 @@ spec:
       cpu: "4"
       memory: 8Gi
     min:
-      cpu: 80m
+      cpu: 10m
       memory: 4Mi
     type: Pod
   - default:
