@@ -1,8 +1,8 @@
 apiVersion: v2
 name: lsdobserve
-version: "1.0.2"
+version: "1.0.3"
 appVersion: "1.0.0"
-kubeVersion: ">=v1.15.0"
+kubeVersion: ">=v1.11.0"
 description: A Helm chart for LSDobserve
 keywords:
   - lsdobserve
