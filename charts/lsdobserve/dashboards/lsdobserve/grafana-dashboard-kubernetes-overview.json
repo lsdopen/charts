@@ -35,7 +35,7 @@
       },
       "id": 244,
       "options": {
-        "content": "\n<p style=\"text-align:center;\">LSD Observe - Kubernetes Overview - Version 2.30</p>",
+        "content": "\n<p style=\"text-align:center;\">LSD Observe - Kubernetes Overview - Version 2.31</p>",
         "mode": "html"
       },
       "pluginVersion": "7.3.1",
@@ -1515,13 +1515,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum (container_memory_working_set_bytes{container!=\"\",name!~\"k8s_POD_.*\"}) by (instance) / sum(kube_node_status_capacity_memory_bytes) by (kubernetes_node)) * 100",
+          "expr": "sum by (node) (\n  label_replace(\n    container_memory_working_set_bytes{container!=\"\",name!~\"k8s_POD_.*\"},\n    \"node\",\"$1\",\"instance\", \"(.+)\"\n  )\n)\n\n/\n\nsum(kube_node_status_capacity_memory_bytes) by (node) * 100",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ kubernetes_io_hostname }}",
+          "legendFormat": "{{ node }}",
           "refId": "A",
           "step": 5
         }
@@ -7961,7 +7961,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {
