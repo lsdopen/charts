@@ -3,6 +3,28 @@
 {{- if .Values.lsdobserve.elastic.filebeat.enabled -}}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    meta.helm.sh/release-name: lsdobserve
+    meta.helm.sh/release-namespace: lsdobserve
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: elastic-beat-autodiscover
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - namespaces
+  - events
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: elastic-beat-autodiscover-binding
