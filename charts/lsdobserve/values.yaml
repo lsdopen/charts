@@ -67,6 +67,36 @@ prometheus:
         memory: 512Mi
   pushgateway:
     enabled: false
+  nodeExporter:
+    enabled: true
+    hostNetwork: true
+    hostPID: true
+    name: node-exporter
+    pod:
+      labels:
+        org: lsd
+        product: lsdobserve
+        name: node-exporter
+    resources:
+      limits:
+        cpu: 200m
+        memory: 50Mi
+      requests:
+        cpu: 100m
+        memory: 10Mi
+    securityContext: {}
+      # runAsUser: 0
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+      labels: {}
+      clusterIP: None
+      externalIPs: []
+      hostPort: 8100
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      servicePort: 9100
+      type: ClusterIP
   alertmanager:
     replicaCount: 3
     statefulSet:
