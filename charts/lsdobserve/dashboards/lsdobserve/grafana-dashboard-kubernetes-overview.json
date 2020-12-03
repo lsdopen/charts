@@ -35,7 +35,7 @@
       },
       "id": 244,
       "options": {
-        "content": "\n<p style=\"text-align:center;\">LSD Observe - Kubernetes Overview - Version 2.31</p>",
+        "content": "\n<p style=\"text-align:center;\">LSD Observe - Kubernetes Overview - Version 2.32</p>",
         "mode": "html"
       },
       "pluginVersion": "7.3.1",
@@ -1402,13 +1402,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (kubernetes_io_hostname) (rate(container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\"}[2m])) / sum by (kubernetes_io_hostname) (machine_cpu_cores) * 100",
+          "expr": "\nsum by (node) (\n  label_replace(\n    (rate(container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\"}[2m])),\n    \"node\",\"$1\",\"instance\", \"(.+)\"\n  )\n)   \n\n/\n\nsum by (node) (kube_node_status_capacity_cpu_cores)  * 100",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ kubernetes_io_hostname }}",
+          "legendFormat": "{{ node }}",
           "refId": "A",
           "step": 5
         }
@@ -1775,7 +1775,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(node_load15) by (kubernetes_node) / (sum(machine_cpu_cores) by (kubernetes_node)) * 100",
+          "expr": "(sum(node_load15) by (kubernetes_node) / sum(kube_node_status_capacity_cpu_cores) by (kubernetes_node)) * 100",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -1785,8 +1785,10 @@
           "step": 240
         },
         {
-          "expr": "(100 / sum(machine_cpu_cores)by (kubernetes_node)) * (sum(node_load15) by (kubernetes_node) - sum(machine_cpu_cores) by (kubernetes_node))",
+          "expr": "(100 / sum(kube_node_status_capacity_cpu_cores)by (kubernetes_node)) * (sum(node_load15) by (kubernetes_node) - sum(kube_node_status_capacity_cpu_cores) by (kubernetes_node))",
           "format": "time_series",
+          "hide": false,
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{ kubernetes_node }}",
           "refId": "B"
@@ -2758,10 +2760,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(container_cpu_cfs_throttled_seconds_total{pod_name!=\"\",pod_name!~\".*scheduler.*\"}[1m]) > 0.5",
+          "expr": "rate(container_cpu_cfs_throttled_seconds_total[2m]) > 0.1",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ namespace }} - {{ pod_name }}",
+          "legendFormat": "{{ namespace }} - {{ pod }}",
           "refId": "A"
         }
       ],
@@ -7961,7 +7964,7 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
