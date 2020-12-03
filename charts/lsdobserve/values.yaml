@@ -97,6 +97,16 @@ prometheus:
       loadBalancerSourceRanges: []
       servicePort: 8100
       type: ClusterIP
+    tolerations: 
+      - key: "node-role.kubernetes.io/controlplane"
+        operator: "Exists"
+        effect: "NoSchedule"
+      - key: "node-role.kubernetes.io/etcd"
+        operator: "Exists"
+        effect: "NoExecute"
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+        effect: "NoExecute"
   alertmanager:
     replicaCount: 3
     statefulSet:
