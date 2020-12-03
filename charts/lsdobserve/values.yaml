@@ -95,7 +95,7 @@ prometheus:
       hostPort: 8100
       loadBalancerIP: ""
       loadBalancerSourceRanges: []
-      servicePort: 9100
+      servicePort: 8100
       type: ClusterIP
   alertmanager:
     replicaCount: 3
