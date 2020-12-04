@@ -8,7 +8,7 @@ spec:
     requests.cpu: "6"
     limits.cpu: "20"
     requests.memory: "24Gi"
-    limits.memory: "32Gi"
+    limits.memory: "42Gi"
     requests.storage: "1Ti"
     persistentvolumeclaims: "20"
     requests.nvidia.com/gpu: 4

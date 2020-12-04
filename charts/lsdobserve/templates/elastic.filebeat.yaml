@@ -105,5 +105,5 @@ spec:
             effect: "NoExecute"
           - key: "node-role.kubernetes.io/master"
             operator: "Exists"
-            effect: "NoExecute"
+            effect: "NoSchedule"
 {{- end }}
