@@ -35,7 +35,7 @@
       },
       "id": 244,
       "options": {
-        "content": "\n<p style=\"text-align:center;\">LSD Observe - Kubernetes Overview - Version 2.32</p>",
+        "content": "\n<p style=\"text-align:center;\">LSD Observe - Kubernetes Overview - Version 2.33</p>",
         "mode": "html"
       },
       "pluginVersion": "7.3.1",
@@ -2021,7 +2021,7 @@
         "max": false,
         "min": false,
         "rightSide": true,
-        "show": false,
+        "show": true,
         "sort": "current",
         "sortDesc": true,
         "total": false,
@@ -2046,13 +2046,20 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 - ((node_filesystem_avail_bytes {mountpoint!~\".*/host/.*\",mountpoint!~\".*/etc/.*\",mountpoint!~\".*/run/secrets.*\",mountpoint!~\".*/var/run/.*\"} * 100) / node_filesystem_size_bytes {mountpoint!~\".*/host/.*\",mountpoint!~\".*/etc/.*\",mountpoint!~\".*/run/secrets.*\",mountpoint!~\".*/var/run/.*\"}) > 10",
+          "expr": "100 - ((node_filesystem_avail_bytes {mountpoint!~\".*/host/.*\",mountpoint!~\".*/etc/.*\",mountpoint!~\".*/run/secrets.*\",mountpoint!~\".*/var/run/.*\"} * 100) / node_filesystem_size_bytes {mountpoint!~\".*/host/.*\",mountpoint!~\".*/etc/.*\",mountpoint!~\".*/run/secrets.*\",mountpoint!~\".*/var/run/.*\"}) > 70",
           "format": "time_series",
+          "hide": true,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{ kubernetes_node }} - {{ mountpoint }}",
           "refId": "A",
           "step": 240
+        },
+        {
+          "expr": "(kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes) * 100 > 70",
+          "interval": "",
+          "legendFormat": "{{ namespace }} - {{ persistentvolumeclaim }}",
+          "refId": "B"
         }
       ],
       "thresholds": [
@@ -7964,7 +7971,7 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -7993,5 +8000,5 @@
   "timezone": "",
   "title": "Kubernetes Overview",
   "uid": "lsd-observe-001",
-  "version": 1
+  "version": 2
 }
