@@ -96,4 +96,14 @@ spec:
         - name: varlibdockercontainers
           hostPath:
             path: /var/lib/docker/containers
+        tolerations: 
+          - key: "node-role.kubernetes.io/controlplane"
+            operator: "Exists"
+            effect: "NoSchedule"
+          - key: "node-role.kubernetes.io/etcd"
+            operator: "Exists"
+            effect: "NoExecute"
+          - key: "node-role.kubernetes.io/master"
+            operator: "Exists"
+            effect: "NoExecute"
 {{- end }}
