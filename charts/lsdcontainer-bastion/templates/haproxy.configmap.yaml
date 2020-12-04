@@ -8,6 +8,6 @@ metadata:
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
   name: haproxy
 data:
-  config: |-
+  config: |
 {{ .Values.haproxy.config | indent 4 }}
 {{- end }}
