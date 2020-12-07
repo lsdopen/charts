@@ -231,6 +231,7 @@ grafana:
     ds-03: "grafana-dashboard-node-namespace-details"
     ds-04: "grafana-dashboard-apiserver"
     ds-05: "grafana-dashboard-rook-ceph-overview"
+    ds-06: "node-exporter-for-prometheus-dashboard"
   imageRenderer:
     enabled: true
     replicas: 1

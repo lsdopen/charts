@@ -37,7 +37,9 @@ helm install lsdobserve -n lsdobserve --create-namespace \
 ## Adding New Dashboards to Grafana
 
 1. Place new dashboards in ./dashboards folder
-2. Modify templates/dashboards.configmap.yaml with your new dashboard details
+2. Modify templates/grafana.dashbaords.yaml with your new dashboard details
+3. Add dashboard to templates/grafana.configmap.yaml
+4. Add the dashboard to the values.yaml file
 
 
 ## Todo

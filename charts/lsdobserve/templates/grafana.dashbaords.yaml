@@ -39,3 +39,10 @@ metadata:
 data:
   apiserver.json: |-
 {{ .Files.Get "dashboards/storage/rook-ceph-dashboard.json" | indent 4}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-exporter-for-prometheus-dashboard
+data:
+  apiserver.json: |-
+{{ .Files.Get "dashboards/nodes/node-exporter-for-prometheus-dashboard.json" | indent 4}}

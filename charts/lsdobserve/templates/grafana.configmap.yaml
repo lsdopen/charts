@@ -44,6 +44,14 @@ data:
         path: /var/lib/grafana/dashboards/ds-05
       orgId: 1
       type: file
+    - disableDeletion: false
+      editable: false
+      folder: Nodes
+      name: ds-06
+      options:
+        path: /var/lib/grafana/dashboards/ds-06
+      orgId: 1
+      type: file
   datasources.yaml: |
     apiVersion: 1
     datasources:
