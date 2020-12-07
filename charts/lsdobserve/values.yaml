@@ -167,6 +167,16 @@ prometheus:
             annotations:
               description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
               summary: 'Instance {{ $labels.instance }} down'
+      - name: NodesMarkedAsUnscheduled
+        rules:
+          - alert: NodesMarkedAsUnscheduled
+            expr: kube_node_spec_unschedulable > 0
+            for: 1m
+            labels:
+              severity: warning
+            annotations:
+              description: '{{ $labels.instance }} is marked as Unscheduled for longer than 5 minutes.'
+              summary: 'Instance {{ $labels.instance }} marked as Unscheduled'
 
 # Elasticsearch Exporter
 # To get a latest values you can run:
