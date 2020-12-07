@@ -184,8 +184,8 @@ prometheus:
             labels:
               severity: warning
             annotations:
-              description: 'Alert to highlight Kubernetes nodes that are marked as Unschudled. To cordone and uncordone nodes you can run "kubectl cordon {{ $labels.node }}" and "kubectl uncordon {{ $labels.node }}"'
-              summary: 'Instance {{ $labels.node }} marked as Unscheduled for longer an 1h'
+              description: '{{ $labels.kubernetes_node }} is marked as Unscheduled for longer than 5 minutes.'
+              summary: 'Instance {{ $labels.kubernetes_node }} marked as Unscheduled'
 
 # Elasticsearch Exporter
 # To get a latest values you can run:
