@@ -109,8 +109,17 @@ prometheus:
         effect: "NoExecute"
   alertmanager:
     replicaCount: 3
+    service:
+      enableMeshPeer: true
     statefulSet:
       enabled: true
+      annotations: {}
+      labels: {}
+      podManagementPolicy: OrderedReady
+      headless:
+        annotations: {}
+        labels: {}
+        enableMeshPeer: true
     image:
       repository: prom/alertmanager
     ingress:
