@@ -175,8 +175,8 @@ prometheus:
             labels:
               severity: warning
             annotations:
-              description: '{{ $labels.instance }} is marked as Unscheduled for longer than 5 minutes.'
-              summary: 'Instance {{ $labels.instance }} marked as Unscheduled'
+              description: '{{ $labels.kubernetes_node }} is marked as Unscheduled for longer than 5 minutes.'
+              summary: 'Instance {{ $labels.kubernetes_node }} marked as Unscheduled'
 
 # Elasticsearch Exporter
 # To get a latest values you can run:
