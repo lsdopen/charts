@@ -259,7 +259,7 @@
         }
       ],
       "thresholds": "",
-      "title": "CPU Core Request Quota",
+      "title": "CPU Core Request Quota Used",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
