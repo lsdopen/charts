@@ -332,3 +332,14 @@ prometheus:
             annotations:
               description: 'Mount point {{ $labels.mountpoint }} on Node {{ $labels.kubernetes_node }} is at {{ printf "%.0f" $value }}% of total capacity'
               message: 'You will need to SSH into Node {{ $labels.kubernetes_node }} and clean up storage on {{ $labels.mountpoint }}'
+      - name: TotalAvailableCPURequestsOver90Percent
+        rules:
+          - alert: TotalAvailableCPURequestsOver90Percent
+            expr: (sum ((sum(kube_pod_container_resource_requests_cpu_cores{container!="deployment",container!="docker-build",namespace!="logging",namespace!="default",namespace!~".*openshift-.*",namespace!~".*openmonitoring.*",namespace!~".*kube-.*"} > 0) by (container,pod) / count(kube_pod_container_status_running > 0) by (container,pod))*1000)) / (sum (kube_node_status_allocatable_cpu_cores)*1000) * 100 > 90
+            for: 1h
+            labels:
+              severity: critical
+            annotations:
+              description: 'The total allowed CPU requests are at {{ printf "%.0f" $value }}%'
+              message: 'When the total allowed CPU requests hits 100% no more pods will be allowed to start up. You either need to lower the CPU requests of pods or add more CPU into the cluster'
+
