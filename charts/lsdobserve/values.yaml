@@ -261,7 +261,7 @@ prometheus:
               severity: warning
             annotations:
               description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
-              summary: 'Instance {{ $labels.instance }} down'
+              message: 'When Instance/Endpoints are marked as down it means Prometheus cannot scrape those targets. You can get more details by gong to the Prometheus frontend, going to Status and Targets. You always want all you Instance/Endpoints up else you will not be able to monitor anything'
       - name: NodesMarkedAsUnscheduled
         rules:
           - alert: NodesMarkedAsUnscheduled
@@ -270,8 +270,8 @@ prometheus:
             labels:
               severity: warning
             annotations:
-              description: '{{ $labels.kubernetes_node }} is marked as Unscheduled for longer than 5 minutes.'
-              summary: 'Instance {{ $labels.kubernetes_node }} marked as Unscheduled'
+              description: '{{ $labels.kubernetes_node }} is marked as Unscheduled for longer than 1h minutes.'
+              message: 'When Nodes are marked Unscheduled no new pods will be scheduled '
       - name: NodeMemoryUsageAbove85Percent
         rules:
           - alert: NodeMemoryUsageAbove85Percent
@@ -280,8 +280,8 @@ prometheus:
             labels:
               severity: warning
             annotations:
-              Description: '{{ $labels.kubernetes_node }} is using {{ printf "%.0f" $value }}% of the total memory'
-              What does this mean and what should I do: 'When the memory of a node is exhausted pods will be evicted and sacraficed to keep the node ready. It is recommended that you cordon node {{ $labels.kubernetes_node }} and delete a couple of pods on the node, forcing them to start up on another node, then uncordone {{ $labels.kubernetes_node }}. You can find more info here: https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/'
+              description: '{{ $labels.kubernetes_node }} is using {{ printf "%.0f" $value }}% of the total memory'
+              message: 'When the memory of a node is exhausted pods will be evicted and sacrificed to keep the node ready. It is recommended that you cordon node {{ $labels.kubernetes_node }} and delete a couple of pods on the node, forcing them to start up on another node, then uncordone {{ $labels.kubernetes_node }}. You can find more info here: https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/'
       - name: NodeMemoryUsageAbove95Percent
         rules:
           - alert: NodeMemoryUsageAbove95Percent
@@ -290,5 +290,45 @@ prometheus:
             labels:
               severity: critical
             annotations:
-              Description: '{{ $labels.kubernetes_node }} is using {{ printf "%.0f" $value }}% of the total memory'
-              What does this mean and what should I do: 'When the memory of a node is exhausted pods will be evicted and sacraficed to keep the node ready. It is recommended that you cordon node {{ $labels.kubernetes_node }} and delete a couple of pods on the node, forcing them to start up on another node, then uncordone {{ $labels.kubernetes_node }}. You can find more info here: https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/'
+              description: '{{ $labels.kubernetes_node }} is using {{ printf "%.0f" $value }}% of the total memory'
+              message: 'When the memory of a node is exhausted pods will be evicted and sacrificed to keep the node ready. It is recommended that you cordon node {{ $labels.kubernetes_node }} and delete a couple of pods on the node, forcing them to start up on another node, then uncordone {{ $labels.kubernetes_node }}. You can find more info here: https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/'
+      - name: PVCUsageOver85Percent
+        rules:
+          - alert: PVCUsageOver85Percent
+            expr: (kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes) * 100 > 85
+            for: 1h
+            labels:
+              severity: warning
+            annotations:
+              description: 'PVC {{ $labels.persistentvolumeclaim }} in namespace {{ $labels.namespace }} is using {{ printf "%.0f" $value }}% of the capacity'
+              message: 'You will need to go into the Pod that is using that PVC and clean up some storage. For example "kubectl -n {{ $labels.namespace }} exec -it PODNAME -- sh"'
+      - name: PVCUsageOver95Percent
+        rules:
+          - alert: PVCUsageOver95Percent
+            expr: (kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes) * 100 > 95
+            for: 1h
+            labels:
+              severity: critical
+            annotations:
+              description: 'PVC {{ $labels.persistentvolumeclaim }} in namespace {{ $labels.namespace }} is using {{ printf "%.0f" $value }}% of the capacity'
+              message: 'You will need to go into the Pod that is using that PVC and clean up some storage. For example "kubectl -n {{ $labels.namespace }} exec -it PODNAME -- sh"'
+      - name: NodeFileSystemUsageOver85Percent
+        rules:
+          - alert: NodeFileSystemUsageOver85Percent
+            expr: 100 - ((node_filesystem_avail_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"} * 100) / node_filesystem_size_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"}) > 85
+            for: 1h
+            labels:
+              severity: warning
+            annotations:
+              description: 'Mount point {{ $labels.mountpoint }} on Node {{ $labels.kubernetes_node }} is at {{ printf "%.0f" $value }}% of total capacity'
+              message: 'You will need to SSH into Node {{ $labels.kubernetes_node }} and clean up storage on {{ $labels.mountpoint }}'
+      - name: NodeFileSystemUsageOver95Percent
+        rules:
+          - alert: NodeFileSystemUsageOver95Percent
+            expr: 100 - ((node_filesystem_avail_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"} * 100) / node_filesystem_size_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"}) > 95
+            for: 1h
+            labels:
+              severity: critical
+            annotations:
+              description: 'Mount point {{ $labels.mountpoint }} on Node {{ $labels.kubernetes_node }} is at {{ printf "%.0f" $value }}% of total capacity'
+              message: 'You will need to SSH into Node {{ $labels.kubernetes_node }} and clean up storage on {{ $labels.mountpoint }}'
