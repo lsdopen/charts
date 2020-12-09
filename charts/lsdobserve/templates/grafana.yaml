@@ -11,6 +11,7 @@ spec:
   secretName: grafana.ingress-letsencrypt
   issuerRef:
     name: {{ .Values.lsdobserve.letsencryptIssuer }}
+---
 {{- end }}
 
 # Grafana Configmap
@@ -102,6 +103,7 @@ metadata:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
   name: lsdobserve-grafana
+---
 
 # Grafana Ingress
 {{- if or (eq .Values.lsdobserve.clusterType "gke") (eq .Values.lsdobserve.clusterType "rancher") -}}
@@ -126,6 +128,7 @@ spec:
           servicePort: 80
         path: /
         pathType: ImplementationSpecific
+---
 {{- end }}
 
 # Grafana Route for Openshift
@@ -146,4 +149,5 @@ spec:
     name: lsdobserve-grafana
     weight: 100
   wildcardPolicy: None
+---
 {{- end }}
