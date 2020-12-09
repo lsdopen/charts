@@ -1,3 +1,19 @@
+
+# Grafana Letsencrypt
+{{- if .Values.lsdobserve.letsencrypt -}}
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: grafana-ingress-letsencrypt
+spec:
+  commonName: {{ .Values.lsdobserve.grafana.ingress.url }}
+  secretName: grafana.ingress-letsencrypt
+  issuerRef:
+    name: {{ .Values.lsdobserve.letsencryptIssuer }}
+{{- end }}
+
+# Grafana Configmap
 ---
 apiVersion: v1
 data:
@@ -86,3 +102,48 @@ metadata:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
   name: lsdobserve-grafana
+
+# Grafana Ingress
+{{- if or (eq .Values.lsdobserve.clusterType "gke") (eq .Values.lsdobserve.clusterType "rancher") -}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+  labels:
+    app: grafana
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"    
+  name: lsdobserve-grafana
+spec:
+  rules:
+  - host: {{ .Values.lsdobserve.grafana.ingress.url }}
+    http:
+      paths:
+      - backend:
+          serviceName: lsdobserve-grafana
+          servicePort: 80
+        path: /
+        pathType: ImplementationSpecific
+{{- end }}
+
+# Grafana Route for Openshift
+{{- if eq .Values.lsdobserve.clusterType "openshift" -}}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: {{ .Release.Name }}
+  name: {{ .Release.Name }}
+spec:
+  host: {{ .Values.lsdobserve.grafana.ingress.url }}
+  port:
+    targetPort: 80-tcp
+  to:
+    kind: Service
+    name: lsdobserve-grafana
+    weight: 100
+  wildcardPolicy: None
+{{- end }}
