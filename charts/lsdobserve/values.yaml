@@ -133,6 +133,7 @@ grafana:
 prometheus:
   server:
     replicaCount: 2
+    retention: 31d
     statefulSet:
       enabled: true
     ingress:
@@ -231,7 +232,7 @@ prometheus:
       receivers:
         - name: LSD Support
           email_configs:
-            - to: support+discoverybank@lsd.co.za
+            - to: support+CLIENT@lsd.co.za
               from: lsdobserve+noreply+FULL-CLUSTER-NAME@lsdopen.io
               smarthost: 'smtp.lsdopen.io:25'
               require_tls: false
@@ -342,4 +343,24 @@ prometheus:
             annotations:
               description: 'The total allowed CPU requests are at {{ printf "%.0f" $value }}%'
               message: 'When the total allowed CPU requests hits 100% no more pods will be allowed to start up. You either need to lower the CPU requests of pods or add more CPU into the cluster'
+      - name: NodeCpuUtilizationOver95Percent
+        rules:
+          - alert: NodeCpuUtilizationOver95Percent
+            expr: 100 - (avg by (kubernetes_node) (rate( node_cpu_seconds_total {mode="idle"}[2m])) * 100) > 95
+            for: 1h
+            labels:
+              severity: warning
+            annotations:
+              description: 'Node {{ $labels.kubernetes_node }} has a CPU utlization over 95% for over 1 hour. Current CPU utilization of Node {{ $labels.kubernetes_node }} is {{ printf "%.0f" $value }}%'
+              message: 'When the CPU is maxed out for over an hour it indicates an that a process is killing the node or the node does not have enough CPU assigned to it'
+      - name: NodeLoadOver50
+        rules:
+          - alert: NodeLoadOver50
+            expr: node_load15 > 50
+            for: 1h
+            labels:
+              severity: critical
+            annotations:
+              description: 'Node {{ $labels.kubernetes_node }} has a 15 minute load average of {{ printf "%.0f" $value }}%'
+              message: 'When the load is over 50 this indicates an issue of high CPU, low memory (going into swap) and high disk utlization'
 
