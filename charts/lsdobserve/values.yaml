@@ -52,7 +52,8 @@ prometheus-elasticsearch-exporter:
 # helm show values elastic/eck-operator
 eck-operator:
   replicaCount: 1
-  installCRDs: true
+  # installCRDs must be disabled
+  installCRDs: false
   resources:
     limits:
       cpu: 200m
