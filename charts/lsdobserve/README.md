@@ -7,9 +7,10 @@ helm repo add lsdopen https://lsdopen.github.io/charts
 helm repo update
 ```
 
-### Install on Rancher
+### Install on Generic Kubernetes Cluster
 
 ```
+helm show values lsdopen/lsdobserve > values.yaml
 helm upgrade lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml
 ```
 
@@ -42,12 +43,8 @@ helm install lsdobserve -n lsdobserve --create-namespace \
 
 
 ## Todo
-- SMTP
 - curation for elastic
-- metadata on filebeat
-- ceph dashboards
 - harbor dashboards
-- alerts for alertmanager
 - alertmanager dashbaord
 - Keycloak
 - Dashboards in Elastic or Elastic like dashboards in Grafana

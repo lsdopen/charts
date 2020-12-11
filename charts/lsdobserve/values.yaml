@@ -77,7 +77,7 @@ grafana:
       cpu: 100m
       memory: 128Mi
     requests:
-      cpu: 100m
+      cpu: 10m
       memory: 128Mi
   datasources:
     datasources.yaml:
@@ -170,7 +170,7 @@ prometheus:
         cpu: 200m
         memory: 50Mi
       requests:
-        cpu: 100m
+        cpu: 10m
         memory: 10Mi
     securityContext: {}
       # runAsUser: 0
