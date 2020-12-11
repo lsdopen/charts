@@ -7,11 +7,10 @@ helm repo add lsdopen https://lsdopen.github.io/charts
 helm repo update
 ```
 
-Install on GKE with Admin Password set
-```
-helm install lsdobserve -n lsdobserve --create-namespace  --set grafana.adminPassword=neiliscool --set lsdobserve.clusterType=gke
+### Install on Rancher
 
-helm install lsdobserve -n lsdobserve --create-namespace --set grafana.adminPassword=neiliscool
+```
+helm upgrade lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml
 ```
 
 Install on GKE with Admin Password and Elastic disabled

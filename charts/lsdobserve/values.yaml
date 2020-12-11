@@ -194,7 +194,6 @@ prometheus:
         effect: "NoExecute"
       - key: "node-role.kubernetes.io/master"
         operator: "Exists"
-        effect: "NoExecute"
   alertmanager:
     replicaCount: 3
     service:
