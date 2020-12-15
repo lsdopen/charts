@@ -138,8 +138,8 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   labels:
-    app: {{ .Release.Name }}
-  name: {{ .Release.Name }}
+    app: {{ .Release.Name }}-grafana
+  name: {{ .Release.Name }}-grafana
 spec:
   host: {{ .Values.lsdobserve.grafana.ingress.url }}
   port:

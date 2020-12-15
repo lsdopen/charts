@@ -27,4 +27,52 @@ spec:
     tls:
       selfSignedCertificate:
         disabled: true
+---
+{{- end }}
+
+# Kibana Ingress
+{{- if or (eq .Values.lsdobserve.clusterType "gke") (eq .Values.lsdobserve.clusterType "rancher") -}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+  labels:
+    app: kibana
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"    
+  name: lsdobserve-kb
+spec:
+  rules:
+  - host: {{ .Values.lsdobserve.elastic.kibana.ingress.url }}
+    http:
+      paths:
+      - backend:
+          serviceName: lsdobserve-kb-http
+          servicePort: 5601
+        path: /
+        pathType: ImplementationSpecific
+---
+{{- end }}
+
+# Kibana Route for Openshift
+{{- if eq .Values.lsdobserve.clusterType "openshift" -}}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: {{ .Release.Name }}-kb-http
+  name: {{ .Release.Name }}-kb-http
+spec:
+  host: {{ .Values.lsdobserve.elastic.kibana.ingress.url }}
+  port:
+    targetPort: 5601-tcp
+  to:
+    kind: Service
+    name: lsdobserve-kb-http
+    weight: 100
+  wildcardPolicy: None
+---
 {{- end }}
