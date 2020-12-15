@@ -141,12 +141,15 @@ metadata:
     app: {{ .Release.Name }}-grafana
   name: {{ .Release.Name }}-grafana
 spec:
-  host: {{ .Values.lsdobserve.grafana.ingress.url }}
+  host: grafana.apps.mhsrcp02.metmom.mmih.biz
   port:
-    targetPort: 80-tcp
+    targetPort: service
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
   to:
     kind: Service
-    name: lsdobserve-grafana
+    name: {{ .Release.Name }}-grafana
     weight: 100
   wildcardPolicy: None
 ---
