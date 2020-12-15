@@ -9,3 +9,10 @@ Grafana Password: {{ .Values.grafana.adminPassword }}
 Kibana URL:      https://{{ .Values.lsdobserve.elastic.kibana.ingress.url }}
 Kibana Username: elastic
 Kibana Password: 
+
+If you are running on Openshift that is configured to force new projects/namespaces to run on specific nodes, then you need to patch the namespace to allow these pods to run on all nodes.
+
+Run the command: 
+
+  oc patch namespace lsdobserve -p '{"metadata":{"annotations":{"openshift.io/node-selector":""}}}'
+  oc delete pod --all -n lsdobserve

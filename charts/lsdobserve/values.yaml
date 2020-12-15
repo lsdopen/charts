@@ -52,6 +52,9 @@ prometheus-elasticsearch-exporter:
 # helm show values elastic/eck-operator
 eck-operator:
   replicaCount: 1
+  # If you want to install on specific nodes, for example Infra nodes on Openshift
+  nodeSelector:
+    node-role.kubernetes.io/infra: ""
   # installCRDs must be disabled
   installCRDs: false
   resources:
@@ -68,6 +71,9 @@ eck-operator:
 grafana:
   adminUser: admin
   adminPassword: pho0iar5zo2oob8geevohd0ahr4hieNi
+  # If you want to install on specific nodes, for example Infra nodes on Openshift
+  nodeSelector:
+    node-role.kubernetes.io/infra: ""
   replicas: 1
   # ingress is disable because it is created via the lsd-observe template
   ingress:
