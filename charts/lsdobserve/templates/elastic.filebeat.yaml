@@ -70,7 +70,6 @@ spec:
         serviceAccount: filebeat
         automountServiceAccountToken: true
         securityContext:
-        securityContext:
           runAsUser: 0
         containers:
         - env:
@@ -79,6 +78,13 @@ spec:
               fieldRef:
                 fieldPath: spec.nodeName
           name: filebeat
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 10m
+            limits:
+              memory: 200Mi
+              cpu: 200m
           volumeMounts:
           - name: varlogcontainers
             mountPath: /var/log/containers
