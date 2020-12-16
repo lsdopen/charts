@@ -34,10 +34,11 @@ sub () {
     fi
 }
 
+# "Description" "Substitute VAR" "Default"
 sub "Cluster type (gke | rancher | openshift)" "%%CLUSTER_TYPE%%" "openshift"
 sub "Domain (typically domain suffix" "%%DOMAIN%%" "lsdopen.io"
 sub "App domain (typically ingress route" "%%APP_DOMAIN%%" "apps.$DOMAIN"
 sub "SMTP (smtp.$DOMAIN)" "%%SMTP%%" "smtp.$DOMAIN"
 sub "SMTP Port" "%%SMTP_PORT%%" "25"
 sub "Storage Class" "%%STORAGE_CLASS%%" "standard"
-sub "Client Name" "%%CLIENT%%" "None"
+sub "Client Name" "%%CLIENT%%" "LSD"
