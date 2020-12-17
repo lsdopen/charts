@@ -7,10 +7,12 @@
 # check if values.yaml exists. If not pull from chart
 if test -f "values.yaml"
 then
-    cp values.yaml run.yaml
+    cp values.yaml values.orig.yaml
 else
-    helm show values lsdopen/lsdobserve > values.yaml
+    helm show values lsdopen/lsdobserve > values.orig.yaml
 fi
+
+cp values.orig.yaml run.yaml
 
 #$1 = "Description"
 #$2 = "Substitute VAR"
@@ -42,3 +44,5 @@ sub "SMTP (smtp.$DOMAIN)" "%%SMTP%%" "smtp.$DOMAIN"
 sub "SMTP Port" "%%SMTP_PORT%%" "25"
 sub "Storage Class" "%%STORAGE_CLASS%%" "standard"
 sub "Client Name" "%%CLIENT%%" "LSD"
+
+rm run.yaml.bak
