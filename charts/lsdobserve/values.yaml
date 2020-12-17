@@ -48,9 +48,6 @@ prometheus-elasticsearch-exporter:
 # helm show values elastic/eck-operator
 eck-operator:
   replicaCount: 1
-  # If you want to install on specific nodes, for example Infra nodes on Openshift
-  nodeSelector:
-    node-role.kubernetes.io/infra: ""
   # installCRDs must be disabled
   installCRDs: false
   resources:
@@ -67,9 +64,6 @@ eck-operator:
 grafana:
   adminUser: admin
   adminPassword: pho0iar5zo2oob8geevohd0ahr4hieNi
-  # If you want to install on specific nodes, for example Infra nodes on Openshift
-  nodeSelector:
-    node-role.kubernetes.io/infra: ""
   replicas: 1
   # ingress is disable because it is created via the lsd-observe template
   ingress:
@@ -85,22 +79,22 @@ grafana:
     datasources.yaml:
       apiVersion: 1
       datasources:
-      - name: LSDobserve - Prometheus
-        type: prometheus
-        url: http://lsdobserve-prometheus-server
-        isDefault: true
+        - name: LSDobserve - Prometheus
+          type: prometheus
+          url: http://lsdobserve-prometheus-server
+          isDefault: true
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
-      - name: 'ds-01'
-        orgId: 1
-        folder: 'LSDobserve'
-        type: file
-        disableDeletion: false
-        editable: false
-        options:
-          path: /var/lib/grafana/dashboards/ds-01
+        - name: "ds-01"
+          orgId: 1
+          folder: "LSDobserve"
+          type: file
+          disableDeletion: false
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/ds-01
   dashboardsConfigMaps:
     ds-01: "grafana-dashboard-kubernetes-overview"
     ds-02: "grafana-dashboard-namespace-details"
@@ -115,7 +109,7 @@ grafana:
       repository: grafana/grafana-image-renderer
       tag: latest
     service:
-      portName: 'http'
+      portName: "http"
       port: 8081
     podPortName: http
     revisionHistoryLimit: 10
@@ -123,12 +117,12 @@ grafana:
       limitIngress: true
       limitEgress: false
     resources:
-     limits:
-       cpu: 100m
-       memory: 100Mi
-     requests:
-       cpu: 50m
-       memory: 50Mi
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 50m
+        memory: 50Mi
 
 # Prometheus
 # To get a latest values you can run:
@@ -148,7 +142,7 @@ prometheus:
       accessModes:
         - ReadWriteOnce
       size: 30Gi
-    resources: 
+    resources:
       limits:
         cpu: 500m
         memory: 2Gi
@@ -174,7 +168,8 @@ prometheus:
       requests:
         cpu: 10m
         memory: 10Mi
-    securityContext: {}
+    securityContext:
+      {}
       # runAsUser: 0
     service:
       annotations:
@@ -187,7 +182,7 @@ prometheus:
       loadBalancerSourceRanges: []
       servicePort: 8100
       type: ClusterIP
-    tolerations: 
+    tolerations:
       - key: "node-role.kubernetes.io/controlplane"
         operator: "Exists"
         effect: "NoSchedule"
@@ -236,14 +231,14 @@ prometheus:
           email_configs:
             - to: support+%%CLIENT%%@lsd.co.za
               from: lsdobserve+noreply+%%APP_DOMAIN%%.%%DOMAIN%%
-              smarthost: 'smtp.lsdopen.io:25'
+              smarthost: "%%SMTP%%:%%SMTP_PORT%%"
               require_tls: false
       route:
         group_by:
           - job
         group_interval: 5m
         group_wait: 30s
-        receiver: 'LSD Support'
+        receiver: "LSD Support"
         repeat_interval: 12h
         routes:
           - receiver: LSD Support
@@ -255,114 +250,113 @@ prometheus:
   serverFiles:
     alerting_rules.yml:
       groups:
-      - name: Instances
-        rules:
-          - alert: InstanceDown
-            expr: up == 0
-            for: 5m
-            labels:
-              severity: warning
-            annotations:
-              description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
-              message: 'When Instance/Endpoints are marked as down it means Prometheus cannot scrape those targets. You can get more details by gong to the Prometheus frontend, going to Status and Targets. You always want all you Instance/Endpoints up else you will not be able to monitor anything'
-      - name: NodesMarkedAsUnscheduled
-        rules:
-          - alert: NodesMarkedAsUnscheduled
-            expr: kube_node_spec_unschedulable > 0
-            for: 1h
-            labels:
-              severity: warning
-            annotations:
-              description: '{{ $labels.kubernetes_node }} is marked as Unscheduled for longer than 1h minutes.'
-              message: 'When Nodes are marked Unscheduled no new pods will be scheduled '
-      - name: NodeMemoryUsageAbove85Percent
-        rules:
-          - alert: NodeMemoryUsageAbove85Percent
-            expr: 100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[2m]) + avg_over_time(node_memory_Cached_bytes[2m]) + avg_over_time(node_memory_Buffers_bytes[2m])) / avg_over_time(node_memory_MemTotal_bytes[2m]))) > 80 < 90
-            for: 1h
-            labels:
-              severity: warning
-            annotations:
-              description: '{{ $labels.kubernetes_node }} is using {{ printf "%.0f" $value }}% of the total memory'
-              message: 'When the memory of a node is exhausted pods will be evicted and sacrificed to keep the node ready. It is recommended that you cordon node {{ $labels.kubernetes_node }} and delete a couple of pods on the node, forcing them to start up on another node, then uncordone {{ $labels.kubernetes_node }}. You can find more info here: https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/'
-      - name: NodeMemoryUsageAbove95Percent
-        rules:
-          - alert: NodeMemoryUsageAbove95Percent
-            expr: 100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[2m]) + avg_over_time(node_memory_Cached_bytes[2m]) + avg_over_time(node_memory_Buffers_bytes[2m])) / avg_over_time(node_memory_MemTotal_bytes[2m]))) > 95
-            for: 1h
-            labels:
-              severity: critical
-            annotations:
-              description: '{{ $labels.kubernetes_node }} is using {{ printf "%.0f" $value }}% of the total memory'
-              message: 'When the memory of a node is exhausted pods will be evicted and sacrificed to keep the node ready. It is recommended that you cordon node {{ $labels.kubernetes_node }} and delete a couple of pods on the node, forcing them to start up on another node, then uncordone {{ $labels.kubernetes_node }}. You can find more info here: https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/'
-      - name: PVCUsageOver85Percent
-        rules:
-          - alert: PVCUsageOver85Percent
-            expr: (kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes) * 100 > 85
-            for: 1h
-            labels:
-              severity: warning
-            annotations:
-              description: 'PVC {{ $labels.persistentvolumeclaim }} in namespace {{ $labels.namespace }} is using {{ printf "%.0f" $value }}% of the capacity'
-              message: 'You will need to go into the Pod that is using that PVC and clean up some storage. For example "kubectl -n {{ $labels.namespace }} exec -it PODNAME -- sh"'
-      - name: PVCUsageOver95Percent
-        rules:
-          - alert: PVCUsageOver95Percent
-            expr: (kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes) * 100 > 95
-            for: 1h
-            labels:
-              severity: critical
-            annotations:
-              description: 'PVC {{ $labels.persistentvolumeclaim }} in namespace {{ $labels.namespace }} is using {{ printf "%.0f" $value }}% of the capacity'
-              message: 'You will need to go into the Pod that is using that PVC and clean up some storage. For example "kubectl -n {{ $labels.namespace }} exec -it PODNAME -- sh"'
-      - name: NodeFileSystemUsageOver85Percent
-        rules:
-          - alert: NodeFileSystemUsageOver85Percent
-            expr: 100 - ((node_filesystem_avail_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"} * 100) / node_filesystem_size_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"}) > 85
-            for: 1h
-            labels:
-              severity: warning
-            annotations:
-              description: 'Mount point {{ $labels.mountpoint }} on Node {{ $labels.kubernetes_node }} is at {{ printf "%.0f" $value }}% of total capacity'
-              message: 'You will need to SSH into Node {{ $labels.kubernetes_node }} and clean up storage on {{ $labels.mountpoint }}'
-      - name: NodeFileSystemUsageOver95Percent
-        rules:
-          - alert: NodeFileSystemUsageOver95Percent
-            expr: 100 - ((node_filesystem_avail_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"} * 100) / node_filesystem_size_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"}) > 95
-            for: 1h
-            labels:
-              severity: critical
-            annotations:
-              description: 'Mount point {{ $labels.mountpoint }} on Node {{ $labels.kubernetes_node }} is at {{ printf "%.0f" $value }}% of total capacity'
-              message: 'You will need to SSH into Node {{ $labels.kubernetes_node }} and clean up storage on {{ $labels.mountpoint }}'
-      - name: TotalAvailableCPURequestsOver90Percent
-        rules:
-          - alert: TotalAvailableCPURequestsOver90Percent
-            expr: (sum ((sum(kube_pod_container_resource_requests_cpu_cores{container!="deployment",container!="docker-build",namespace!="logging",namespace!="default",namespace!~".*openshift-.*",namespace!~".*openmonitoring.*",namespace!~".*kube-.*"} > 0) by (container,pod) / count(kube_pod_container_status_running > 0) by (container,pod))*1000)) / (sum (kube_node_status_allocatable_cpu_cores)*1000) * 100 > 90
-            for: 1h
-            labels:
-              severity: critical
-            annotations:
-              description: 'The total allowed CPU requests are at {{ printf "%.0f" $value }}%'
-              message: 'When the total allowed CPU requests hits 100% no more pods will be allowed to start up. You either need to lower the CPU requests of pods or add more CPU into the cluster'
-      - name: NodeCpuUtilizationOver95Percent
-        rules:
-          - alert: NodeCpuUtilizationOver95Percent
-            expr: 100 - (avg by (kubernetes_node) (rate( node_cpu_seconds_total {mode="idle"}[2m])) * 100) > 95
-            for: 1h
-            labels:
-              severity: warning
-            annotations:
-              description: 'Node {{ $labels.kubernetes_node }} has a CPU utlization over 95% for over 1 hour. Current CPU utilization of Node {{ $labels.kubernetes_node }} is {{ printf "%.0f" $value }}%'
-              message: 'When the CPU is maxed out for over an hour it indicates an that a process is killing the node or the node does not have enough CPU assigned to it'
-      - name: NodeLoadOver50
-        rules:
-          - alert: NodeLoadOver50
-            expr: node_load15 > 50
-            for: 1h
-            labels:
-              severity: critical
-            annotations:
-              description: 'Node {{ $labels.kubernetes_node }} has a 15 minute load average of {{ printf "%.0f" $value }}%'
-              message: 'When the load is over 50 this indicates an issue of high CPU, low memory (going into swap) and high disk utlization'
-
+        - name: Instances
+          rules:
+            - alert: InstanceDown
+              expr: up == 0
+              for: 5m
+              labels:
+                severity: warning
+              annotations:
+                description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
+                message: "When Instance/Endpoints are marked as down it means Prometheus cannot scrape those targets. You can get more details by gong to the Prometheus frontend, going to Status and Targets. You always want all you Instance/Endpoints up else you will not be able to monitor anything"
+        - name: NodesMarkedAsUnscheduled
+          rules:
+            - alert: NodesMarkedAsUnscheduled
+              expr: kube_node_spec_unschedulable > 0
+              for: 1h
+              labels:
+                severity: warning
+              annotations:
+                description: "{{ $labels.kubernetes_node }} is marked as Unscheduled for longer than 1h minutes."
+                message: "When Nodes are marked Unscheduled no new pods will be scheduled "
+        - name: NodeMemoryUsageAbove85Percent
+          rules:
+            - alert: NodeMemoryUsageAbove85Percent
+              expr: 100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[2m]) + avg_over_time(node_memory_Cached_bytes[2m]) + avg_over_time(node_memory_Buffers_bytes[2m])) / avg_over_time(node_memory_MemTotal_bytes[2m]))) > 80 < 90
+              for: 1h
+              labels:
+                severity: warning
+              annotations:
+                description: '{{ $labels.kubernetes_node }} is using {{ printf "%.0f" $value }}% of the total memory'
+                message: "When the memory of a node is exhausted pods will be evicted and sacrificed to keep the node ready. It is recommended that you cordon node {{ $labels.kubernetes_node }} and delete a couple of pods on the node, forcing them to start up on another node, then uncordone {{ $labels.kubernetes_node }}. You can find more info here: https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/"
+        - name: NodeMemoryUsageAbove95Percent
+          rules:
+            - alert: NodeMemoryUsageAbove95Percent
+              expr: 100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[2m]) + avg_over_time(node_memory_Cached_bytes[2m]) + avg_over_time(node_memory_Buffers_bytes[2m])) / avg_over_time(node_memory_MemTotal_bytes[2m]))) > 95
+              for: 1h
+              labels:
+                severity: critical
+              annotations:
+                description: '{{ $labels.kubernetes_node }} is using {{ printf "%.0f" $value }}% of the total memory'
+                message: "When the memory of a node is exhausted pods will be evicted and sacrificed to keep the node ready. It is recommended that you cordon node {{ $labels.kubernetes_node }} and delete a couple of pods on the node, forcing them to start up on another node, then uncordone {{ $labels.kubernetes_node }}. You can find more info here: https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/"
+        - name: PVCUsageOver85Percent
+          rules:
+            - alert: PVCUsageOver85Percent
+              expr: (kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes) * 100 > 85
+              for: 1h
+              labels:
+                severity: warning
+              annotations:
+                description: 'PVC {{ $labels.persistentvolumeclaim }} in namespace {{ $labels.namespace }} is using {{ printf "%.0f" $value }}% of the capacity'
+                message: 'You will need to go into the Pod that is using that PVC and clean up some storage. For example "kubectl -n {{ $labels.namespace }} exec -it PODNAME -- sh"'
+        - name: PVCUsageOver95Percent
+          rules:
+            - alert: PVCUsageOver95Percent
+              expr: (kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes) * 100 > 95
+              for: 1h
+              labels:
+                severity: critical
+              annotations:
+                description: 'PVC {{ $labels.persistentvolumeclaim }} in namespace {{ $labels.namespace }} is using {{ printf "%.0f" $value }}% of the capacity'
+                message: 'You will need to go into the Pod that is using that PVC and clean up some storage. For example "kubectl -n {{ $labels.namespace }} exec -it PODNAME -- sh"'
+        - name: NodeFileSystemUsageOver85Percent
+          rules:
+            - alert: NodeFileSystemUsageOver85Percent
+              expr: 100 - ((node_filesystem_avail_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"} * 100) / node_filesystem_size_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"}) > 85
+              for: 1h
+              labels:
+                severity: warning
+              annotations:
+                description: 'Mount point {{ $labels.mountpoint }} on Node {{ $labels.kubernetes_node }} is at {{ printf "%.0f" $value }}% of total capacity'
+                message: "You will need to SSH into Node {{ $labels.kubernetes_node }} and clean up storage on {{ $labels.mountpoint }}"
+        - name: NodeFileSystemUsageOver95Percent
+          rules:
+            - alert: NodeFileSystemUsageOver95Percent
+              expr: 100 - ((node_filesystem_avail_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"} * 100) / node_filesystem_size_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"}) > 95
+              for: 1h
+              labels:
+                severity: critical
+              annotations:
+                description: 'Mount point {{ $labels.mountpoint }} on Node {{ $labels.kubernetes_node }} is at {{ printf "%.0f" $value }}% of total capacity'
+                message: "You will need to SSH into Node {{ $labels.kubernetes_node }} and clean up storage on {{ $labels.mountpoint }}"
+        - name: TotalAvailableCPURequestsOver90Percent
+          rules:
+            - alert: TotalAvailableCPURequestsOver90Percent
+              expr: (sum ((sum(kube_pod_container_resource_requests_cpu_cores{container!="deployment",container!="docker-build",namespace!="logging",namespace!="default",namespace!~".*openshift-.*",namespace!~".*openmonitoring.*",namespace!~".*kube-.*"} > 0) by (container,pod) / count(kube_pod_container_status_running > 0) by (container,pod))*1000)) / (sum (kube_node_status_allocatable_cpu_cores)*1000) * 100 > 90
+              for: 1h
+              labels:
+                severity: critical
+              annotations:
+                description: 'The total allowed CPU requests are at {{ printf "%.0f" $value }}%'
+                message: "When the total allowed CPU requests hits 100% no more pods will be allowed to start up. You either need to lower the CPU requests of pods or add more CPU into the cluster"
+        - name: NodeCpuUtilizationOver95Percent
+          rules:
+            - alert: NodeCpuUtilizationOver95Percent
+              expr: 100 - (avg by (kubernetes_node) (rate( node_cpu_seconds_total {mode="idle"}[2m])) * 100) > 95
+              for: 1h
+              labels:
+                severity: warning
+              annotations:
+                description: 'Node {{ $labels.kubernetes_node }} has a CPU utlization over 95% for over 1 hour. Current CPU utilization of Node {{ $labels.kubernetes_node }} is {{ printf "%.0f" $value }}%'
+                message: "When the CPU is maxed out for over an hour it indicates an that a process is killing the node or the node does not have enough CPU assigned to it"
+        - name: NodeLoadOver50
+          rules:
+            - alert: NodeLoadOver50
+              expr: node_load15 > 50
+              for: 1h
+              labels:
+                severity: critical
+              annotations:
+                description: 'Node {{ $labels.kubernetes_node }} has a 15 minute load average of {{ printf "%.0f" $value }}%'
+                message: "When the load is over 50 this indicates an issue of high CPU, low memory (going into swap) and high disk utlization"
