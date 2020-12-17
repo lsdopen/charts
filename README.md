@@ -29,5 +29,6 @@ scp -r ../lsdobserve root@my-restricted-host.com:/tmp/
 ssh root@my-restricted-host.com
 cd /tmp/lsdobserve/
 vim values.yaml (modify your settings)
-helm install lsdobserve -n lsdobserve --create-namespace --values values.yaml .
+(alternative recommended, run gen.sh to modify the values.yaml file)
+helm install lsdobserve -n lsdobserve --create-namespace --values run.yaml .
 ```
