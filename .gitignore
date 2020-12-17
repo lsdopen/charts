@@ -4,4 +4,5 @@
 .vscode
 .DS_Store
 Chart.lock
-charts/lsdobserve/run*
+run.yaml
+values.orig.yaml
