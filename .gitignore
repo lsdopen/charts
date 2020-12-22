@@ -4,3 +4,5 @@
 .vscode
 .DS_Store
 Chart.lock
+run.yaml
+values.orig.yaml
