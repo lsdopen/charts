@@ -80,7 +80,7 @@ spec:
           name: filebeat
           resources:
             requests:
-              memory: 200Mi
+              memory: 256Mi
               cpu: 10m
             limits:
               memory: 512Mi
