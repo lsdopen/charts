@@ -201,7 +201,10 @@ prometheus:
       - key: "node-role.kubernetes.io/master"
         operator: "Exists"
   alertmanager:
+    enabled: true
     replicaCount: 3
+    prefixURL: "https://prometheus.apps.cluster-01.lsdopen.io"
+    baseURL: "https://alertmanager.apps.cluster-01.lsdopen.io"
     service:
       enableMeshPeer: true
     statefulSet:

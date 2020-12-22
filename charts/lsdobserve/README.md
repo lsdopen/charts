@@ -48,3 +48,4 @@ helm install lsdobserve -n lsdobserve --create-namespace \
 - alertmanager dashbaord
 - Keycloak
 - Dashboards in Elastic or Elastic like dashboards in Grafana
+- Openshift - patch namespace to allow it to run on any nodes "oc patch namespace lsdobserve -p '{"metadata":{"annotations":{"openshift.io/node-selector":""}}}'"
