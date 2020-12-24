@@ -49,3 +49,11 @@ helm install lsdobserve -n lsdobserve --create-namespace \
 - Keycloak
 - Dashboards in Elastic or Elastic like dashboards in Grafana
 - Openshift - patch namespace to allow it to run on any nodes "oc patch namespace lsdobserve -p '{"metadata":{"annotations":{"openshift.io/node-selector":""}}}'"
+
+## Notes
+
+### Manual removal
+
+```
+k delete ns lsdobserve ; k delete clusterrole lsdobserve-kube-state-metrics elastic-beat-autodiscover elastic-operator elastic-operator-edit elastic-operator-view lsdobserve-grafana-clusterrole lsdobserve-kube-state-metrics lsdobserve-prometheus-alertmanager lsdobserve-prometheus-server ; k delete psp lsdobserve-grafana lsdobserve-grafana-test lsdobserve-prometheus-blackbox-exporter-psp ; kubectl delete ClusterRoleBinding lsdobserve-grafana-clusterrolebinding lsdobserve-kube-state-metrics lsdobserve-prometheus-alertmanager lsdobserve-prometheus-server  ; k delete ClusterRoleBinding elastic-operator elastic-beat-autodiscover-binding
+```
