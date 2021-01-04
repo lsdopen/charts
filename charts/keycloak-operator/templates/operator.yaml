@@ -15,8 +15,7 @@ spec:
       serviceAccountName: keycloak-operator
       containers:
         - name: keycloak-operator
-          # Replace this with the built image name
-          image: quay.io/keycloak/keycloak-operator:master
+          image: "{{ .Values.image.repository }}"
           command:
           - keycloak-operator
           imagePullPolicy: Always
@@ -31,3 +30,10 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "keycloak-operator"
+          resources:
+            requests:
+              memory: "{{ .Values.resources.requests.memory }}"
+              cpu: "{{ .Values.resources.requests.cpu }}"
+            limits:
+              memory: "{{ .Values.resources.limits.memory }}"
+              cpu: "{{ .Values.resources.limits.cpu }}"
