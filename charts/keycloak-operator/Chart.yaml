@@ -1,0 +1,7 @@
+apiVersion: v2
+name: keycloak-operator
+description: A Helm chart to deploy the Keycloak Operator on Kubernets
+type: application
+version: 0.1.0
+# https://github.com/keycloak/keycloak-operator/releases
+appVersion: 10.0.0
