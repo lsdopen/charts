@@ -32,7 +32,7 @@ spec:
           name: srv-hostpath
         - mountPath: /opt/okd/
           name: okd-install-config
-      {{- if .Values.dnsmasq.enabled -}}
+      {{- if .Values.dnsmasq.enabled }}
       - image: "{{ .Values.dnsmasq.image.registry }}/{{ .Values.dnsmasq.image.repository }}:{{ .Values.dnsmasq.image.tag }}"
         name: dnsmasq
         ports:
