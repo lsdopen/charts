@@ -89,8 +89,8 @@ spec:
       - image: "{{ .Values.nginx.image.registry }}/{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}"
         name: nginx
         ports:
-        - containerPort: "{{ .Values.nginx.port }}"
-          hostPort: "{{ .Values.nginx.port }}"
+        - containerPort: {{ .Values.nginx.port }}
+          hostPort: {{ .Values.nginx.port }}
           protocol: TCP
         securityContext:
           capabilities:

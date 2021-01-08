@@ -31,9 +31,9 @@ spec:
     name: k8s-api
     targetPort: 6443
     protocol: TCP
-  - port: "{{ .Values.nginx.port }}"
-    name: http-"{{ .Values.nginx.port }}"
-    targetPort: "{{ .Values.nginx.port }}"
+  - port: {{ .Values.nginx.port }}
+    name: http-{{ .Values.nginx.port }}
+    targetPort: {{ .Values.nginx.port }}
     protocol: TCP
   - port: 22623
     name: mco
