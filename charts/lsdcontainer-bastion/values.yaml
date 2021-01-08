@@ -1,4 +1,4 @@
-FedoraCoreOSversion: 32.20201104.3.0
+FedoraCoreOSversion: "32.20201104.3.0"
 bastionIPPort: 10.1.0.1:8080
 
 okd:
