@@ -98,6 +98,10 @@ spec:
           name: srv-hostpath
       hostNetwork: true
       volumes:
+      - hostPath:
+          path: /srv/
+          type: ""
+        name: srv-hostpath
       - configMap:
           defaultMode: 420
           items:
@@ -107,23 +111,11 @@ spec:
         name: nginx
       - configMap:
           defaultMode: 420
-          name: ign-lab-01
-        name: ign-lab-01
-      - hostPath:
-          path: /srv/
-          type: ""
-        name: srv-hostpath
-      - configMap:
-          defaultMode: 420
           items:
           - key: config
             path: mounts/haproxy.conf
           name: haproxy
         name: haproxy
-      - hostPath:
-          path: /srv/
-          type: ""
-        name: srv-hostpath
       - configMap:
           defaultMode: 420
           items:
