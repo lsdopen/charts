@@ -85,6 +85,8 @@ dnsmasq:
   # Below is a standard dnsmasq.conf configuration. Modify appropriately
   config: |-
     # https://github.com/PowerDNS/dnsmasq/blob/master/dnsmasq.conf.example
+    server=8.8.8.8
+    server=8.8.4.4
     bogus-priv
     filterwin2k
     expand-hosts
