@@ -20,7 +20,7 @@ spec:
     spec:
       hostNetwork: true
       containers:
-      - image: {{ .Values.registry.image.registry }}/{{ .Values.registry.image.repository }}:{{ tpl .Values.registry.image.tag . }}
+      - image: {{ .Values.registry.image.registry }}/{{ .Values.registry.image.repository }}:{{ .Values.registry.image.tag }}
         name: registry
         ports:
         - containerPort: 5000

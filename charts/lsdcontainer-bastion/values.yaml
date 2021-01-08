@@ -1,3 +1,13 @@
+FedoraCoreOSversion: 32.20201104.3.0
+bastionIPPort: 10.1.0.1:8080
+
+okd:
+  image:
+    registry: "docker.io"
+    repository: "lsdopen/okd-installer"
+    tag: "latest"
+  version: 4.5.0-0.okd-2020-10-15-235428
+
 registry:
   enabled: true
   image:
@@ -6,7 +16,6 @@ registry:
     tag: "2"
 
 nginx:
-  enabled: true
   image:
     registry: "docker.io"
     repository: "nginx"
@@ -17,12 +26,12 @@ nginx:
         listen  [::]:8080;
         server_name  localhost;
         location / {
-            root   /usr/share/nginx/html;
+            root   /srv/okd-installer;
             index  index.html index.htm;
         }
         error_page   500 502 503 504  /50x.html;
         location = /50x.html {
-            root   /usr/share/nginx/html;
+            root   /srv/okd-installer;
         }
     }
 
@@ -46,7 +55,7 @@ dnsmasq:
 
     # PXE
     enable-tftp
-    tftp-root=/var/lib/tftpboot/
+    tftp-root=/srv/pxe
     dhcp-boot=lpxelinux.0
 
     # DHCP & DNS & PTR
@@ -79,7 +88,7 @@ dnsmasq:
     ptr-record=4.0.1.10.in-addr.arpa.,"controlplane-02.lab-01.okd.lsdopen.io"
 
     ### controlplane-03.lab-01.okd.lsdopen.io
-    dhcp-host=10.1.0.5,00:50:56:01:15:a8,controlplane-03,24h
+    dhcp-host=10.1.0.5,00:50:56:01:16:47,controlplane-03,24h
     ptr-record=5.0.1.10.in-addr.arpa.,"controlplane-03.lab-01.okd.lsdopen.io"
 
     ### worker-01.lab-01.okd.lsdopen.io
@@ -87,12 +96,8 @@ dnsmasq:
     ptr-record=6.0.1.10.in-addr.arpa.,"worker-01.lab-01.okd.lsdopen.io"
 
     ### worker-02.lab-01.okd.lsdopen.io
-    dhcp-host=10.1.0.7,10:50:56:01:15:fa,worker-02,24h
+    dhcp-host=10.1.0.7,00:50:56:01:16:1c,worker-02,24h
     ptr-record=7.0.1.10.in-addr.arpa.,"worker-02.lab-01.okd.lsdopen.io"
-
-    ### worker-03.lab-01.okd.lsdopen.io
-    dhcp-host=10.1.0.8,11:50:56:01:15:fa,worker-03,24h
-    ptr-record=7.0.1.10.in-addr.arpa.,"worker-03.lab-01.okd.lsdopen.io"
 
 haproxy:
   enabled: true
