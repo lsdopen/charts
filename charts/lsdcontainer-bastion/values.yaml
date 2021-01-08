@@ -1,35 +1,35 @@
 fedoraCoreOSVersion: "32.20201104.3.0"
-bastionIPPort: 10.1.0.1:8080
+bastionIPPort: "10.1.0.1:8080"
 
 okd:
   image:
     registry: "docker.io"
     repository: "lsdopen/okd-installer"
     tag: "latest"
-  version: 4.5.0-0.okd-2020-10-15-235428
+  version: "4.5.0-0.okd-2020-10-15-235428"
   config: |-
     apiVersion: v1
     baseDomain: okd.lsdopen.io
     compute:
-    - hyperthreading: Enabled   
+    - hyperthreading: Enabled
       name: worker
-      replicas: 0 
+      replicas: 0
     controlPlane:
-      hyperthreading: Enabled   
-      name: master 
-      replicas: 3 
+      hyperthreading: Enabled
+      name: master
+      replicas: 3
     metadata:
       name: lab-01
     networking:
       clusterNetwork:
       - cidr: 172.20.0.0/16
-        hostPrefix: 23 
+        hostPrefix: 23
       networkType: OpenShiftSDN
-      serviceNetwork: 
+      serviceNetwork:
       - 172.30.0.0/16
     platform:
-      none: {} 
-    fips: false 
+      none: {}
+    fips: false
     pullSecret: '{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGXXXXXXXXXXXXXXXXX","email":"support@lsdopen.io"}}}'
     sshKey: |
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOxZL18D5uG4isdf3Nc6l0J/OJ6UE9lkXK7RAqd54muG
@@ -46,7 +46,6 @@ okd:
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINQqmBtaUV3+R0B+ln7gSwy4V2ye6Qp8dnW1Q/CmYGRd
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUlau5tbkL3h9IP1hIeW1NFIxYvl+8uqsDhnNL5WYnu
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILbyeNbZvaRJNQAB1XLbe9k5hGPPirhF3uV6J4MClaIu
-
 
 registry:
   enabled: true

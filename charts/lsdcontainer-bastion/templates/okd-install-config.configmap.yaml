@@ -7,5 +7,5 @@ metadata:
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
   name: okd-install-config
 data:
-  config: |-
+  install-config.yaml: |-
 {{ .Values.okd.config | indent 4 }}
