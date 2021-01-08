@@ -18,7 +18,7 @@ spec:
         app: lsdcontainer-bastion
     spec:
       containers:
-      - image: {{ .Values.dnsmasq.image.registry }}/{{ .Values.dnsmasq.image.repository }}:{{ .Values.dnsmasq.image.tag }}
+      - image: "{{ .Values.dnsmasq.image.registry }}/{{ .Values.dnsmasq.image.repository }}:{{ .Values.dnsmasq.image.tag }}"
         name: dnsmasq
         ports:
         - containerPort: 53
@@ -40,7 +40,7 @@ spec:
           subPath: mounts/dnsmasq.conf
         - mountPath: /srv
           name: srv-hostpath
-      - image: {{ .Values.okd.image.registry }}/{{ .Values.okd.image.repository }}:{{ .Values.okd.image.tag }}
+      - image: "{{ .Values.okd.image.registry }}/{{ .Values.okd.image.repository }}:{{ .Values.okd.image.tag }}"
         env:
         - name: "OKD_VERSION"
           value: "{{ .Values.okd.version }}"
@@ -54,7 +54,7 @@ spec:
           name: srv-hostpath
         - mountPath: /opt/okd/
           name: okd-install-config
-      - image: image: {{ .Values.haproxy.image.registry }}/{{ .Values.haproxy.image.repository }}:{{ .Values.haproxy.image.tag }}
+      - image: image: "{{ .Values.haproxy.image.registry }}/{{ .Values.haproxy.image.repository }}:{{ .Values.haproxy.image.tag }}"
         name: haproxy
         ports:
         - containerPort: 80
@@ -80,7 +80,7 @@ spec:
         - mountPath: /usr/local/etc/haproxy/haproxy.cfg
           name: haproxy
           subPath: mounts/haproxy.conf
-      - image: {{ .Values.nginx.image.registry }}/{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}
+      - image: "{{ .Values.nginx.image.registry }}/{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}"
         name: nginx
         ports:
         - containerPort: 8080
@@ -135,4 +135,3 @@ spec:
           defaultMode: 420
           name: okd-install-config
         name: okd-install-config
-
