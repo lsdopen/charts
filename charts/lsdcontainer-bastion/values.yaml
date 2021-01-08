@@ -1,5 +1,5 @@
 fedoraCoreOSVersion: "32.20201104.3.0"
-bastionIPPort: "10.1.0.1:8080"
+bastionIP: "10.1.0.1"
 
 okd:
   image:
@@ -60,6 +60,7 @@ nginx:
     registry: "docker.io"
     repository: "nginx"
     tag: "stable-alpine"
+  port: "8080"
   config: |-
     server {
         listen       8080;

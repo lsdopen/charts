@@ -26,7 +26,7 @@ spec:
         - name: "FEDORA_CORE_VERSION"
           value: "{{.Values.fedoraCoreOSVersion }}"
         - name: "BASTION_IP_PORT"
-          value: "{{.Values.bastionIPPort }}"
+          value: "{{ .Values.bastionIP }}:{{ .Values.nginx.port }}"
         name: okd-installer
         volumeMounts:
         - mountPath: /srv/
@@ -89,8 +89,8 @@ spec:
       - image: "{{ .Values.nginx.image.registry }}/{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}"
         name: nginx
         ports:
-        - containerPort: 8080
-          hostPort: 8080
+        - containerPort: "{{ .Values.nginx.port }}"
+          hostPort: "{{ .Values.nginx.port }}"
           protocol: TCP
         securityContext:
           capabilities:
@@ -103,6 +103,10 @@ spec:
         - mountPath: /srv
           name: srv-hostpath
       {{- end }}
+      dnsConfig:
+        nameservers:
+        - {{ .Values.bastionIP }}
+      dnsPolicy: None
       hostNetwork: true
       volumes:
       - hostPath:
