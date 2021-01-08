@@ -24,7 +24,7 @@ spec:
         - name: "OKD_VERSION"
           value: "{{ .Values.okd.version }}"
         - name: "FEDORA_CORE_VERSION"
-          value: "{{.Values.FedoraCoreOSVersion }}"
+          value: "{{.Values.fedoraCoreOSVersion }}"
         - name: "BASTION_IP_PORT"
           value: "{{.Values.bastionIPPort }}"
         name: okd-installer
