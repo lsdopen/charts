@@ -54,7 +54,7 @@ spec:
           name: srv-hostpath
         - mountPath: /opt/okd/
           name: okd-install-config
-      - image: image: "{{ .Values.haproxy.image.registry }}/{{ .Values.haproxy.image.repository }}:{{ .Values.haproxy.image.tag }}"
+      - image: "{{ .Values.haproxy.image.registry }}/{{ .Values.haproxy.image.repository }}:{{ .Values.haproxy.image.tag }}"
         name: haproxy
         ports:
         - containerPort: 80
