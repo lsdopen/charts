@@ -6,6 +6,8 @@ This chart will deploy the following services:
 
 - dnsmasq (dns + dhcp + tftp)
 - haproxy (load balancer)
+- nginx (http server)
+- okd-installer (okd ignition files)
 
 ## Installation and use
 

@@ -7,6 +7,46 @@ okd:
     repository: "lsdopen/okd-installer"
     tag: "latest"
   version: 4.5.0-0.okd-2020-10-15-235428
+  config: |-
+    apiVersion: v1
+    baseDomain: okd.lsdopen.io
+    compute:
+    - hyperthreading: Enabled   
+      name: worker
+      replicas: 0 
+    controlPlane:
+      hyperthreading: Enabled   
+      name: master 
+      replicas: 3 
+    metadata:
+      name: lab-01
+    networking:
+      clusterNetwork:
+      - cidr: 172.20.0.0/16
+        hostPrefix: 23 
+      networkType: OpenShiftSDN
+      serviceNetwork: 
+      - 172.30.0.0/16
+    platform:
+      none: {} 
+    fips: false 
+    pullSecret: '{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGXXXXXXXXXXXXXXXXX","email":"support@lsdopen.io"}}}'
+    sshKey: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOxZL18D5uG4isdf3Nc6l0J/OJ6UE9lkXK7RAqd54muG
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUlau5tbkL3h9IP1hIeW1NFIxYvl+8uqsDhnNL5WYnu
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJJxUS59/AcZd6vhZLgaIHSOmFw7lBS05zd4EBSBzl3
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMpTjCulY345Ef6s9ZfIylDVKa8Qfw3LJFX+O5K7S6DR
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBj1FwT0Rwr2LEj6Rox1rshRDoFkCptsAMbvn+VY7MT
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC2cnbOiSoLWwoBM6fgI1T/5UnlkAw93IlaK9s9gIIwH
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqcU6ptqV2+qEaq/pTHiYf+opG3eX+Wx5pJ36/xMCUS
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHsokjLkDwplZdvDetjeucLvFSGyjfVJ5l8ljrCtMsbB
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG5yiR7jKErsHcsgG8ogWCNOaF/TLz+QIDU+49VSFXly
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbzDt6BN5T3gvJA0ilx/O/F69PReqdciKm/pIFnDTlt
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK2VL2fgfCtNCzcdxi4NlRyIDospyN3EcgahtFGnBjlr
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINQqmBtaUV3+R0B+ln7gSwy4V2ye6Qp8dnW1Q/CmYGRd
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUlau5tbkL3h9IP1hIeW1NFIxYvl+8uqsDhnNL5WYnu
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILbyeNbZvaRJNQAB1XLbe9k5hGPPirhF3uV6J4MClaIu
+
 
 registry:
   enabled: true
@@ -100,7 +140,6 @@ dnsmasq:
     ptr-record=7.0.1.10.in-addr.arpa.,"worker-02.lab-01.okd.lsdopen.io"
 
 haproxy:
-  enabled: true
   image:
     registry: "docker.io"
     repository: "haproxy"
@@ -170,3 +209,6 @@ haproxy:
       server infra1 10.1.0.6:443 check fall 3 rise 2
       server infra2 10.1.0.7:443 check fall 3 rise 2
       server infra3 10.1.0.8:443 check fall 3 rise 2
+
+
+
