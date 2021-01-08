@@ -18,6 +18,21 @@ spec:
         app: lsdcontainer-bastion
     spec:
       containers:
+      - image: "{{ .Values.okd.image.registry }}/{{ .Values.okd.image.repository }}:{{ .Values.okd.image.tag }}"
+        env:
+        - name: "OKD_VERSION"
+          value: "{{ .Values.okd.version }}"
+        - name: "FEDORA_CORE_VERSION"
+          value: "{{.Values.FedoraCoreOSVersion }}"
+        - name: "BASTION_IP_PORT"
+          value: "{{.Values.bastionIPPort }}"
+        name: okd-installer
+        volumeMounts:
+        - mountPath: /srv/
+          name: srv-hostpath
+        - mountPath: /opt/okd/
+          name: okd-install-config
+{{- if .Values.dnsmasq.enabled -}}
       - image: "{{ .Values.dnsmasq.image.registry }}/{{ .Values.dnsmasq.image.repository }}:{{ .Values.dnsmasq.image.tag }}"
         name: dnsmasq
         ports:
@@ -40,20 +55,8 @@ spec:
           subPath: mounts/dnsmasq.conf
         - mountPath: /srv
           name: srv-hostpath
-      - image: "{{ .Values.okd.image.registry }}/{{ .Values.okd.image.repository }}:{{ .Values.okd.image.tag }}"
-        env:
-        - name: "OKD_VERSION"
-          value: "{{ .Values.okd.version }}"
-        - name: "FEDORA_CORE_VERSION"
-          value: "{{.Values.FedoraCoreOSVersion }}"
-        - name: "BASTION_IP_PORT"
-          value: "{{.Values.bastionIPPort }}"
-        name: okd-installer
-        volumeMounts:
-        - mountPath: /srv/
-          name: srv-hostpath
-        - mountPath: /opt/okd/
-          name: okd-install-config
+{{- end }}          
+{{- if .Values.haproxy.enabled -}}
       - image: "{{ .Values.haproxy.image.registry }}/{{ .Values.haproxy.image.repository }}:{{ .Values.haproxy.image.tag }}"
         name: haproxy
         ports:
@@ -80,6 +83,8 @@ spec:
         - mountPath: /usr/local/etc/haproxy/haproxy.cfg
           name: haproxy
           subPath: mounts/haproxy.conf
+{{- end }}
+{{- if .Values.nginx.enabled -}}
       - image: "{{ .Values.nginx.image.registry }}/{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}"
         name: nginx
         ports:
@@ -96,6 +101,7 @@ spec:
           subPath: mounts/default.conf
         - mountPath: /srv
           name: srv-hostpath
+{{- end }}
       hostNetwork: true
       volumes:
       - hostPath:
