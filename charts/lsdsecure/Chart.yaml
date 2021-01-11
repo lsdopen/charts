@@ -1,0 +1,24 @@
+apiVersion: v2
+name: lsdsecure
+version: "1.0.0"
+appVersion: "1.0.0"
+# kubeVersion: ">=v1.11.0"
+description: A Helm chart for LSDsecure
+keywords:
+  - lsdsecure
+  - kubernetes
+  - keycloak
+home: https://github.com/lsdopen/charts
+sources:
+  - https://github.com/lsdopen
+maintainers:
+  - name: LSD
+    email: support@lsdopen.io
+    url: https://lsdopen.io
+deprecated: false
+tillerVersion: ">=v3.2.1"
+
+dependencies:
+- name: bitnami/keycloak
+  version: "1.1.5"
+  repository: https://charts.bitnami.com/bitnami

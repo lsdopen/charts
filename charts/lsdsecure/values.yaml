@@ -1,0 +1,14 @@
+# LSDsecure
+lsdsecure:
+  clusterType: "openshift" # openshift | gke | rancher
+  # adminUsername is the general username to configure for all tools, so each tool uses the same username
+  adminUsername: "lsdsecure"
+  # adminPsername is the general password to configure for all tools, so each tool uses the same password
+  adminPassword: "pw4lsdsecure"
+  # the domain to use as a suffix for all ingress traffic. Example grafana-lsd-observe.$domain
+  smtp:
+    host: "smtp.lsdopen.io"
+    port: "25"
+    username: "XXXXX"
+    password: "XXXXX"
+  
