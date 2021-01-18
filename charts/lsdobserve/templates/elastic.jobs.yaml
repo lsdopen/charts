@@ -1,0 +1,32 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ilm-policy
+spec:
+  template:
+    spec:
+      containers:
+      - args:
+        - -c
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.ilm.policy.json \"https://lsdobserve-es-http:9200/_ilm/policy/filebeat-lsdobserve\""
+        command:
+        - /bin/bash
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdobserve-es-elastic-user
+                key: elastic
+        image: dbqoshbas01.discoverybank.co.za:5000/eck/eck-operator:1.3.0
+        name: elastic-post-setup
+        volumeMounts:
+        - mountPath: /opt/elastic/
+          name: elastic-filbeat-custom-files
+      restartPolicy: Never
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: elastic-filbeat-custom-files
+        name: elastic-filbeat-custom-files
+---

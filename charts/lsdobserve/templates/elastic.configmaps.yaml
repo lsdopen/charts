@@ -1,0 +1,12 @@
+# Elastic ConfigMaps
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: elastic-filbeat-custom-files
+data:
+  lsdobserve-filebeat.ilm.policy.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.json" | indent 4}}
+  lsdobserve-filebeat.pipeline.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.pipeline.json" | indent 4}}
+---
