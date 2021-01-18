@@ -9,4 +9,6 @@ data:
 {{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.json" | indent 4}}
   lsdobserve-filebeat.pipeline.json: |-
 {{ .Files.Get "elastic/lsdobserve-filebeat.pipeline.json" | indent 4}}
+  lsdobserve-filebeat.template.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.template.json" | indent 4}}
 ---
