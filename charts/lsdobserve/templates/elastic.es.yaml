@@ -9,6 +9,7 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   version: 7.10.0
+  image: {{ .Values.lsdobserve.elastic.image }}
   nodeSets:
   - name: default
     count: {{ .Values.lsdobserve.elastic.count }}

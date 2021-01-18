@@ -24,6 +24,7 @@ lsdobserve:
       url: grafana.%%APP_DOMAIN%%
   elastic:
     enabled: true
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.10.0"
     count: "3"
     storage: "50Gi"
     storageClassName: "%%STORAGE_CLASS%%"
@@ -32,8 +33,10 @@ lsdobserve:
       image: "docker.elastic.co/beats/filebeat:7.10.0"
     apm:
       enabled: true
+      image: "docker.elastic.co/apm/apm-server:7.10.0"
     kibana:
       enabled: true
+      image: "docker.elastic.co/kibana/kibana:7.10.0"
       count: "2"
       ingress:
         url: kibana.%%APP_DOMAIN%%

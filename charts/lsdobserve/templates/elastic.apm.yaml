@@ -7,6 +7,7 @@ metadata:
   name: {{ .Release.Name }}
 spec:
   version: 7.10.0
+  image: {{ .Values.lsdobserve.elastic.apm.image }}
   count: 1
   elasticsearchRef:
     name: lsdobserve
