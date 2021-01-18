@@ -15,6 +15,9 @@ If you are running on Openshift that is configured to force new projects/namespa
 Run the command: 
 
   oc patch namespace lsdobserve -p '{"metadata":{"annotations":{"openshift.io/node-selector":""}}}'
-  oc delete pod --all -n lsdobserve
   oc adm policy add-scc-to-user anyuid -z lsdobserve-kube-state-metrics -n lsdobserve
   oc adm policy add-scc-to-user anyuid -z lsdobserve-prometheus-alertmanager -n lsdobserve
+  oc adm policy add-scc-to-user anyuid -z lsdobserve-grafana -n lsdobserve
+  oc adm policy add-scc-to-user privileged -z lsdobserve-prometheus-node-exporter -n lsdobserve
+  oc adm policy add-scc-to-user privileged -z filebeat -n lsdobserve
+  oc delete pod --all -n lsdobserve

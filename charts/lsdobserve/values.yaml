@@ -29,6 +29,7 @@ lsdobserve:
     storageClassName: "%%STORAGE_CLASS%%"
     filebeat:
       enabled: true
+      image: "docker.elastic.co/beats/filebeat:7.10.0"
     apm:
       enabled: true
     kibana:
@@ -47,6 +48,13 @@ prometheus-elasticsearch-exporter:
 # To get a latest values you can run:
 # helm show values elastic/eck-operator
 eck-operator:
+  image:
+    # repository is the container image prefixed by the registry name.
+    # skopeo copy --all docker://docker.elastic.co/eck/eck-operator:1.3.0 docker://my.local.registry:5000/eck/eck-operator:1.3.0
+    repository: docker.elastic.co/eck/eck-operator
+    pullPolicy: IfNotPresent
+    tag: none 
+
   replicaCount: 1
   # installCRDs must be disabled
   installCRDs: false
@@ -209,6 +217,10 @@ prometheus:
         enableMeshPeer: true
     image:
       repository: prom/alertmanager
+      pullPolicy: IfNotPresent
+      # Overrides the image tag whose default is the chart appVersion.
+      tag: ""
+
     ingress:
       enabled: true
       hosts:

@@ -1,4 +1,3 @@
-
 # Elastic Filebeat
 {{- if .Values.lsdobserve.elastic.filebeat.enabled -}}
 ---
@@ -49,6 +48,7 @@ metadata:
 spec:
   type: filebeat
   version: 7.10.0
+  image: {{ .Values.lsdobserve.elastic.filebeat.image }}
   elasticsearchRef:
     name: {{ .Release.Name }}
   config:
