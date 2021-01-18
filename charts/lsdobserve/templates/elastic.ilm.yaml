@@ -1,0 +1,10 @@
+# Elastic ILM
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: elastic-filbeat-ilm-policy
+data:
+  lsdobserve-filebeat.ilm.policy.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.json" | indent 4}}
+---
