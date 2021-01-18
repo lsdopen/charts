@@ -43,12 +43,6 @@ lsdobserve:
 
 # Elasticsearch Exporter
 # To get a latest values you can run:
-# helm show values prometheus-community/prometheus-elasticsearch-exporter
-prometheus-elasticsearch-exporter:
-  replicaCount: 0
-
-# Elasticsearch Exporter
-# To get a latest values you can run:
 # helm show values elastic/eck-operator
 eck-operator:
   image:
@@ -57,9 +51,8 @@ eck-operator:
     repository: docker.elastic.co/eck/eck-operator
     pullPolicy: IfNotPresent
     tag: none 
-
   replicaCount: 1
-  # installCRDs must be disabled
+  # installCRDs must be disabled because CRDs are put into the Helm chart
   installCRDs: false
   resources:
     limits:
@@ -75,6 +68,9 @@ eck-operator:
 grafana:
   adminUser: admin
   adminPassword: pho0iar5zo2oob8geevohd0ahr4hieNi
+  image:
+    repository: grafana/grafana
+    tag: 7.3.5
   replicas: 1
   # ingress is disable because it is created via the lsd-observe template
   ingress:
@@ -139,7 +135,23 @@ grafana:
 # To get a latest values you can run:
 # helm show values prometheus-community/prometheus
 prometheus:
+  configmapReload:
+    prometheus:
+      enabled: true
+      name: configmap-reload
+      image:
+        repository: jimmidyson/configmap-reload
+        tag: v0.4.0
+    alertmanager:
+      enabled: true
+      name: configmap-reload
+      image:
+        repository: dbqoshbas01.discoverybank.co.za:5000/jimmidyson/configmap-reload
+        tag: v0.4.0
   server:
+    image:
+      repository: quay.io/prometheus/prometheus
+      tag: v2.24.0
     replicaCount: 2
     retention: 31d
     statefulSet:
@@ -163,6 +175,9 @@ prometheus:
   pushgateway:
     enabled: false
   nodeExporter:
+    image:
+      repository: quay.io/prometheus/node-exporter
+      tag: v1.0.1
     enabled: true
     hostNetwork: true
     hostPID: true

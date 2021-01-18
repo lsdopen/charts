@@ -1,4 +1,3 @@
-
 # Grafana Letsencrypt
 {{- if .Values.lsdobserve.letsencrypt -}}
 ---
@@ -141,7 +140,7 @@ metadata:
     app: {{ .Release.Name }}-grafana
   name: {{ .Release.Name }}-grafana
 spec:
-  host: grafana.apps.mhsrcp02.metmom.mmih.biz
+  host: {{ .Values.lsdobserve.grafana.ingress.url }}
   port:
     targetPort: service
   tls:
