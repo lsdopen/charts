@@ -10,7 +10,7 @@ metadata:
 spec:
   version: 7.10.0
   image: "{{ .Values.lsdobserve.elastic.kibana.image }}"
-  count: "{{ .Values.lsdobserve.elastic.kibana.count }}"
+  count: {{ .Values.lsdobserve.elastic.kibana.count }}
   elasticsearchRef:
     name: {{ .Release.Name }}
   podTemplate:
