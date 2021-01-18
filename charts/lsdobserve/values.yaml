@@ -18,6 +18,8 @@ lsdobserve:
   # letsencrypt-staging for staging
   # letsencrypt for production
   letsencryptIssuer: letsencrypt-staging
+  curl:
+    image: docker.io/curlimages/curl:7.74.0
   grafana:
     enabled: true
     ingress:

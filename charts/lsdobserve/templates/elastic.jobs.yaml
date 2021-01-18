@@ -18,7 +18,7 @@ spec:
               secretKeyRef:
                 name: lsdobserve-es-elastic-user
                 key: elastic
-        image: "{{ .Values.eck-operator.image.repository }}":"{{ .Values.eck-operator.image.tag }}"
+        image: {{ .Values.lsdobserve.curl.image }}
         name: filebeat-ilm-policy
         volumeMounts:
         - mountPath: /opt/elastic/
@@ -34,7 +34,7 @@ spec:
               secretKeyRef:
                 name: lsdobserve-es-elastic-user
                 key: elastic
-        image: "{{ .Values.eck-operator.image.repository }}":"{{ .Values.eck-operator.image.tag }}"
+        image: {{ .Values.lsdobserve.curl.image }}
         name: filebeat-pipeline
         volumeMounts:
         - mountPath: /opt/elastic/
