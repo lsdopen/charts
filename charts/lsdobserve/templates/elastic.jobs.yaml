@@ -11,7 +11,7 @@ spec:
         - -c
         - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.ilm.policy.json \"https://lsdobserve-es-http:9200/_ilm/policy/filebeat-lsdobserve\""
         command:
-        - /bin/bash
+        - /bin/sh
         env:
           - name: ELASTIC_PASSWORD
             valueFrom:
@@ -27,7 +27,7 @@ spec:
         - -c
         - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.pipeline.json \"https://lsdobserve-es-http:9200/_ingest/pipeline/filebeat-lsdobserve-basic\""
         command:
-        - /bin/bash
+        - /bin/sh
         env:
           - name: ELASTIC_PASSWORD
             valueFrom:
