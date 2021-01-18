@@ -150,6 +150,12 @@ prometheus:
       image:
         repository: jimmidyson/configmap-reload
         tag: v0.4.0
+  # https://kubernetes.github.io/kube-state-metrics
+  kubeStateMetrics:
+    enabled: true
+    image:
+      repository: quay.io/coreos/kube-state-metrics
+      tag: v1.9.7
   server:
     image:
       repository: quay.io/prometheus/prometheus
@@ -236,8 +242,7 @@ prometheus:
         enableMeshPeer: true
     image:
       repository: prom/alertmanager
-      pullPolicy: IfNotPresent
-      tag: ""
+      tag: v0.21.0
     ingress:
       enabled: true
       hosts:
