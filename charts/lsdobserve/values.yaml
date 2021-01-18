@@ -49,8 +49,7 @@ eck-operator:
     # repository is the container image prefixed by the registry name.
     # skopeo copy --all docker://docker.elastic.co/eck/eck-operator:1.3.0 docker://my.local.registry:5000/eck/eck-operator:1.3.0
     repository: docker.elastic.co/eck/eck-operator
-    pullPolicy: IfNotPresent
-    tag: none 
+    tag: 1.3.0
   replicaCount: 1
   # installCRDs must be disabled because CRDs are put into the Helm chart
   installCRDs: false
@@ -71,6 +70,9 @@ grafana:
   image:
     repository: grafana/grafana
     tag: 7.3.5
+  # If you want to install on specific nodes, for example Infra nodes on Openshift
+  nodeSelector:
+    node-role.kubernetes.io/infra: ""
   replicas: 1
   # ingress is disable because it is created via the lsd-observe template
   ingress:
@@ -146,7 +148,7 @@ prometheus:
       enabled: true
       name: configmap-reload
       image:
-        repository: dbqoshbas01.discoverybank.co.za:5000/jimmidyson/configmap-reload
+        repository: jimmidyson/configmap-reload
         tag: v0.4.0
   server:
     image:
@@ -194,8 +196,7 @@ prometheus:
       requests:
         cpu: 10m
         memory: 10Mi
-    securityContext:
-      {}
+    securityContext: {}
       # runAsUser: 0
     service:
       annotations:
@@ -236,9 +237,7 @@ prometheus:
     image:
       repository: prom/alertmanager
       pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
       tag: ""
-
     ingress:
       enabled: true
       hosts:
