@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: ilm-policy
+  name: elastic-post-setup
 spec:
   template:
     spec:
@@ -18,8 +18,24 @@ spec:
               secretKeyRef:
                 name: lsdobserve-es-elastic-user
                 key: elastic
-        image: dbqoshbas01.discoverybank.co.za:5000/eck/eck-operator:1.3.0
-        name: elastic-post-setup
+        image: {{ .Values.eck-operator.image.repository }}:{{ .Values.eck-operator.image.tag }}
+        name: filebeat-ilm-policy
+        volumeMounts:
+        - mountPath: /opt/elastic/
+          name: elastic-filbeat-custom-files
+      - args:
+        - -c
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.pipeline.json \"https://lsdobserve-es-http:9200/_ingest/pipeline/filebeat-lsdobserve-basic\""
+        command:
+        - /bin/bash
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdobserve-es-elastic-user
+                key: elastic
+        image: {{ .Values.eck-operator.image.repository }}:{{ .Values.eck-operator.image.tag }}
+        name: filebeat-pipeline
         volumeMounts:
         - mountPath: /opt/elastic/
           name: elastic-filbeat-custom-files
