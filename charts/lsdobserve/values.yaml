@@ -399,3 +399,13 @@ prometheus:
               annotations:
                 description: 'Node {{ $labels.kubernetes_node }} has a 15 minute load average of {{ printf "%.0f" $value }}%'
                 message: "When the load is over 50 this indicates an issue of high CPU, low memory (going into swap) and high disk utlization"
+        - name: RookCephClusterOver90
+          rules:
+            - alert: RookCephClusterOver90
+              expr: 100 - (sum without(instance) ((ceph_cluster_total_bytes - ceph_cluster_total_used_bytes) / ceph_cluster_total_bytes) * 100) > 90
+              for: 5m
+              labels:
+                severity: critical
+              annotations:
+                description: 'Namespace {{ $labels.kubernetes_namespace }} contains a Ceph cluster with a current usage of {{ printf "%.0f" $value }}%'
+                message: "Ceph clusters over 95% can begin to fail and need to be expanded or pruned"
