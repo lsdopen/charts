@@ -35,10 +35,10 @@
       },
       "id": 244,
       "options": {
-        "content": "\n<p style=\"text-align:center;\">LSD Observe - Kubernetes Overview - Version 2.33</p>",
+        "content": "\n<p style=\"text-align:center;\">LSD Observe - Kubernetes Overview - Version 2.34</p>",
         "mode": "html"
       },
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "timeFrom": null,
       "timeShift": null,
       "title": "",
@@ -115,7 +115,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "targets": [
         {
           "expr": "(sum ((sum(kube_pod_container_resource_requests_cpu_cores{container!=\"deployment\",container!=\"docker-build\"} > 0) by (container,pod) / count(kube_pod_container_status_running > 0) by (container,pod))*1000)) / (sum (kube_node_status_allocatable_cpu_cores)*1000) * 112",
@@ -187,7 +187,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "targets": [
         {
           "expr": "sum (rate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\"}[2m])) / sum (kube_node_status_allocatable_cpu_cores) * 100",
@@ -259,7 +259,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "targets": [
         {
           "expr": "sum (kube_resourcequota{resource=\"requests.cpu\",type=\"hard\"}) / sum (kube_node_status_allocatable_cpu_cores) *100",
@@ -628,7 +628,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "targets": [
         {
           "expr": "(sum ((sum(kube_pod_container_resource_requests_memory_bytes{container!=\"deployment\",container!=\"docker-build\",}))*1000)) / (sum (kube_node_status_capacity_memory_bytes)*1000)  * 100",
@@ -700,7 +700,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "targets": [
         {
           "expr": "sum (container_memory_working_set_bytes{container!=\"\",name!~\"k8s_POD_.*\"}) / sum (kube_node_status_capacity_memory_bytes) * 100",
@@ -773,7 +773,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "targets": [
         {
           "expr": "sum (kube_resourcequota{resource=\"requests.memory\",type=\"hard\"}) / sum (kube_node_status_capacity_memory_bytes) * 100",
@@ -1039,7 +1039,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "targets": [
         {
           "expr": "1/((sum(kube_node_status_allocatable_cpu_cores)*20) / (sum(kube_pod_info{created_by_kind!=\"<none>\"}))) * 100 ",
@@ -1131,7 +1131,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1278,7 +1278,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1392,7 +1392,7 @@
       },
       "paceLength": 10,
       "percentage": true,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1505,7 +1505,7 @@
       },
       "paceLength": 10,
       "percentage": true,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1650,7 +1650,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1765,7 +1765,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1881,7 +1881,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 0.5,
       "points": true,
       "renderer": "flot",
@@ -1968,13 +1968,36 @@
               "type": "avg"
             },
             "type": "query"
+          },
+          {
+            "evaluator": {
+              "params": [
+                85
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "or"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
           }
         ],
         "executionErrorState": "alerting",
         "for": "60m",
         "frequency": "60s",
         "handler": 1,
-        "name": "Filesystem Utilization",
+        "name": "Filesystem Utilization for Nodes and PVCs",
         "noDataState": "ok",
         "notifications": []
       },
@@ -2036,7 +2059,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2074,7 +2097,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Filesystem Utilization over 70%",
+      "title": "Filesystem Utilization for Nodes and PVCs over 70%",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -2157,7 +2180,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2260,7 +2283,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2399,7 +2422,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": true,
       "renderer": "flot",
@@ -2520,7 +2543,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2635,7 +2658,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2757,7 +2780,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -8000,5 +8023,5 @@
   "timezone": "",
   "title": "Kubernetes Overview",
   "uid": "lsd-observe-001",
-  "version": 2
+  "version": 1
 }
