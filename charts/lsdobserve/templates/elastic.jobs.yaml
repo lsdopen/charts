@@ -6,6 +6,22 @@ metadata:
 spec:
   template:
     spec:
+      initContainers:
+      - args:
+        - /bin/sh
+        - -c
+        - |
+          set -x; while [ $(curl -u elastic:$ELASTIC_PASSWORD -skw '%{http_code}' "https://lsdobserve-es-http:9200" -o /dev/null) -ne 200 ]; do
+            sleep 5;
+          done
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdobserve-es-elastic-user
+                key: elastic
+        image: {{ .Values.lsdobserve.curl.image }}
+        name: wait-for-elastic
       containers:
       - args:
         - -c
