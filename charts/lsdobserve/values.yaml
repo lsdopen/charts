@@ -163,6 +163,7 @@ prometheus:
       repository: quay.io/prometheus/prometheus
       tag: v2.24.0
     replicaCount: 2
+    baseURL: "https://prometheus.%%APP_DOMAIN%%"
     retention: 31d
     statefulSet:
       enabled: true
@@ -230,7 +231,7 @@ prometheus:
     enabled: true
     replicaCount: 3
     prefixURL: ""
-    baseURL: ""
+    baseURL: "https://alertmanager.%%APP_DOMAIN%%"
     service:
       enableMeshPeer: true
     statefulSet:
