@@ -229,8 +229,8 @@ prometheus:
   alertmanager:
     enabled: true
     replicaCount: 3
-    prefixURL: "https://prometheus.apps.cluster-01.lsdopen.io"
-    baseURL: "https://alertmanager.apps.cluster-01.lsdopen.io"
+    prefixURL: ""
+    baseURL: ""
     service:
       enableMeshPeer: true
     statefulSet:
@@ -272,6 +272,8 @@ prometheus:
               from: lsdobserve+noreply+%%APP_DOMAIN%%.%%DOMAIN%%
               smarthost: "%%SMTP%%:%%SMTP_PORT%%"
               require_tls: false
+              auth_username: ""
+              auth_password: ""
       route:
         group_by:
           - job
@@ -399,9 +401,9 @@ prometheus:
               annotations:
                 description: 'Node {{ $labels.kubernetes_node }} has a 15 minute load average of {{ printf "%.0f" $value }}%'
                 message: "When the load is over 50 this indicates an issue of high CPU, low memory (going into swap) and high disk utlization"
-        - name: RookCephClusterOver90
+        - name: RookCephClusterOver90Percent
           rules:
-            - alert: RookCephClusterOver90
+            - alert: RookCephClusterOver90Percent
               expr: 100 - (sum without(instance) ((ceph_cluster_total_bytes - ceph_cluster_total_used_bytes) / ceph_cluster_total_bytes) * 100) > 90
               for: 5m
               labels:

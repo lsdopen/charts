@@ -11,7 +11,7 @@ helm repo update
 
 ```
 helm show values lsdopen/lsdobserve > values.yaml
-helm upgrade lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml
+helm install lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml ; helm upgrade lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml
 ```
 
 Install on GKE with Admin Password and Elastic disabled
@@ -43,12 +43,8 @@ helm install lsdobserve -n lsdobserve --create-namespace \
 
 
 ## Todo
-- curation for elastic - add ILM 
-- sh-4.4$ curl -k -u elastic:PASSWORD -XPUT https://lsdobserve-es-http:9200/_ilm/policy/filebeat -d '{ "policy": { "phases": { "hot": { "min_age": "0ms", "actions": { "rollover": { "max_size": "20gb", "max_age": "1d" } } }, "delete": { "min_age": "7d", "actions": {} } } } }' -H 'Content-Type: application/json' && echo
-
 - harbor dashboards
 - alertmanager dashbaord
-- Keycloak
 - Dashboards in Elastic or Elastic like dashboards in Grafana
 - Openshift - patch namespace to allow it to run on any nodes "oc patch namespace lsdobserve -p '{"metadata":{"annotations":{"openshift.io/node-selector":""}}}'"
 
