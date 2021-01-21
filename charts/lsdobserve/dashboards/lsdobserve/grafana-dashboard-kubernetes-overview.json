@@ -2044,7 +2044,7 @@
         "max": false,
         "min": false,
         "rightSide": true,
-        "show": true,
+        "show": false,
         "sort": "current",
         "sortDesc": true,
         "total": false,
@@ -2113,15 +2113,17 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:170",
           "decimals": 1,
           "format": "percent",
           "label": "Filesystem Usage",
           "logBase": 1,
-          "max": null,
+          "max": "100",
           "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:171",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -8023,5 +8025,5 @@
   "timezone": "",
   "title": "Kubernetes Overview",
   "uid": "lsd-observe-001",
-  "version": 1
+  "version": 2
 }
