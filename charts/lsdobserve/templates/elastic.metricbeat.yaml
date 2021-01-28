@@ -50,9 +50,9 @@ spec:
   version: {{ .Values.lsdobserve.elastic.metricbeat.version }}
   image: {{ .Values.lsdobserve.elastic.metricbeat.image }}
   elasticsearchRef:
-    name: elasticsearch
+    name: {{ .Release.Name }}
   kibanaRef:
-    name: kibana
+    name: {{ .Release.Name }}
   config:
     metricbeat:
       autodiscover:

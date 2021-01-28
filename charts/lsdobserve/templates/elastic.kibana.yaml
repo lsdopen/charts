@@ -23,7 +23,7 @@ spec:
             cpu: 50m
           limits:
             memory: 2Gi
-            cpu: 1
+            cpu: 250m
   http:
     tls:
       selfSignedCertificate:

@@ -81,7 +81,7 @@ grafana:
     tag: 7.3.5
   # If you want to install on specific nodes, for example Infra nodes on Openshift
   nodeSelector:
-    node-role.kubernetes.io/infra: ""
+    node-role.kubernetes.io/infra: "true"
   replicas: 1
   # ingress is disable because it is created via the lsd-observe template
   ingress:
@@ -121,7 +121,7 @@ grafana:
     ds-05: "grafana-dashboard-rook-ceph-overview"
     ds-06: "node-exporter-for-prometheus-dashboard"
   imageRenderer:
-    enabled: true
+    enabled: false
     replicas: 1
     image:
       repository: grafana/grafana-image-renderer
