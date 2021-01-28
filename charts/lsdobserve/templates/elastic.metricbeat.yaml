@@ -4,12 +4,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  annotations:
-    meta.helm.sh/release-name: {{ .Release.Name }}
-    meta.helm.sh/release-namespace: {{ .Release.Name }}
-  labels:
-    app.kubernetes.io/managed-by: Helm
-  name: elastic-beat-autodiscover
+  name: metricbeat
 rules:
 - apiGroups:
   - ""
@@ -22,19 +17,47 @@ rules:
   - get
   - list
   - watch
+- apiGroups:
+  - "extensions"
+  resources:
+  - replicasets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  - deployments
+  - replicasets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - nodes/stats
+  verbs:
+  - get
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: elastic-beat-autodiscover-binding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: elastic-beat-autodiscover
+  name: metricbeat
 subjects:
 - kind: ServiceAccount
-  name: {{ .Release.Name }}-metricbeat
-  namespace: {{ .Release.Name }}
+  name: metricbeat
+  namespace: lsdobserve
+roleRef:
+  kind: ClusterRole
+  name: metricbeat
+  apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -146,5 +169,4 @@ spec:
         - hostPath:
             path: /proc
           name: proc
----
 {{- end }}

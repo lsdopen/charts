@@ -67,7 +67,7 @@ spec:
       spec:
         dnsPolicy: ClusterFirstWithHostNet
         hostNetwork: true
-        serviceAccount: filebeat
+        serviceAccount: {{ .Release.Name }}-filebeat
         automountServiceAccountToken: true
         securityContext:
           runAsUser: 0
