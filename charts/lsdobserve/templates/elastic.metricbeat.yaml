@@ -5,8 +5,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   annotations:
-    meta.helm.sh/release-name: lsdobserve
-    meta.helm.sh/release-namespace: lsdobserve
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Name }}
   labels:
     app.kubernetes.io/managed-by: Helm
   name: elastic-beat-autodiscover
@@ -33,13 +33,13 @@ roleRef:
   name: elastic-beat-autodiscover
 subjects:
 - kind: ServiceAccount
-  name: metricbeat
+  name: {{ .Release.Name }}-metricbeat
   namespace: {{ .Release.Name }}
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: metricbeat
+  name: {{ .Release.Name }}-metricbeat
 ---
 apiVersion: beat.k8s.elastic.co/v1beta1
 kind: Beat
@@ -110,7 +110,7 @@ spec:
   daemonSet:
     podTemplate:
       spec:
-        serviceAccountName: metricbeat
+        serviceAccountName: {{ .Release.Name }}-metricbeat
         automountServiceAccountToken: true
         containers:
         - args:
@@ -146,4 +146,5 @@ spec:
         - hostPath:
             path: /proc
           name: proc
+---
 {{- end }}
