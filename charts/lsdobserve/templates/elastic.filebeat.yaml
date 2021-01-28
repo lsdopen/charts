@@ -44,10 +44,10 @@ metadata:
 apiVersion: beat.k8s.elastic.co/v1beta1
 kind: Beat
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Release.Name }}-filebeat
 spec:
   type: filebeat
-  version: 7.10.0
+  version: {{ .Values.lsdobserve.elastic.filebeat.version }}
   image: {{ .Values.lsdobserve.elastic.filebeat.image }}
   elasticsearchRef:
     name: {{ .Release.Name }}
