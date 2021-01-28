@@ -1,11 +1,15 @@
+# The fedoraCoreOSVerion. You can get the list from https://getfedora.org/en/coreos?stream=stable
 fedoraCoreOSVersion: "32.20201104.3.0"
+# The local IP address of the Bastion server
 bastionIP: "10.1.0.1"
 
+# OKD Configuration
 okd:
   image:
     registry: "docker.io"
     repository: "lsdopen/okd-installer"
     tag: "latest"
+  # Version of OKD you want installed. Get list from https://github.com/openshift/okd/releases
   version: "4.5.0-0.okd-2020-10-15-235428"
   config: |-
     apiVersion: v1
@@ -84,15 +88,18 @@ dnsmasq:
     tag: "latest"
   # Below is a standard dnsmasq.conf configuration. Modify appropriately
   config: |-
-    # https://github.com/PowerDNS/dnsmasq/blob/master/dnsmasq.conf.example
+    # All DNSMasq options can be found here https://github.com/PowerDNS/dnsmasq/blob/master/dnsmasq.conf.example
+    
+    ## Upstream DNS servers
     server=8.8.8.8
     server=8.8.4.4
     bogus-priv
     filterwin2k
     expand-hosts
-    domain=lab-01.okd.lsdopen.io
-    local=/lab-01.okd.lsdopen.io/
-    address=/lab-01.okd.lsdopen.io/10.1.0.1
+    ## Domain name that will be provided by DHCP on the Network range
+    domain=lab-01.okd.lsdopen.io,10.1.0.0/24
+    ## Sub domain that will all resolve to the below IP. Example myapp.apps.lab-01.okd.lsdopen.io will resolve to 10.1.0.1
+    address=/apps.lab-01.okd.lsdopen.io/10.1.0.1
     domain-needed
     bind-interfaces
 
