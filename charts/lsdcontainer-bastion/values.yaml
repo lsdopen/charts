@@ -1,7 +1,18 @@
-# The fedoraCoreOSVerion. You can get the list from https://getfedora.org/en/coreos?stream=stable
-fedoraCoreOSVersion: "32.20201104.3.0"
+# The openShiftType is which environment you want to install OKD for community and OCP for Enterprise
+openShiftType: "OCP"
+# For the CoreOSVerion.
+# You can get the list from https://getfedora.org/en/coreos?stream=stable for OKD
+# and for OCP you can get the list from https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/
+CoreOSVersion: "4.6"
+# the CoreOSMinorRelease is used for OCP
+CoreOSMinorRelease: "4.6.8"
 # The local IP address of the Bastion server
 bastionIP: "10.1.0.1"
+
+# Set this if you need to use a Proxy Server
+useProxy: "NO"
+# set the ip address of the proxy server and port example 10.10.10.1:3128
+proxyURL: ""
 
 # OKD Configuration
 okd:
@@ -9,8 +20,9 @@ okd:
     registry: "docker.io"
     repository: "lsdopen/okd-installer"
     tag: "latest"
-  # Version of OKD you want installed. Get list from https://github.com/openshift/okd/releases
-  version: "4.5.0-0.okd-2020-10-15-235428"
+  # Version of the client you want installed. Get list from https://github.com/openshift/okd/releases for OKD.
+  # For OCP get the clients list from https://mirror.openshift.com/pub/openshift-v4/clients/ocp/.
+  version: "4.6.15"
   config: |-
     apiVersion: v1
     baseDomain: okd.lsdopen.io
@@ -89,7 +101,7 @@ dnsmasq:
   # Below is a standard dnsmasq.conf configuration. Modify appropriately
   config: |-
     # All DNSMasq options can be found here https://github.com/PowerDNS/dnsmasq/blob/master/dnsmasq.conf.example
-    
+
     ## Upstream DNS servers
     server=8.8.8.8
     server=8.8.4.4
@@ -220,6 +232,3 @@ haproxy:
       server infra1 10.1.0.6:443 check fall 3 rise 2
       server infra2 10.1.0.7:443 check fall 3 rise 2
       server infra3 10.1.0.8:443 check fall 3 rise 2
-
-
-
