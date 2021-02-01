@@ -21,12 +21,20 @@ spec:
       containers:
       - image: "{{ .Values.okd.image.registry }}/{{ .Values.okd.image.repository }}:{{ .Values.okd.image.tag }}"
         env:
-        - name: "OKD_VERSION"
+        - name: "CLIENT_VERSION"
           value: "{{ .Values.okd.version }}"
-        - name: "FEDORA_CORE_VERSION"
-          value: "{{.Values.fedoraCoreOSVersion }}"
+        - name: "CORE_VERSION"
+          value: "{{ .Values.CoreOSVersion }}"
         - name: "BASTION_IP_PORT"
           value: "{{ .Values.bastionIP }}:{{ .Values.nginx.port }}"
+        - name: "OPEN_TYPE"
+          value: "{{ .Values.openShiftType }}"
+        - name: "CORE_MINOR_RELEASE"
+          value: "{{ .Values.CoreOSMinorRelease }}"
+        - name: "USE_PROXY"
+          value: "{{ .Values.useProxy}}"
+        - name: "PROXY_URL"
+          value: "{{ .Values.proxyURL}}"
         name: okd-installer
         volumeMounts:
         - mountPath: /usr/local/bin/
