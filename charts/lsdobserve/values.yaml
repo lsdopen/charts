@@ -1,11 +1,5 @@
 # LSDobserve
 lsdobserve:
-  clusterType: "%%CLUSTER_TYPE%%" # openshift | gke | rancher
-  # adminUsername is the general username to configure for all tools, so each tool uses the same username
-  adminUsername: "lsdobserve"
-  # adminPsername is the general password to configure for all tools, so each tool uses the same password
-  adminPassword: "password4lsdobserve"
-  # the domain to use as a suffix for all ingress traffic. Example grafana-lsd-observe.$domain
   domain: "%%APP_DOMAIN%%"
   smtp:
     host: "%%SMTP%%"
@@ -14,10 +8,6 @@ lsdobserve:
     password: "XXXXX"
     fromAddress: "lsdobserve+noreply+%%APP_DOMAIN%%@%%DOMAIN%%"
     fromName: "LSDobserve - %%CLIENT%% - %%APP_DOMAIN%%@%%DOMAIN%%"
-  letsencrypt: false
-  # letsencrypt-staging for staging
-  # letsencrypt for production
-  letsencryptIssuer: letsencrypt-staging
   curl:
     image: docker.io/curlimages/curl:7.74.0
   grafana:
@@ -34,7 +24,13 @@ lsdobserve:
       enabled: true
       image: "docker.elastic.co/beats/filebeat:7.10.0"
       version: "7.10.0"
+    ## Metricbeat as a Daemonset to collect metrics from Nodes
     metricbeat:
+      enabled: false
+      image: "docker.elastic.co/beats/metricbeat:7.10.0"
+      version: "7.10.0"
+    ## Metricbeat to connect to Prometheus
+    metricbeat-prometheus:
       enabled: true
       image: "docker.elastic.co/beats/metricbeat:7.10.0"
       version: "7.10.0"
