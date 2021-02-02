@@ -210,14 +210,3 @@ metadata:
     k8s-app: {{ .Release.Name }}-metricbeat
 ---
 {{- end }}
-
-
-
-
-
-
-
-
-
-
-
