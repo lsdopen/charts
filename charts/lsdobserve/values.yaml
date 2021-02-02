@@ -1,5 +1,7 @@
 # LSDobserve
 lsdobserve:
+  # There are your options clusterType: openshift | gke | rancher
+  clusterType: rancher
   domain: "%%APP_DOMAIN%%"
   smtp:
     host: "%%SMTP%%"
