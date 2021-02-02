@@ -1,6 +1,6 @@
 # Elastic Metricbeat
 ## https://raw.githubusercontent.com/elastic/beats/master/deploy/kubernetes/metricbeat-kubernetes.yaml
-{{- if .Values.lsdobserve.elastic.metricbeat-prometheus.enabled -}}
+{{- if .Values.lsdobserve.elastic.metricbeatPrometheus.enabled -}}
 ---
 apiVersion: v1
 kind: ConfigMap

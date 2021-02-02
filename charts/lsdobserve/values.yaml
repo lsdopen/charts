@@ -30,7 +30,7 @@ lsdobserve:
       image: "docker.elastic.co/beats/metricbeat:7.10.0"
       version: "7.10.0"
     ## Metricbeat to connect to Prometheus
-    metricbeat-prometheus:
+    metricbeatPrometheus:
       enabled: true
       image: "docker.elastic.co/beats/metricbeat:7.10.0"
       version: "7.10.0"
