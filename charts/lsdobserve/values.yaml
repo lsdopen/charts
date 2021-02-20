@@ -1,7 +1,7 @@
 # LSDobserve
 lsdobserve:
   # There are your options clusterType: openshift | gke | rancher
-  clusterType: rancher
+  clusterType: "%%CLUSTER_TYPE%%"
   domain: "%%APP_DOMAIN%%"
   smtp:
     host: "%%SMTP%%"
@@ -211,7 +211,6 @@ prometheus:
         cpu: 10m
         memory: 10Mi
     securityContext: {}
-      # runAsUser: 0
     service:
       annotations:
         prometheus.io/scrape: "true"
