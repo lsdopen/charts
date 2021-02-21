@@ -6,3 +6,4 @@
 Chart.lock
 run.yaml
 values.orig.yaml
+.prettierrc

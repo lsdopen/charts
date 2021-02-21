@@ -24,7 +24,7 @@ sub () {
     then
         SUB="$3"
     fi   
-    sed -i .bak s+$2+$SUB+g run.yaml
+    sed -i.bak s+$2+$SUB+g run.yaml
 
     # Variables you want to keep for later substituion
     if [ "$2" == "%%DOMAIN%%" ]
