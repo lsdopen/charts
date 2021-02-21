@@ -1,0 +1,562 @@
+# LSDautomate
+lsdautomate:
+  domain: "apps.DOMAIN.COM"
+
+postgresql-ha:
+  global:
+    storageClass: vsphere-thin
+    postgresql:
+      repmgrUsername: repmgruser
+      repmgrPassword: repmgrpassword
+      repmgrDatabase: repmgrdatabase
+    pgpool:
+      adminUsername: adminuser
+      adminPassword: adminpassword
+  postgresqlImage:
+    registry: docker.io
+    repository: bitnami/postgresql-repmgr
+    tag: 11.9.0-debian-10-r1
+  pgpoolImage:
+    registry: docker.io
+    repository: bitnami/pgpool
+    tag: 4.1.2-debian-10-r74
+  volumePermissionsImage:
+    registry: docker.io
+    repository: bitnami/minideb
+    tag: buster
+    pullPolicy: Always
+  metricsImage:
+    registry: docker.io
+    repository: bitnami/postgres-exporter
+    tag: 0.8.0-debian-10-r188
+  clusterDomain: cluster.local
+  postgresql:
+    # Password for postgres user
+    password: password4postgresql
+    labels: {}
+    podLabels: {}
+    replicaCount: 2
+    updateStrategyType: RollingUpdate
+    podAnnotations: {}
+    affinity: {}
+    nodeSelector: {}
+    priorityClassName: ""
+    tolerations: {}
+    securityContext:
+      enabled: true
+      fsGroup: 1001
+      runAsUser: 1001
+    resources:
+      limits: 
+        cpu: 1
+        memory: 1Gi
+      requests: 
+        cpu: 250m
+        memory: 256Mi
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 6
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 6
+    pdb:
+      create: false
+      minAvailable: 1
+    upgradeRepmgrExtension: false
+    pgHbaTrustAll: false
+    syncReplication: false
+    repmgrLogLevel: NOTICE
+    repmgrConnectTimeout: 5
+    repmgrReconnectAttempts: 3
+    repmgrReconnectInterval: 5
+  pgpool:
+    customUsers: 
+      usernames: 'gitlab;sonarqube'
+      passwords: 'password4gitlab;password4sonarqube'
+    securityContext:
+      enabled: true
+      fsGroup: 1001
+      runAsUser: 1001
+    resources:
+      limits: 
+        cpu: 1
+        memory: 1Gi
+      requests: 
+        cpu: 250m
+        memory: 256Mi
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 5
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 5
+    pdb:
+      create: false
+      minAvailable: 1
+    updateStrategy: {}
+    useLoadBalancing: true
+    # This did not work, so created a job template
+    #initdbScripts:
+    #  my_init_script.sh: |
+    #     #!/bin/sh
+    #     echo "Creating the Gitlab DB and Roles"
+    #     export PGPASSWORD=XXXXXXXX
+    #     psql -h lsdautomate-postgresql-ha-pgpool -U postgres -c 'CREATE DATABASE gitlab'
+    #     psql -h lsdautomate-postgresql-ha-pgpool -U postgres -c 'CREATE USER gitlab WITH PASSWORD "password4gitlab"'
+    #     psql -h lsdautomate-postgresql-ha-pgpool -U postgres -c 'grant all privileges on database gitlab to gitlab'
+    #     psql -h lsdautomate-postgresql-ha-pgpool -U postgres -c 'ALTER ROLE gitlab SUPERUSER'
+  ldap:
+    enabled: false
+  volumePermissions:
+    enabled: false
+    securityContext:
+      runAsUser: 0
+    resources:
+      limits: {}
+      requests: {}
+  metrics:
+    enabled: true
+    securityContext:
+      enabled: true
+      runAsUser: 1001
+    resources:
+      limits: 
+        cpu: 250m
+        memory: 256Mi
+      requests: 
+        cpu: 250m
+        memory: 256Mi
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 6
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 6
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9187"
+    serviceMonitor:
+      enabled: false
+  persistence:
+    enabled: true
+    mountPath: /bitnami/postgresql
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+  service:
+    type: ClusterIP
+    port: 5432
+  networkPolicy:
+    enabled: false
+    allowExternal: true
+
+#######################################
+# Sonarqube                           #
+# To get a latest values you can run: #
+# helm show values XXXX               #
+#######################################
+sonarqube:
+  replicaCount: 1
+  deploymentStrategy: {}
+  # Uncomment this to scheduler pods on priority
+  # priorityClassName: "high-priority"
+  image:
+    repository: sonarqube
+    tag: 8.2-community
+    # If using a private repository, the name of the imagePullSecret to use
+    # pullSecret: my-repo-secret
+  # Set security context for sonarqube pod
+  securityContext:
+    fsGroup: 999
+  # Settings to configure elasticsearch host requirements
+  elasticsearch:
+    configureNode: true
+    bootstrapChecks: true
+  
+  service:
+    type: ClusterIP
+    externalPort: 9000
+    internalPort: 9000
+    labels:
+    annotations: {}
+  ingress:
+    enabled: true
+    # Used to create an Ingress record.
+    hosts:
+      - name: sonar.apps.DOMAIN.COM
+        path: /
+    annotations: {}
+  # Additional labels for Ingress manifest file
+    # labels:
+    #  traffic-type: external
+    #  traffic-type: internal
+    tls: []
+    # Secrets must be manually created in the namespace.
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.local
+  
+  # Affinity for pod assignment
+  # Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+  affinity: {}
+  
+  # Tolerations for pod assignment
+  # Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+  
+  # Node labels for pod assignment
+  # Ref: https://kubernetes.io/docs/user-guide/node-selection/
+  nodeSelector: {}
+  
+  # hostAliases allows the modification of the hosts file inside a container
+  hostAliases: []
+  # - ip: "192.168.1.10"
+  #   hostnames:
+  #   - "example.com"
+  #   - "www.example.com"
+  
+  readinessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    failureThreshold: 6
+    # If an ingress *path* other than the root (/) is defined, it should be reflected here
+    # A trailing "/" must be included
+    sonarWebContext: /
+    # sonarWebContext: /sonarqube/
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    # If an ingress *path* other than the root (/) is defined, it should be reflected here
+    # A trailing "/" must be included
+    sonarWebContext: /
+    # sonarWebContext: /sonarqube/
+    # If an ingress *path* is defined, it should be reflected here
+    # sonar.web.context: /sonarqube
+  
+  ## Provide a secret containing one or more certificate files in the keys that will be added to cacerts
+  ## The cacerts file will be set via SONARQUBE_WEB_JVM_OPTS
+  ##
+  # caCerts:
+  #   secret: my-secret
+  
+  ## Values to add to SONARQUBE_WEB_JVM_OPTS
+  ##
+  # jvmOpts: "-Djava.net.preferIPv4Stack=true"
+  jvmOpts: ""
+  
+  ## Environment variables to attach to the pods
+  ##
+  # env:
+  #   - name: VARIABLE
+  #     value: my-value
+  
+  # Set annotations for pods
+  annotations: {}
+  
+  resources:
+    limits:
+      cpu: 500m
+      memory: 2Gi
+    requests:
+      cpu: 100m
+      memory: 512Mi
+  persistence:
+    enabled: true
+    storageClass: vsphere-thin
+    accessMode: ReadWriteOnce
+    size: 10Gi
+  emptyDir: {}
+  
+  jdbcDatabaseType: postgresql
+  ## Override JDBC URL
+  # jdbcUrlOverride: "jdbc:postgresql://myPostgress/myDatabase;socketTimeout=1500"
+  
+  ## Configuration values for postgresql dependency
+  ## ref: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
+  postgresql:
+    enabled: false
+    postgresqlServer: lsdautomate-postgresql-ha-pgpool
+    postgresqlUsername: "sonarqube"
+    postgresqlPassword: "password4sonarqube"
+    postgresqlDatabase: "sonarqube"
+    service:
+      port: 5432
+
+
+  podLabels: {}
+  # For compatibility with 8.0 replace by "/opt/sq"
+  # For compatibility with 8.2, leave the default. They changed it back to /opt/sonarqube
+  sonarqubeFolder: /opt/sonarqube
+  
+  enableTests: true
+  
+  serviceAccount:
+    create: false
+    # name:
+    ## Annotations for the Service Account
+    annotations: {}
+  
+  # extraConfig is used to load Environment Variables from secrets and configmaps
+  # which may have been written by other tools, such as external orchestrators.
+  #
+  # These Secrets/ ConfigMaps are expecetd to contain Key/ Value pairs, such as:
+  #
+  # apiVersion: v1
+  # kind: ConfigMap
+  # metadata:
+  #   name: external-sonarqube-opts
+  # data:
+  #   SONARQUBE_JDBC_USERNAME: foo
+  #   SONARQUBE_JDBC_URL: jdbc:postgresql://db.example.com:5432/sonar
+  #
+  # These vars can then be injected into the environment by uncommenting the following:
+  #
+  # extraConfig:
+  #   configmaps:
+  #     - external-sonarqube-opts
+  
+  extraConfig:
+    secrets: []
+    configmaps: []
+
+
+#######################################
+# Sonatype-Nexus
+# To get a latest values you can run: #
+# helm show values XXXX               #
+#######################################
+sonatype-nexus:
+  statefulset:
+    enabled: true
+  replicaCount: 1
+  nexus:
+    imageName: quay.io/travelaudience/docker-nexus
+    imageTag: 3.25.1
+    imagePullPolicy: IfNotPresent
+    # Uncomment this to scheduler pods on priority
+    # priorityClassName: "high-priority"
+    env:
+      - name: install4jAddVmParams
+        value: "-Xms1200M -Xmx1200M -XX:MaxDirectMemorySize=2G -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+      - name: NEXUS_SECURITY_RANDOMPASSWORD
+        value: "false"
+    # nodeSelector:
+    #   cloud.google.com/gke-nodepool: default-pool
+    resources: {}
+      # requests:
+        ## Based on https://support.sonatype.com/hc/en-us/articles/115006448847#mem
+        ## and https://twitter.com/analytically/status/894592422382063616:
+        ##   Xms == Xmx
+        ##   Xmx <= 4G
+        ##   MaxDirectMemory >= 2G
+        ##   Xmx + MaxDirectMemory <= RAM * 2/3 (hence the request for 4800Mi)
+        ##   MaxRAMFraction=1 is not being set as it would allow the heap
+        ##     to use all the available memory.
+        # cpu: 250m
+        # memory: 4800Mi
+    # The ports should only be changed if the nexus image uses a different port
+    dockerPort: 5003
+    nexusPort: 8081
+    service:
+      type: ClusterIP
+      # clusterIP: None
+    # annotations: {}
+      ## When using LoadBalancer service type, use the following AWS certificate from ACM
+      ## https://aws.amazon.com/documentation/acm/
+      # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:eu-west-1:123456789:certificate/abc123-abc123-abc123-abc123"
+      # service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "https"
+      # service.beta.kubernetes.io/aws-load-balancer-backend-port: "https"
+    ## When using LoadBalancer service type, whitelist these source IP ranges
+    ## https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
+    # loadBalancerSourceRanges:
+    #   - 192.168.1.10/32
+    # labels: {}
+    ## Configures the requested IP on the loadBalancer when using LoadBalancer service type
+    # loadBalancerIP: "192.168.1.10"
+    securityContextEnabled: true
+    securityContext:
+      fsGroup: 200
+    podAnnotations: {}
+    livenessProbe:
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      failureThreshold: 6
+      # timeoutSeconds: 10
+      path: /
+    readinessProbe:
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      failureThreshold: 6
+      # timeoutSeconds: 10
+      path: /
+    # hostAliases allows the modification of the hosts file inside a container
+    hostAliases: []
+    # - ip: "192.168.1.10"
+    #   hostnames:
+    #   - "example.com"
+    #   - "www.example.com"
+    context:
+  
+  route:
+    enabled: false
+    name: docker
+    portName: docker
+    labels:
+    annotations:
+    # path: /docker
+  
+  nexusProxy:
+    enabled: false
+  
+  nexusProxyRoute:
+    enabled: false
+    labels:
+    annotations:
+    # path: /nexus
+  
+  persistence:
+    enabled: true
+    accessMode: ReadWriteOnce
+    ## If defined, storageClass: <storageClass>
+    ## If set to "-", storageClass: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClass spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # existingClaim:
+    # annotations:
+    #  "helm.sh/resource-policy": keep
+    # storageClass: "-"
+    storageSize: 10Gi
+    # If PersistentDisk already exists you can create a PV for it by including the 2 following keypairs.
+    # pdName: nexus-data-disk
+    # fsType: ext4
+  
+  nexusBackup:
+    enabled: false
+    imageName: quay.io/travelaudience/docker-nexus-backup
+    imageTag: 1.5.0
+    nexusAdminPassword: "admin123"
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      storageSize: 10Gi
+    resources: 
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
+  
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name:
+    annotations: {}
+  
+  ingress:
+    enabled: true
+    path: /
+    labels: {}
+    annotations: {}
+    # # NOTE: Can't use 'false' due to https://github.com/jetstack/kube-lego/issues/173.
+    # kubernetes.io/ingress.allow-http: true
+    # kubernetes.io/ingress.class: gce
+    # kubernetes.io/ingress.global-static-ip-name: ""
+    # kubernetes.io/tls-acme: true
+    tls:
+      enabled: true
+      secretName: nexus-tls
+    # Specify custom rules in addition to or instead of the nexus-proxy rules
+    rules:
+    - host: sonatype-nexus.apps.DOMAIN.COM
+      http:
+        paths:
+        - backend:
+            serviceName: additional-svc
+            servicePort: 80
+  # # Enable configmap and add data in configmap
+  config:
+    enabled: false
+    mountPath: /sonatype-nexus-conf
+    data:
+  
+  deployment:
+    # # Add annotations in deployment to enhance deployment configurations
+    annotations: {}
+    # # Add init containers. e.g. to be used to give specific permissions for nexus-data.
+    # # Add your own init container or uncomment and modify the given example.
+    initContainers:
+    # - name: fmp-volume-permission
+      # image: busybox
+      # imagePullPolicy: IfNotPresent
+      # command: ['chown','-R', '200', '/nexus-data']
+      # volumeMounts:
+        # - name: nexus-data
+          # mountPath: /nexus-data
+    # # Uncomment and modify this to run a command after starting the nexus container.
+    postStart:
+      command:    # '["/bin/sh", "-c", "ls"]'
+    additionalContainers:
+    additionalVolumes:
+    additionalVolumeMounts:
+  
+  # # To use an additional secret, set enable to true and add data
+  secret:
+    enabled: false
+    mountPath: /etc/secret-volume
+    readOnly: true
+    data:
+  
+  # # To use an additional service, set enable to true
+  service:
+    type: ClusterIP
+    # name: additional-svc
+    enabled: false
+    labels: {}
+    annotations: {}
+    ports:
+    - name: nexus-service
+      targetPort: 80
+      port: 80
+    ## Configures the requested IP on the loadBalancer when using LoadBalancer service type
+    # loadBalancerIP: "192.168.1.10"
+  
+  additionalConfigMaps: []
+  #  - name: maven-central
+  #    labels:
+  #      nexus-type: repository
+  #    data:
+  #      recipe: 'MavenProxy'
+  #      remoteUrl: 'https://repo.maven.apache.org/maven2/'
+  #      blobStoreName: 'default'
+  #      strictContentTypeValidation: 'true'
+  #      versionPolicy: 'RELEASE'
+  #      layoutPolicy: 'STRICT'

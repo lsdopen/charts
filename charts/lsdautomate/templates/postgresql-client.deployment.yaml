@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql-client
+  namespace: lsdautomate
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: postgresql-client
+  template:
+    metadata:
+      labels:
+        app: postgresql-client
+    spec:
+      containers:
+      - command:
+        - sleep
+        - "3600"
+        image: bitnami/postgresql:11.9.0
+        imagePullPolicy: IfNotPresent
+        name: postgresql
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsUser: 0

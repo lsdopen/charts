@@ -1,14 +1,120 @@
 # LSDsecure
-lsdsecure:
-  clusterType: "openshift" # openshift | gke | rancher
-  # adminUsername is the general username to configure for all tools, so each tool uses the same username
-  adminUsername: "lsdsecure"
-  # adminPsername is the general password to configure for all tools, so each tool uses the same password
-  adminPassword: "pw4lsdsecure"
-  # the domain to use as a suffix for all ingress traffic. Example grafana-lsd-observe.$domain
-  smtp:
-    host: "smtp.lsdopen.io"
-    port: "25"
-    username: "XXXXX"
-    password: "XXXXX"
-  
+keycloak:
+  image:
+    registry: docker.io
+    repository: bitnami/keycloak
+    tag: 11
+    #registry: quay.io
+    #repository: keycloak/keycloak
+    #tag: 12.0.2
+    pullPolicy: IfNotPresent
+  auth:
+    createAdminUser: true
+    adminUser: admin
+    adminPassword: quohS8od1sefeiChaoheeM1eethieDie
+    managementUser: manager
+    managementPassword: hae8riegees1Sheifie2oozaesif3lie
+    tls:
+      enabled: false
+      keystorePassword: ""
+      truststorePassword: ""
+  proxyAddressForwarding: false
+  serviceDiscovery:
+    enabled: false
+  cache:
+    ownersCount: 1
+    authOwnersCount: 1
+  replicaCount: 1
+  containerPorts:
+    http: 8080
+    https: 8443
+  podSecurityContext:
+    enabled: true
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 1001
+    runAsNonRoot: true
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 200m
+      memory: 10Mi
+  livenessProbe:
+    enabled: true
+    httpGet:
+      path: /auth/
+      port: http
+    initialDelaySeconds: 300
+    periodSeconds: 1
+    timeoutSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    httpGet:
+      path: /auth/realms/master
+      port: http
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 1
+    failureThreshold: 3
+    successThreshold: 1
+  updateStrategy:
+    type: RollingUpdate
+  nodeSelector: {}
+  tolerations: []
+  service:
+    type: ClusterIP
+    port: 80
+    httpsPort: 443
+  ingress:
+    enabled: true
+    certManager: false
+    hostname: keycloak.local
+    path: /
+    pathType: ImplementationSpecific
+    annotations: {}
+    tls: false
+    extraHosts: []
+    extraTls: []
+  networkPolicy:
+    enabled: false
+  # Enable below if you are using Openshift
+  rbac:
+    create: true
+    rules:
+    - apiGroups:
+      - security.openshift.io
+      resourceNames:
+      - anyuid
+      resources:
+      - securitycontextconstraints
+      verbs:
+      - use
+  serviceAccount:
+    create: true
+  pdb:
+    create: false
+  autoscaling:
+    enabled: false
+  metrics:
+    enabled: true
+    service:
+      port: 9990
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "{{ .Values.metrics.service.port }}"
+    serviceMonitor:
+      enabled: false
+      interval: 30s
+      honorLabels: false
+  postgresql:
+    enabled: true
+    postgresqlUsername: keycloak
+    postgresqlPassword: quoo3da5nai5waep2ohL5oM1oughoosh
+    postgresqlDatabase: keycloak
+    persistence:
+      enabled: true

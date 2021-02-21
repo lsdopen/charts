@@ -1,0 +1,108 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sonarqube-db-creation
+  namespace: lsdautomate
+spec:
+  backoffLimit: 10
+  completions: 1
+  manualSelector: false
+  parallelism: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        job-name: sonarqube-db-creation
+    spec:
+      automountServiceAccountToken: false
+      initContainers:
+      - name: wait-for-postgresql-ha
+        image: busybox:1.32.0
+        command: ['sh', '-c', 'until nc -vz lsdautomate-postgresql-ha-pgpool 5432 ; do echo "Waiting for postgresql-ha-pgpool"; sleep 1; done;']
+      containers:
+      - args:
+        - -h
+        - lsdautomate-postgresql-ha-pgpool
+        - -U
+        - postgres
+        - sonarqube
+        command:
+        - createdb
+        name: sonarqube-db-creation
+        env:
+        - name: PGPASSWORD
+          value: password4postgresql
+        image: bitnami/postgresql:11.9.0
+        name: sonarqube-db-creation
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sonarqube-user-creation
+  namespace: lsdautomate
+spec:
+  backoffLimit: 10
+  completions: 1
+  manualSelector: false
+  parallelism: 1
+  template:
+    spec:
+      automountServiceAccountToken: false
+      initContainers:
+      - name: wait-for-postgresql-ha
+        image: busybox:1.32.0
+        command: ['sh', '-c', 'until nc -vz lsdautomate-postgresql-ha-pgpool 5432 ; do echo "Waiting for postgresql-ha-pgpool"; sleep 5; done;']
+      containers:
+      - args:
+        - -h
+        - lsdautomate-postgresql-ha-pgpool
+        - -U
+        - postgres
+        - -c
+        - CREATE USER sonarqube WITH PASSWORD 'password4sonarqube'
+        command:
+        - psql
+        env:
+        - name: PGPASSWORD
+          value: password4postgresql
+        image: bitnami/postgresql:11.9.0
+        imagePullPolicy: IfNotPresent
+        name: sonarqube-user-creation
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sonarqube-user-permissions
+  namespace: lsdautomate
+spec:
+  backoffLimit: 10
+  completions: 1
+  manualSelector: false
+  parallelism: 1
+  template:
+    spec:
+      automountServiceAccountToken: false
+      initContainers:
+      - name: wait-for-postgresql-ha
+        image: busybox:1.32.0
+        command: ['sh', '-c', 'until nc -vz lsdautomate-postgresql-ha-pgpool 5432 ; do echo "Waiting for postgresql-ha-pgpool"; sleep 10; done;']
+      containers:
+      - args:
+        - -h
+        - lsdautomate-postgresql-ha-pgpool
+        - -U
+        - postgres
+        - -c
+        - grant all privileges on database sonarqube to sonarqube
+        command:
+        - psql
+        env:
+        - name: PGPASSWORD
+          value: password4postgresql
+        image: bitnami/postgresql:11.9.0
+        imagePullPolicy: IfNotPresent
+        name: sonarqube-user-permissions
+      restartPolicy: Never

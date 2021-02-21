@@ -1,0 +1,144 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gitlab-db-creation
+  namespace: lsdautomate
+spec:
+  backoffLimit: 10
+  completions: 1
+  manualSelector: false
+  parallelism: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        job-name: gitlab-db-creation
+    spec:
+      automountServiceAccountToken: false
+      initContainers:
+      - name: wait-for-postgresql-ha
+        image: busybox:1.32.0
+        command: ['sh', '-c', 'until nc -vz lsdautomate-postgresql-ha-pgpool 5432 ; do echo "Waiting for postgresql-ha-pgpool"; sleep 1; done;']
+      containers:
+      - args:
+        - -h
+        - lsdautomate-postgresql-ha-pgpool
+        - -U
+        - postgres
+        - gitlab
+        command:
+        - createdb
+        name: gitlab-db-creation
+        env:
+        - name: PGPASSWORD
+          value: password4postgresql
+        image: bitnami/postgresql:11.9.0
+        name: gitlab-db-creation
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gitlab-user-creation
+  namespace: lsdautomate
+spec:
+  backoffLimit: 10
+  completions: 1
+  manualSelector: false
+  parallelism: 1
+  template:
+    spec:
+      automountServiceAccountToken: false
+      initContainers:
+      - name: wait-for-postgresql-ha
+        image: busybox:1.32.0
+        command: ['sh', '-c', 'until nc -vz lsdautomate-postgresql-ha-pgpool 5432 ; do echo "Waiting for postgresql-ha-pgpool"; sleep 5; done;']
+      containers:
+      - args:
+        - -h
+        - lsdautomate-postgresql-ha-pgpool
+        - -U
+        - postgres
+        - -c
+        - CREATE USER gitlab WITH PASSWORD 'password4gitlab'
+        command:
+        - psql
+        env:
+        - name: PGPASSWORD
+          value: password4postgresql
+        image: bitnami/postgresql:11.9.0
+        imagePullPolicy: IfNotPresent
+        name: gitlab-user-creation
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gitlab-user-permissions
+  namespace: lsdautomate
+spec:
+  backoffLimit: 10
+  completions: 1
+  manualSelector: false
+  parallelism: 1
+  template:
+    spec:
+      automountServiceAccountToken: false
+      initContainers:
+      - name: wait-for-postgresql-ha
+        image: busybox:1.32.0
+        command: ['sh', '-c', 'until nc -vz lsdautomate-postgresql-ha-pgpool 5432 ; do echo "Waiting for postgresql-ha-pgpool"; sleep 10; done;']
+      containers:
+      - args:
+        - -h
+        - lsdautomate-postgresql-ha-pgpool
+        - -U
+        - postgres
+        - -c
+        - grant all privileges on database gitlab to gitlab
+        command:
+        - psql
+        env:
+        - name: PGPASSWORD
+          value: password4postgresql
+        image: bitnami/postgresql:11.9.0
+        imagePullPolicy: IfNotPresent
+        name: gitlab-user-permissions
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gitlab-superuser-permissions
+  namespace: lsdautomate
+spec:
+  backoffLimit: 10
+  completions: 1
+  manualSelector: false
+  parallelism: 1
+  template:
+    spec:
+      automountServiceAccountToken: false
+      initContainers:
+      - name: wait-for-postgresql-ha
+        image: busybox:1.32.0
+        command: ['sh', '-c', 'until nc -vz lsdautomate-postgresql-ha-pgpool 5432 ; do echo "Waiting for postgresql-ha-pgpool"; sleep 15; done;']
+      containers:
+      - args:
+        - -h
+        - lsdautomate-postgresql-ha-pgpool
+        - -U
+        - postgres
+        - -c
+        - ALTER ROLE gitlab SUPERUSER
+        command:
+        - psql
+        env:
+        - name: PGPASSWORD
+          value: password4postgresql
+        image: bitnami/postgresql:11.9.0
+        imagePullPolicy: IfNotPresent
+        name: gitlab-superuser-permissions
+      restartPolicy: Never
+

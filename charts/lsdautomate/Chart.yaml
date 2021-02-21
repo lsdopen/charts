@@ -1,0 +1,41 @@
+apiVersion: v2
+name: lsdautomate
+version: "1.0.1"
+appVersion: "1.0.1"
+# Disabling kubeVersion because GKE is dumb
+# kubeVersion: ">=v1.11.0"
+description: A Helm chart for LSDautomate
+keywords:
+  - lsdautomate
+  - kubernetes
+  - gitlab
+  - gitlab-runner
+  - sonarqube
+  - sonatype-nexus
+  - postgresql-ha
+home: https://github.com/lsdopen/charts
+sources:
+  - https://github.com/lsdopen
+maintainers:
+  - name: LSD
+    email: support@lsdopen.io
+    url: https://lsdopen.io
+deprecated: false
+tillerVersion: ">=v3.2.1"
+
+dependencies:
+- name: postgresql-ha
+  version: "6.5.0"
+  repository: https://charts.bitnami.com/bitnami
+- name: sonarqube
+  version: "9.2.7"
+  repository: https://oteemo.github.io/charts
+- name: sonatype-nexus
+  version: "4.2.0"
+  repository: https://oteemo.github.io/charts
+#- name: gitlab
+#  version: "4.8.2"
+#  repository: https://charts.gitlab.io
+#- name: gitlab-runner
+#  version: "0.20.1"
+#  repository: https://charts.gitlab.io
