@@ -8,3 +8,9 @@ dependencies:
   - name: keycloak
     version: "9.0.1"
     repository: "https://codecentric.github.io/helm-charts"
+  - name: argo-cd
+    version: "2.14.7"
+    repository: "https://argoproj.github.io/argo-helm"
+  - name: sealed-secrets
+    version: "1.15.0-r1"
+    repository: "https://bitnami-labs.github.io/sealed-secrets"

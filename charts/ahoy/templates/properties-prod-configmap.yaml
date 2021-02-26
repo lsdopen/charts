@@ -7,6 +7,8 @@ metadata:
   namespace: ahoy
 data:
   application-prod.properties: |
+    ahoy.release-name={{ .Release.Name }}
+    ahoy.release-namespace={{ .Release.Namespace }}
     ahoy.repo-path=./cache/repo
     ahoy.host={{ .Values.ahoy.host }}
     ahoy.cluster-type={{ .Values.ahoy.clusterType }}
