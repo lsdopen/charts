@@ -568,8 +568,12 @@ argo-cd:
       annotations: { }
 
     ingress:
-      enabled: false
-      annotations: { }
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+
       labels: { }
 
       ## Argo Ingress.
@@ -577,16 +581,14 @@ argo-cd:
       ## Secrets must be manually created in the namespace
       ##
       hosts:
-        [ ]
-      # - argocd.example.com
+        - argocd.minikube.host
       paths:
-        - /
-      extraPaths:
         [ ]
-        # - path: /*
-        #   backend:
-      #     serviceName: ssl-redirect
-      #     servicePort: use-annotation
+      extraPaths:
+        - path: /
+          backend:
+            serviceName: ahoy-argocd-server
+            servicePort: https
       tls:
         [ ]
         # - secretName: argocd-example-tls
