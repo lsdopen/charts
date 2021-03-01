@@ -24,6 +24,8 @@ postgresql:
   postgresqlDatabase: ahoy
 
 keycloak:
+  install: true
+
   # Additional environment variables for Keycloak
   extraEnv: |
     - name: KEYCLOAK_IMPORT
@@ -87,6 +89,8 @@ keycloak:
     # Persistent Volume Storage configuration
 
 argo-cd:
+  install: true
+
   ## ArgoCD configuration
   ## Ref: https://github.com/argoproj/argo-cd
   ##
@@ -1061,6 +1065,8 @@ argo-cd:
     enabled: false
 
 sealed-secrets:
+  install: true
+
   image:
     repository: quay.io/bitnami/sealed-secrets-controller
     tag: v0.15.0
