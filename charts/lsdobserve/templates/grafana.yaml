@@ -151,5 +151,13 @@ spec:
     name: {{ .Release.Name }}-grafana
     weight: 100
   wildcardPolicy: None
+status:
+  ingress:
+  - conditions:
+    - status: "True"
+      type: Admitted
+    host: {{ .Values.lsdobserve.grafana.ingress.url }}
+    routerName: router
+    wildcardPolicy: None
 ---
 {{- end }}

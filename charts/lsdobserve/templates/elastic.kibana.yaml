@@ -78,5 +78,13 @@ spec:
     name: {{ .Release.Name }}-kb-http
     weight: 100
   wildcardPolicy: None
+status:
+  ingress:
+  - conditions:
+    - status: "True"
+      type: Admitted
+    host: {{ .Values.lsdobserve.elastic.kibana.ingress.url }}
+    routerName: router
+    wildcardPolicy: None
 ---
 {{- end }}
