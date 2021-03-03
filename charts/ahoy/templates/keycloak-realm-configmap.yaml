@@ -1,3 +1,4 @@
+{{ if .Values.keycloak.install }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -1718,3 +1719,4 @@ data:
       "keycloakVersion" : "11.0.0",
       "userManagedAccessAllowed" : false
     }
+  {{ end }}
