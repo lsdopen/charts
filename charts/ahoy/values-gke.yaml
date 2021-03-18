@@ -5,7 +5,7 @@ ahoy:
 
   auth:
     clientId: ahoy
-    redirectUri: http://ahoy.gke.host/
+    redirectUri: https://ahoy.gke.host/
     issuer: https://keycloak.gke.host/auth/realms/Ahoy
     jwkSetUri: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy/protocol/openid-connect/certs
 
