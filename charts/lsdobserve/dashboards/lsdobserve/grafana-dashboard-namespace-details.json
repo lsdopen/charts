@@ -1,4 +1,52 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_LSDOBSERVE_- PROMETHEUS",
+      "label": "LSDobserve - Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.3.5"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table-old",
+      "name": "Table (old)",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -16,11 +64,12 @@
   "editable": true,
   "gnetId": 315,
   "graphTooltip": 0,
-  "iteration": 1607712148468,
+  "id": null,
+  "iteration": 1617037249224,
   "links": [],
   "panels": [
     {
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -38,7 +87,7 @@
         "content": "\n<p style=\"text-align:center;\">LSDobserve - Kubernetes Namespace Details - Version 2.25</p>",
         "mode": "html"
       },
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "targets": [
         {
           "expr": "",
@@ -53,7 +102,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -74,7 +123,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -161,7 +210,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 3,
       "fieldConfig": {
         "defaults": {
@@ -249,7 +298,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -337,7 +386,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 3,
       "fieldConfig": {
         "defaults": {
@@ -426,7 +475,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
@@ -514,7 +563,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
@@ -602,7 +651,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
@@ -690,7 +739,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
@@ -778,7 +827,7 @@
         "#B877D9",
         "#F2495C"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -866,7 +915,7 @@
         "#B877D9",
         "#F2495C"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -955,7 +1004,7 @@
         "#B877D9",
         "#F2495C"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1043,7 +1092,7 @@
         "#B877D9",
         "#F2495C"
       ],
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1130,7 +1179,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -1176,7 +1225,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1260,7 +1309,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1300,7 +1349,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1388,7 +1437,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1428,7 +1477,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1513,7 +1562,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 3,
       "editable": true,
       "error": false,
@@ -1558,7 +1607,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1639,7 +1688,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -1685,7 +1734,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1772,7 +1821,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 3,
       "description": "This displays the CPU requests vs actual CPUusage. For example if you see 5 cores here, that means this project is request 5 cores more than it requires.",
       "fieldConfig": {
@@ -1813,7 +1862,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1833,12 +1882,6 @@
           "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"^$Namespace$\",image!=\"\",name=~\"^k8s_.*\"}[2m]))",
           "legendFormat": "$Namespace - CPU actual usage",
           "refId": "B"
-        },
-        {
-          "expr": "sum(kube_pod_container_resource_requests_cpu_cores)",
-          "interval": "",
-          "legendFormat": "$Namespace - CPU requests",
-          "refId": "C"
         }
       ],
       "thresholds": [],
@@ -1895,7 +1938,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 0,
       "description": "This displays the memory requests vs actual usage. For example if you see 5GiB here, that means this project is request 5GiB more than it requires.",
       "fieldConfig": {
@@ -1934,7 +1977,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2042,7 +2085,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2096,7 +2139,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2169,7 +2212,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2223,7 +2266,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2289,7 +2332,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
@@ -2330,7 +2373,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2397,7 +2440,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2436,7 +2479,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.1",
+      "pluginVersion": "7.3.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2496,7 +2539,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2510,7 +2553,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "decimals": 3,
           "fill": 1,
           "fillGradient": 0,
@@ -2608,7 +2651,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "decimals": 3,
           "fill": 1,
           "fillGradient": 0,
@@ -2706,7 +2749,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "decimals": 3,
           "editable": true,
           "error": false,
@@ -2809,7 +2852,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "decimals": 3,
           "editable": true,
           "error": false,
@@ -2934,7 +2977,7 @@
         },
         {
           "columns": [],
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "description": "Table to help you decide the correct requests and limits to set on a deployment",
           "fontSize": "100%",
           "gridPos": {
@@ -3090,7 +3133,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3104,7 +3147,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "decimals": 0,
           "editable": true,
           "error": false,
@@ -3209,7 +3252,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "decimals": 0,
           "editable": true,
           "error": false,
@@ -3314,7 +3357,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -3418,7 +3461,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -3543,7 +3586,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3557,7 +3600,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -3670,7 +3713,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
           "decimals": 2,
           "editable": true,
           "error": false,
@@ -3840,12 +3883,8 @@
     "list": [
       {
         "allValue": ".*",
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "LSDobserve - Prometheus",
+        "current": {},
+        "datasource": "${DS_LSDOBSERVE_- PROMETHEUS}",
         "definition": "",
         "error": null,
         "hide": 0,
