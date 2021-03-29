@@ -19,6 +19,7 @@ Run the command:
   oc adm policy add-scc-to-user anyuid -z {{ .Release.Name }}-prometheus-alertmanager -n lsdobserve
   oc adm policy add-scc-to-user anyuid -z {{ .Release.Name }}-grafana -n lsdobserve
   oc adm policy add-scc-to-user anyuid -z {{ .Release.Name }}-prometheus-server -n lsdobserve
+  oc adm policy add-scc-to-user anyuid -z {{ .Release.Name }}-prometheus-blackbox-exporter -n lsdobserve
   oc adm policy add-scc-to-user privileged -z {{ .Release.Name }}-prometheus-node-exporter -n lsdobserve
   oc adm policy add-scc-to-user privileged -z {{ .Release.Name }}-filebeat -n lsdobserve
   oc adm policy add-scc-to-user privileged -z {{ .Release.Name }}-metricbeat -n lsdobserve

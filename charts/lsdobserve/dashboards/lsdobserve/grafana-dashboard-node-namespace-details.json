@@ -1,8 +1,8 @@
 {
   "__inputs": [
     {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
+      "name": "DS_OPENSHIFT",
+      "label": "Openshift",
       "description": "",
       "type": "datasource",
       "pluginId": "prometheus",
@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.0.0"
+      "version": "7.2.0"
     },
     {
       "type": "panel",
@@ -32,7 +32,7 @@
       "type": "panel",
       "id": "text",
       "name": "Text",
-      "version": ""
+      "version": "7.1.0"
     }
   ],
   "annotations": {
@@ -50,17 +50,17 @@
       }
     ]
   },
-  "description": "Monitors Kubernetes clusters using Prometheus. Shows Namespace/Node level CPU Cores / Memory / Network IO and PVC usage of both aggregate pod sets and individual pods.",
+  "description": "Monitors Kubernetes/Openshift cluster using Prometheus. Shows Namespace/Node level CPU Cores / Memory / Network IO and PVC usage of both aggregate pod sets and individual pods.",
   "editable": true,
   "gnetId": 315,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1604646102212,
+  "iteration": 1617004831175,
   "links": [],
   "panels": [
     {
-      "content": "\n<p style=\"text-align:center;\">LSD Observe - Node & Namespace Details - Version 2.27</p>",
-      "datasource": "LSDobserve - Prometheus",
+      "content": "\n<p style=\"text-align:center;\">LSD Observe - Node Level Details - Version 2.26</p>",
+      "datasource": "${DS_OPENSHIFT}",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -75,6 +75,11 @@
       },
       "id": 160,
       "mode": "html",
+      "options": {
+        "content": "\n<p style=\"text-align:center;\">LSD Observe - Node Level Details - Version 2.26</p>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.1.0",
       "targets": [
         {
           "expr": "",
@@ -89,7 +94,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -106,10 +111,11 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -142,10 +148,11 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -155,12 +162,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "topk(5, max(container_memory_working_set_bytes{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}) by (pod,namespace,instance))",
+          "expr": "topk(5, max(container_memory_working_set_bytes{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}) by (pod_name,namespace,instance))",
           "format": "time_series",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
+          "legendFormat": "{{ pod_name }}",
           "refId": "B"
         }
       ],
@@ -214,10 +221,11 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -250,10 +258,11 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -263,21 +272,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "topk(5, sum(rate(container_fs_writes_total {pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod,namespace,instance))",
+          "expr": "topk(5, sum(rate(container_fs_writes_total {pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod_name,namespace,instance))",
           "format": "time_series",
           "hide": true,
           "instant": true,
           "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
+          "legendFormat": "{{ pod_name }}",
           "refId": "A"
         },
         {
-          "expr": "topk(5, sum(irate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod,namespace,instance)) > 0",
+          "expr": "topk(5, sum(irate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name,namespace,instance)) > 0",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
+          "legendFormat": "{{ pod_name }}",
           "refId": "B"
         }
       ],
@@ -303,7 +312,8 @@
       },
       "yaxes": [
         {
-          "format": "Bps",
+          "$$hashKey": "object:585",
+          "format": "decmbytes",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -311,6 +321,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:586",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -329,13 +340,14 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "decimals": 3,
       "editable": true,
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -370,10 +382,11 @@
       "links": [],
       "nullPointMode": "connected",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -383,25 +396,25 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "topk(5, (sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}[2m])) by (pod)))",
+          "expr": "topk(5, (sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}[2m])) by (pod_name)))",
           "format": "time_series",
           "hide": true,
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
+          "legendFormat": "{{ pod_name }}",
           "metric": "container_cpu",
           "refId": "A",
           "step": 1
         },
         {
-          "expr": "topk(5, sum(irate(container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",namespace=~\"^$Namespace$\",kubernetes_io_hostname=~\"^$Node$\"}[2m])) by (pod))",
+          "expr": "topk(5, sum(irate(container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",namespace=~\"^$Namespace$\",kubernetes_io_hostname=~\"^$Node$\"}[2m])) by (pod_name))",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
+          "legendFormat": "{{ pod_name }}",
           "refId": "C"
         }
       ],
@@ -454,10 +467,11 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -490,10 +504,11 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -541,6 +556,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:651",
           "format": "decbytes",
           "label": null,
           "logBase": 1,
@@ -549,6 +565,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:652",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -567,11 +584,12 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "description": "Instant top5k over range seems to give a rough average over a certain time period - without instant rouge values appear. Compare with non-instant graph averages. Close enough.",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -594,7 +612,7 @@
         "rightSide": true,
         "show": true,
         "sideWidth": null,
-        "sort": "avg",
+        "sort": "max",
         "sortDesc": true,
         "total": false,
         "values": true
@@ -604,10 +622,11 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -617,21 +636,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "topk(5, sum(rate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod,namespace,instance))",
+          "expr": "topk(5, sum(rate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod_name,namespace,instance))",
           "format": "time_series",
           "hide": true,
           "instant": true,
           "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
+          "legendFormat": "{{ pod_name }}",
           "refId": "A"
         },
         {
-          "expr": "topk(5, sum(irate(container_fs_reads_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod,namespace,instance)) > 0",
+          "expr": "topk(5, sum(irate(container_fs_reads_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name,namespace,instance)) > 0",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
+          "legendFormat": "{{ pod_name }}",
           "refId": "B"
         }
       ],
@@ -683,10 +702,11 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -719,10 +739,11 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -796,10 +817,11 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -832,10 +854,11 @@
       "links": [],
       "nullPointMode": "null as zero",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -899,10 +922,11 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "links": []
         },
         "overrides": []
       },
@@ -935,10 +959,11 @@
       "links": [],
       "nullPointMode": "null as zero",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "paceLength": 10,
       "percentage": false,
+      "pluginVersion": "7.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -999,7 +1024,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1013,10 +1038,11 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_OPENSHIFT}",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "custom": {},
+              "links": []
             },
             "overrides": []
           },
@@ -1035,10 +1061,10 @@
             "avg": true,
             "current": true,
             "max": true,
-            "min": false,
+            "min": true,
             "rightSide": true,
             "show": true,
-            "sideWidth": 650,
+            "sideWidth": null,
             "sort": "avg",
             "sortDesc": true,
             "total": false,
@@ -1049,10 +1075,11 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "paceLength": 10,
           "percentage": false,
+          "pluginVersion": "7.2.0",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1062,30 +1089,37 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "topk(5, sum(rate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod,namespace,instance))",
+              "expr": "topk(5, sum(rate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name,namespace,instance))",
               "format": "time_series",
               "hide": true,
               "instant": true,
               "intervalFactor": 1,
-              "legendFormat": "{{ pod }}",
+              "legendFormat": "{{ pod_name }}",
               "refId": "A"
             },
             {
-              "expr": "- topk(5, sum(rate(container_fs_reads_total{pod!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod))",
+              "expr": "- topk(5, sum(rate(container_fs_reads_total{pod_name!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod_name))",
               "format": "time_series",
               "hide": true,
               "instant": true,
               "intervalFactor": 1,
-              "legendFormat": "<-- {{ pod }}",
+              "legendFormat": "<-- {{ pod_name }}",
               "refId": "B"
             },
             {
-              "expr": "sum(irate(container_fs_reads_total{pod!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod)",
+              "expr": "sum(irate(container_fs_reads_total{pod_name!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name)",
               "format": "time_series",
               "hide": false,
+              "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod }}",
+              "legendFormat": "{{ pod_name }}",
               "refId": "C"
+            },
+            {
+              "expr": "sum(irate(container_fs_reads_total{pod_name!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m]))",
+              "interval": "",
+              "legendFormat": "Total Reads",
+              "refId": "D"
             }
           ],
           "thresholds": [],
@@ -1108,7 +1142,8 @@
           },
           "yaxes": [
             {
-              "format": "Bps",
+              "$$hashKey": "object:325",
+              "format": "decmbytes",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -1116,6 +1151,7 @@
               "show": true
             },
             {
+              "$$hashKey": "object:326",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1134,10 +1170,11 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_OPENSHIFT}",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "custom": {},
+              "links": []
             },
             "overrides": []
           },
@@ -1156,11 +1193,11 @@
             "avg": true,
             "current": true,
             "max": true,
-            "min": false,
+            "min": true,
             "rightSide": true,
             "show": true,
-            "sideWidth": 650,
-            "sort": "max",
+            "sideWidth": null,
+            "sort": "current",
             "sortDesc": true,
             "total": false,
             "values": true
@@ -1170,10 +1207,11 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "paceLength": 10,
           "percentage": false,
+          "pluginVersion": "7.2.0",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1183,30 +1221,37 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "topk(5, sum(rate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod,namespace,instance))",
+              "expr": "topk(5, sum(rate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name,namespace,instance))",
               "format": "time_series",
               "hide": true,
               "instant": true,
               "intervalFactor": 1,
-              "legendFormat": "{{ pod }}",
+              "legendFormat": "{{ pod_name }}",
               "refId": "A"
             },
             {
-              "expr": "- topk(5, sum(rate(container_fs_reads_total{pod!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod))",
+              "expr": "- topk(5, sum(rate(container_fs_reads_total{pod_name!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod_name))",
               "format": "time_series",
               "hide": true,
               "instant": true,
               "intervalFactor": 1,
-              "legendFormat": "<-- {{ pod }}",
+              "legendFormat": "<-- {{ pod_name }}",
               "refId": "B"
             },
             {
-              "expr": "sum(rate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod)",
+              "expr": "sum(rate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name)",
               "format": "time_series",
               "hide": false,
+              "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod }}",
+              "legendFormat": "{{ pod_name }}",
               "refId": "C"
+            },
+            {
+              "expr": "sum(rate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m]))",
+              "interval": "",
+              "legendFormat": "Total Writes",
+              "refId": "D"
             }
           ],
           "thresholds": [],
@@ -1229,7 +1274,8 @@
           },
           "yaxes": [
             {
-              "format": "Bps",
+              "$$hashKey": "object:91",
+              "format": "decmbytes",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -1237,6 +1283,7 @@
               "show": true
             },
             {
+              "$$hashKey": "object:92",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1256,7 +1303,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1270,20 +1317,28 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_OPENSHIFT}",
           "decimals": 1,
           "description": "Physical network I/O pressure",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "grid": {},
           "gridPos": {
             "h": 5,
             "w": 24,
             "x": 0,
-            "y": 30
+            "y": 32
           },
           "height": "200px",
+          "hiddenSeries": false,
           "id": 32,
           "legend": {
             "alignAsTable": true,
@@ -1303,8 +1358,12 @@
           "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
           "paceLength": 10,
           "percentage": false,
+          "pluginVersion": "7.2.0",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1384,14 +1443,22 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_OPENSHIFT}",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 35
+            "y": 37
           },
+          "hiddenSeries": false,
           "id": 141,
           "legend": {
             "alignAsTable": true,
@@ -1412,8 +1479,12 @@
           "links": [],
           "maxPerRow": 1,
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "paceLength": 10,
           "percentage": false,
+          "pluginVersion": "7.2.0",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1430,7 +1501,7 @@
               "hide": false,
               "instant": false,
               "intervalFactor": 1,
-              "legendFormat": "<- {{ pod }}",
+              "legendFormat": "<- {{ pod_name }}",
               "refId": "A",
               "step": 1
             },
@@ -1440,7 +1511,7 @@
               "hide": false,
               "instant": false,
               "intervalFactor": 1,
-              "legendFormat": "-> {{ pod }}",
+              "legendFormat": "-> {{ pod_name }}",
               "refId": "B",
               "step": 1
             }
@@ -1493,7 +1564,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1507,7 +1578,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_OPENSHIFT}",
           "decimals": 3,
           "editable": true,
           "error": false,
@@ -1549,13 +1620,13 @@
           "steppedLine": true,
           "targets": [
             {
-              "expr": "sort_desc(sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}[2m])) by (pod))",
+              "expr": "sort_desc(sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}[2m])) by (pod_name))",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod }}",
+              "legendFormat": "{{ pod_name }}",
               "metric": "container_cpu",
               "refId": "A",
               "step": 1
@@ -1608,7 +1679,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_OPENSHIFT}",
           "decimals": 3,
           "description": "Aggregate of all pod(s) in a specific set, e.g. statefulset.",
           "editable": true,
@@ -1654,7 +1725,7 @@
           "steppedLine": true,
           "targets": [
             {
-              "expr": "sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",container_name!=\"POD\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace\"}[2m])) by (container_name,pod)",
+              "expr": "sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",container_name!=\"POD\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace\"}[2m])) by (container_name,pod_name)",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -1714,7 +1785,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1728,7 +1799,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_OPENSHIFT}",
           "decimals": 1,
           "editable": true,
           "error": false,
@@ -1770,12 +1841,12 @@
           "steppedLine": true,
           "targets": [
             {
-              "expr": "sum (container_memory_working_set_bytes{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}) by (pod)",
+              "expr": "sum (container_memory_working_set_bytes{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}) by (pod_name)",
               "format": "time_series",
               "instant": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod }}",
+              "legendFormat": "{{ pod_name }}",
               "metric": "container_memory_usage:sort_desc",
               "refId": "A",
               "step": 1
@@ -1828,7 +1899,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_OPENSHIFT}",
           "decimals": 1,
           "description": "",
           "editable": true,
@@ -1964,7 +2035,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "LSDobserve - Prometheus",
+      "datasource": "${DS_OPENSHIFT}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1978,7 +2049,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "LSDobserve - Prometheus",
+          "datasource": "${DS_OPENSHIFT}",
           "description": "Enabled per storage plugin:\n- https://github.com/rook/rook/issues/1659\n- https://access.redhat.com/documentation/en-us/red_hat_openshift_container_storage/3.11/html/operations_guide/enable_vol_metrics",
           "fill": 0,
           "gridPos": {
@@ -2077,18 +2148,17 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 25,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [
-    "kubernetes",
-    "lsd-observe"
+    "openshift"
   ],
   "templating": {
     "list": [
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "LSDobserve - Prometheus",
+        "datasource": "${DS_OPENSHIFT}",
         "definition": "",
         "hide": 0,
         "includeAll": true,
@@ -2110,7 +2180,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "LSDobserve - Prometheus",
+        "datasource": "${DS_OPENSHIFT}",
         "definition": "",
         "hide": 0,
         "includeAll": true,
@@ -2132,7 +2202,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -2159,7 +2229,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Node & Namespace Details",
-  "uid": "lsd-observe-003",
-  "version": 1
+  "title": "Kubernetes/Openshift Node & Namespace Level Monitoring",
+  "uid": "31-ky4Xik",
+  "version": 2
 }

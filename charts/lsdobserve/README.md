@@ -50,6 +50,19 @@ helm install lsdobserve -n lsdobserve --create-namespace \
 
 ## Notes
 
+If you get the following error on Filebeat
+```
+2021-03-03T12:05:09.464Z	INFO	instance/beat.go:645	Home path: [/usr/share/filebeat] Config path: [/usr/share/filebeat] Data path: [/usr/share/filebeat/data] Logs path: [/usr/share/filebeat/logs]
+2021-03-03T12:05:09.464Z	INFO	instance/beat.go:373	filebeat stopped.
+2021-03-03T12:05:09.464Z	ERROR	instance/beat.go:956	Exiting: Failed to create Beat meta file: open /usr/share/filebeat/data/meta.json.new: permission denied
+Exiting: Failed to create Beat meta file: open /usr/share/filebeat/data/meta.json.new: permission denied
+```
+
+Then you have an SELinux issue, and can resolve it with the following command, that needs to be run on all servers
+```
+chcon -t container_file_t /var/lib/lsdobserve/lsdobserve-filebeat/filebeat-data
+```
+
 ### Manual removal
 
 ```
