@@ -22,9 +22,7 @@
       "datasource": "LSDobserve - Prometheus",
       "description": "",
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "gridPos": {
@@ -38,10 +36,9 @@
         "content": "\n<p style=\"text-align:center;\">LSD Observe - Kubernetes Overview - Version 2.34</p>",
         "mode": "html"
       },
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "timeFrom": null,
       "timeShift": null,
-      "title": "",
       "transparent": true,
       "type": "text"
     },
@@ -69,7 +66,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "displayName": "",
           "mappings": [],
           "max": 100,
@@ -113,9 +109,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "targets": [
         {
           "expr": "(sum ((sum(kube_pod_container_resource_requests_cpu_cores{container!=\"deployment\",container!=\"docker-build\"} > 0) by (container,pod) / count(kube_pod_container_status_running > 0) by (container,pod))*1000)) / (sum (kube_node_status_allocatable_cpu_cores)*1000) * 112",
@@ -141,7 +138,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "displayName": "",
           "mappings": [],
           "max": 100,
@@ -185,9 +181,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "targets": [
         {
           "expr": "sum (rate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\"}[2m])) / sum (kube_node_status_allocatable_cpu_cores) * 100",
@@ -213,7 +210,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "displayName": "",
           "mappings": [],
           "max": 200,
@@ -257,9 +253,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "targets": [
         {
           "expr": "sum (kube_resourcequota{resource=\"requests.cpu\",type=\"hard\"}) / sum (kube_node_status_allocatable_cpu_cores) *100",
@@ -288,9 +285,7 @@
       "datasource": "LSDobserve - Prometheus",
       "decimals": 0,
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "format": "none",
@@ -379,9 +374,7 @@
       "datasource": "LSDobserve - Prometheus",
       "decimals": 2,
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "format": "none",
@@ -469,9 +462,7 @@
       "datasource": "LSDobserve - Prometheus",
       "decimals": 0,
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "format": "none",
@@ -550,9 +541,7 @@
       "dashboardTags": [],
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "folderId": null,
@@ -582,7 +571,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "displayName": "",
           "mappings": [],
           "max": 100,
@@ -626,9 +614,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "targets": [
         {
           "expr": "(sum ((sum(kube_pod_container_resource_requests_memory_bytes{container!=\"deployment\",container!=\"docker-build\",}))*1000)) / (sum (kube_node_status_capacity_memory_bytes)*1000)  * 100",
@@ -654,7 +643,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "displayName": "",
           "mappings": [],
           "max": 100,
@@ -698,9 +686,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "targets": [
         {
           "expr": "sum (container_memory_working_set_bytes{container!=\"\",name!~\"k8s_POD_.*\"}) / sum (kube_node_status_capacity_memory_bytes) * 100",
@@ -727,7 +716,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "displayName": "",
           "mappings": [],
           "max": 100,
@@ -771,9 +759,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "targets": [
         {
           "expr": "sum (kube_resourcequota{resource=\"requests.memory\",type=\"hard\"}) / sum (kube_node_status_capacity_memory_bytes) * 100",
@@ -802,9 +791,7 @@
       "datasource": "LSDobserve - Prometheus",
       "decimals": 1,
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "format": "decbytes",
@@ -896,9 +883,7 @@
       "datasource": "LSDobserve - Prometheus",
       "decimals": 1,
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": []
       },
       "format": "decbytes",
@@ -984,7 +969,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "decimals": 0,
           "mappings": [
             {
@@ -997,7 +981,6 @@
           ],
           "max": 100,
           "min": 0,
-          "nullValueMode": "connected",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1037,9 +1020,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "targets": [
         {
           "expr": "1/((sum(kube_node_status_allocatable_cpu_cores)*20) / (sum(kube_pod_info{created_by_kind!=\"<none>\"}))) * 100 ",
@@ -1098,7 +1082,6 @@
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1131,7 +1114,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1157,7 +1140,8 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 95
+          "value": 95,
+          "visible": true
         }
       ],
       "timeFrom": null,
@@ -1243,7 +1227,6 @@
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1278,7 +1261,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1300,7 +1283,8 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 90
+          "value": 90,
+          "visible": true
         }
       ],
       "timeFrom": null,
@@ -1352,7 +1336,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1392,7 +1375,7 @@
       },
       "paceLength": 10,
       "percentage": true,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1465,7 +1448,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1505,7 +1487,7 @@
       },
       "paceLength": 10,
       "percentage": true,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1613,7 +1595,6 @@
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1650,7 +1631,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1675,7 +1656,8 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 20
+          "value": 20,
+          "visible": true
         }
       ],
       "timeFrom": null,
@@ -1727,7 +1709,6 @@
       "description": "Percentage total CPUs are overloaded, i.e. the percentage of time processes were waiting for CPU.",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1765,7 +1746,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1846,7 +1827,6 @@
       "description": "Per disk utilization across all instances",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1881,7 +1861,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 0.5,
       "points": true,
       "renderer": "flot",
@@ -2008,22 +1988,7 @@
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
+          "links": []
         },
         "overrides": []
       },
@@ -2059,7 +2024,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2069,9 +2034,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "exemplar": true,
           "expr": "100 - ((node_filesystem_avail_bytes {mountpoint!~\".*/host/.*\",mountpoint!~\".*/etc/.*\",mountpoint!~\".*/run/secrets.*\",mountpoint!~\".*/var/run/.*\"} * 100) / node_filesystem_size_bytes {mountpoint!~\".*/host/.*\",mountpoint!~\".*/etc/.*\",mountpoint!~\".*/run/secrets.*\",mountpoint!~\".*/var/run/.*\"}) > 70",
           "format": "time_series",
-          "hide": true,
+          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{ kubernetes_node }} - {{ mountpoint }}",
@@ -2079,7 +2045,9 @@
           "step": 240
         },
         {
+          "exemplar": true,
           "expr": "(kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes) * 100 > 70",
+          "hide": false,
           "interval": "",
           "legendFormat": "{{ namespace }} - {{ persistentvolumeclaim }}",
           "refId": "B"
@@ -2091,7 +2059,8 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 85
+          "value": 85,
+          "visible": true
         }
       ],
       "timeFrom": null,
@@ -2145,7 +2114,6 @@
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -2182,7 +2150,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2248,7 +2216,6 @@
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -2285,7 +2252,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2387,7 +2354,6 @@
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -2424,7 +2390,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": true,
       "renderer": "flot",
@@ -2454,7 +2420,8 @@
           "fill": true,
           "line": true,
           "op": "lt",
-          "value": 1
+          "value": 1,
+          "visible": true
         }
       ],
       "timeFrom": null,
@@ -2508,7 +2475,6 @@
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -2545,7 +2511,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2620,7 +2586,6 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -2660,7 +2625,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2743,7 +2708,6 @@
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -2782,7 +2746,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.5",
+      "pluginVersion": "7.5.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -7985,7 +7949,7 @@
     }
   ],
   "refresh": "5m",
-  "schemaVersion": 26,
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [
     "kubernetes",
@@ -8025,5 +7989,5 @@
   "timezone": "",
   "title": "Kubernetes Overview",
   "uid": "lsd-observe-001",
-  "version": 2
+  "version": 1
 }
