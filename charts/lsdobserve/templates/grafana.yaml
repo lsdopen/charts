@@ -82,10 +82,10 @@ data:
     url = https://{{ .Values.lsdobserve.grafana.ingress.url }}
     [smtp]
     enabled = true
-    host = {{ .Values.lsdobserve.smtp.host }}:{{ .Values.lsdobserve.smtp.port }}
+    host = {{ .Values.lsdobserve.smtpHost }}:{{ .Values.lsdobserve.smtpPort }}
     skip_verify = true
-    from_address = {{ .Values.lsdobserve.smtp.fromAddress }}
-    from_name = {{ .Values.lsdobserve.smtp.fromName }}
+    from_address = {{ .Values.lsdobserve.fromAddress }}
+    from_name = {{ .Values.lsdobserve.fromName }}
     [emails]
     welcome_email_on_sign_up = true
     templates_pattern = emails/*.html

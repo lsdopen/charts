@@ -1,62 +1,72 @@
 # LSDobserve
 lsdobserve:
   # There are your options clusterType: openshift | gke | rancher
-  clusterType: "%%CLUSTER_TYPE%%"
-  domain: "%%APP_DOMAIN%%"
-  smtp:
-    host: "%%SMTP%%"
-    port: "%%SMTP_PORT%%"
-    username: "XXXXX"
-    password: "XXXXX"
-    fromAddress: "lsdobserve+noreply+%%APP_DOMAIN%%@%%DOMAIN%%"
-    fromName: "LSDobserve - %%CLIENT%% - %%APP_DOMAIN%%@%%DOMAIN%%"
+  clusterType: "rancher"
+  eckOperatorVersion: &anchoreckOperatorVersion "1.3.0"
+  eckVersion: &anchoreckVersion "7.10.0"
+  elasticClusterSize: &anchorelasticClusterSize "1"
+  kibanaURL: &anchorkibanaURL "kibana.apps.k8s-01.qa.lsdopen.io"
+  grafanaUsername: &anchorgrafanaUsername "admin"
+  grafanaPassword: &anchorgrafanaPassword "ChangeMe-PassowrdForGrafana"
+  grafanaVersion: &anchorgrafanaVersion "7.5.2"
+  grafanaURL: &anchorgrafanaURL "grafana.apps.k8s-01.qa.lsdopen.io"
+  prometheusURL: &anchorprometheusURL "prometheus.apps.k8s-01.qa.lsdopen.io"
+  prometheusHttpURL: &anchorprometheusHttpURL "https://prometheus.apps.k8s-01.qa.lsdopen.io"
+  alertmanagerURL: &anchoralertmanagerURL "alertmanager.apps.k8s-01.qa.lsdopen.io"
+  alertmanagerHttpURL: &anchoralertmanagerHttpURL "https://alertmanager.apps.k8s-01.qa.lsdopen.io"
+  smtpHost: &anchorsmtpHost "smtp.lsdopen.io"
+  smtpPort: &anchorsmtpPort "25"
+  smtpSmartHost: &anchorsmtpSmartHost "smtp.lsdopen.io:25"
+  supportAddress: &anchorsupportAddress "address-that-must-receive-alerts@lsdopen.io"
+  fromAddress: &anchorfromAddress "lsdobserve+noreply+k8s-01.qa.lsdopen.io@lsdopen.io"
+  fromName: &anchorfromName "LSDobserve - LSD - k8s-01.qa.lsdopen.io@lsdopen.io"
   curl:
     image: docker.io/curlimages/curl:7.74.0
   grafana:
     enabled: true
     ingress:
-      url: grafana.%%APP_DOMAIN%%
+      url: *anchorgrafanaURL
   elastic:
     enabled: true
     image: "docker.elastic.co/elasticsearch/elasticsearch:7.10.0"
-    count: "3"
+    count: *anchorelasticClusterSize
     storage: "50Gi"
-    storageClassName: "%%STORAGE_CLASS%%"
+    storageClassName: "vsphere-thin"
     filebeat:
       enabled: true
       image: "docker.elastic.co/beats/filebeat:7.10.0"
-      version: "7.10.0"
+      version: *anchoreckVersion
     ## Metricbeat as a Daemonset to collect metrics from Nodes
     metricbeat:
       enabled: false
       image: "docker.elastic.co/beats/metricbeat:7.10.0"
-      version: "7.10.0"
+      version: *anchoreckVersion
     ## Metricbeat to connect to Prometheus
     metricbeatPrometheus:
       enabled: true
       image: "docker.elastic.co/beats/metricbeat:7.10.0"
-      version: "7.10.0"
+      version: *anchoreckVersion
     apm:
-      enabled: true
+      enabled: false
       image: "docker.elastic.co/apm/apm-server:7.10.0"
-      version: "7.10.0"
+      version: *anchoreckVersion
     kibana:
       enabled: true
       image: "docker.elastic.co/kibana/kibana:7.10.0"
-      version: "7.10.0"
-      count: "2"
+      version: *anchoreckVersion
+      count: "1"
       ingress:
-        url: kibana.%%APP_DOMAIN%%
+        url: *anchorkibanaURL
 
-# Elasticsearch Exporter
+# Elastic Operator
 # To get a latest values you can run:
 # helm show values elastic/eck-operator
 eck-operator:
   image:
     # repository is the container image prefixed by the registry name.
-    # skopeo copy --all docker://docker.elastic.co/eck/eck-operator:1.3.0 docker://my.local.registry:5000/eck/eck-operator:1.3.0
+    # skopeo copy --all docker://docker.elastic.co/eck/eck-operator:1.5.0 docker://my.local.registry:5000/eck/eck-operator:1.5.0
     repository: docker.elastic.co/eck/eck-operator
-    tag: 1.3.0
+    tag: *anchoreckOperatorVersion
   replicaCount: 1
   # installCRDs must be disabled because CRDs are put into the Helm chart
   installCRDs: false
@@ -72,14 +82,14 @@ eck-operator:
 # To get a latest values you can run:
 # helm show values grafana/grafana
 grafana:
-  adminUser: admin
-  adminPassword: pho0iar5zo2oob8geevohd0ahr4hieNi
+  adminUser: *anchorgrafanaUsername
+  adminPassword: *anchorgrafanaPassword
   image:
     repository: grafana/grafana
-    tag: 7.3.5
+    tag: *anchorgrafanaVersion
   # If you want to install on specific nodes, for example Infra nodes on Openshift
   nodeSelector:
-    node-role.kubernetes.io/infra: "true"
+    node-role.kubernetes.io/worker: "true"
   replicas: 1
   # ingress is disable because it is created via the lsd-observe template
   ingress:
@@ -167,20 +177,20 @@ prometheus:
     image:
       repository: quay.io/prometheus/prometheus
       tag: v2.24.0
-    replicaCount: 2
-    baseURL: "https://prometheus.%%APP_DOMAIN%%"
-    retention: 31d
+    replicaCount: 1
+    baseURL: *anchorprometheusHttpURL
+    retention: 14d
     statefulSet:
       enabled: true
     ingress:
       enabled: true
       hosts:
-        - prometheus.%%APP_DOMAIN%%
+        - *anchorprometheusURL
     persistentVolume:
       enabled: true
       accessModes:
         - ReadWriteOnce
-      size: 30Gi
+      size: 25Gi
     resources:
       limits:
         cpu: 500m
@@ -233,7 +243,7 @@ prometheus:
     enabled: true
     replicaCount: 3
     prefixURL: ""
-    baseURL: "https://alertmanager.%%APP_DOMAIN%%"
+    baseURL: *anchoralertmanagerHttpURL
     service:
       enableMeshPeer: true
     statefulSet:
@@ -251,7 +261,7 @@ prometheus:
     ingress:
       enabled: true
       hosts:
-        - alertmanager.%%APP_DOMAIN%%
+        - *anchoralertmanagerURL
     resources:
       limits:
         cpu: 100m
@@ -271,9 +281,9 @@ prometheus:
       receivers:
         - name: LSD Support
           email_configs:
-            - to: support+%%CLIENT%%@lsd.co.za
-              from: lsdobserve+noreply+%%APP_DOMAIN%%.%%DOMAIN%%
-              smarthost: "%%SMTP%%:%%SMTP_PORT%%"
+            - to: *anchorsupportAddress
+              from: *anchorfromAddress
+              smarthost: *anchorsmtpSmartHost
               require_tls: false
               auth_username: ""
               auth_password: ""
