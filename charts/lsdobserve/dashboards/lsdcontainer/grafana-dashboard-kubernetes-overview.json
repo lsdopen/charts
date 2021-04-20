@@ -7953,7 +7953,7 @@
   "style": "dark",
   "tags": [
     "kubernetes",
-    "lsd-observe",
+    "lsdcontainer",
     "gke"
   ],
   "templating": {
@@ -7988,6 +7988,6 @@
   },
   "timezone": "",
   "title": "Kubernetes Overview",
-  "uid": "lsd-observe-001",
+  "uid": "lsdcontainer-001",
   "version": 1
 }

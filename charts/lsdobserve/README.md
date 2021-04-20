@@ -9,9 +9,10 @@ helm repo update
 
 ### Install on Generic Kubernetes Cluster
 
+Basic installation
 ```
 helm show values lsdopen/lsdobserve > values.yaml
-helm install lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml ; helm upgrade lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml
+helm install lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml ; helm upgrade lsdobserve -n lsdobserve --values values.yaml
 ```
 
 Install on GKE with Admin Password and Elastic disabled
@@ -33,6 +34,17 @@ helm install lsdobserve -n lsdobserve --create-namespace \
 --set lsdobserve.smtp.fromAddress="lsdobserve+noreply+api.mycluster.lsdopen.io@lsdopen.io" \
 --set lsdobserve.smtp.fromName="LSDobserve - LSD - api.mycluster.lsdopen.io"
 ```
+
+### Restricted Network Installation
+
+Simple installation
+```
+helm dependency update .
+
+kubectl create ns lsdobserve
+helm install lsdobserve . -n lsdobserve --create-namespace --values values.yaml ; helm upgrade lsdobserve . -n lsdobserve --create-namespace --values values.yaml
+```
+
 
 ## Adding New Dashboards to Grafana
 

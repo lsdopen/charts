@@ -6,7 +6,7 @@ metadata:
   name: grafana-dashboard-kubernetes-overview
 data:
   grafana-dashboard-kubernetes-overview.json: |-
-{{ .Files.Get "dashboards/lsdobserve/grafana-dashboard-kubernetes-overview.json" | indent 4}}
+{{ .Files.Get "dashboards/lsdcontainer/grafana-dashboard-kubernetes-overview.json" | indent 4}}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -14,7 +14,7 @@ metadata:
   name: grafana-dashboard-namespace-details
 data:
   grafana-dashboard-namespace-details.json: |-
-{{ .Files.Get "dashboards/lsdobserve/grafana-dashboard-namespace-details.json" | indent 4}}
+{{ .Files.Get "dashboards/lsdcontainer/grafana-dashboard-namespace-details.json" | indent 4}}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -22,15 +22,7 @@ metadata:
   name: grafana-dashboard-node-namespace-details
 data:
   grafana-dashboard-node-namespace-details.json: |-
-{{ .Files.Get "dashboards/lsdobserve/grafana-dashboard-node-namespace-details.json" | indent 4}}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: grafana-dashboard-apiserver
-data:
-  apiserver.json: |-
-{{ .Files.Get "dashboards/kubernetes/apiserver.json" | indent 4}}
+{{ .Files.Get "dashboards/lsdcontainer/grafana-dashboard-node-namespace-details.json" | indent 4}}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -38,7 +30,7 @@ metadata:
   name: grafana-dashboard-rook-ceph-overview
 data:
   rook-ceph-dashboard.json: |-
-{{ .Files.Get "dashboards/storage/rook-ceph-dashboard.json" | indent 4}}
+{{ .Files.Get "dashboards/lsdcontainer/grafana-dashboard-rook-ceph.json" | indent 4}}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -46,4 +38,4 @@ metadata:
   name: node-exporter-for-prometheus-dashboard
 data:
   node-exporter-for-prometheus-dashboard.json: |-
-{{ .Files.Get "dashboards/nodes/node-exporter-for-prometheus-dashboard.json" | indent 4}}
+{{ .Files.Get "dashboards/lsdcontainer/grafana-dashboard-node-exporter.json" | indent 4}}

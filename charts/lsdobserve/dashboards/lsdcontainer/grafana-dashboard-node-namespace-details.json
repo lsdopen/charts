@@ -60,7 +60,7 @@
   "panels": [
     {
       "content": "\n<p style=\"text-align:center;\">LSD Observe - Node Level Details - Version 2.26</p>",
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -94,7 +94,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -111,7 +111,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -221,7 +221,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -340,7 +340,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "decimals": 3,
       "editable": true,
       "error": false,
@@ -467,7 +467,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -584,7 +584,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "description": "Instant top5k over range seems to give a rough average over a certain time period - without instant rouge values appear. Compare with non-instant graph averages. Close enough.",
       "fieldConfig": {
         "defaults": {
@@ -702,7 +702,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -817,7 +817,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -922,7 +922,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1024,7 +1024,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1038,7 +1038,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_OPENSHIFT}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -1170,7 +1170,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_OPENSHIFT}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -1303,7 +1303,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1317,7 +1317,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_OPENSHIFT}",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 1,
           "description": "Physical network I/O pressure",
           "editable": true,
@@ -1443,7 +1443,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_OPENSHIFT}",
+          "datasource": "LSDobserve - Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1564,7 +1564,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1578,7 +1578,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_OPENSHIFT}",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 3,
           "editable": true,
           "error": false,
@@ -1679,7 +1679,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_OPENSHIFT}",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 3,
           "description": "Aggregate of all pod(s) in a specific set, e.g. statefulset.",
           "editable": true,
@@ -1785,7 +1785,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1799,7 +1799,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_OPENSHIFT}",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 1,
           "editable": true,
           "error": false,
@@ -1899,7 +1899,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_OPENSHIFT}",
+          "datasource": "LSDobserve - Prometheus",
           "decimals": 1,
           "description": "",
           "editable": true,
@@ -2035,7 +2035,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_OPENSHIFT}",
+      "datasource": "LSDobserve - Prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2049,7 +2049,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_OPENSHIFT}",
+          "datasource": "LSDobserve - Prometheus",
           "description": "Enabled per storage plugin:\n- https://github.com/rook/rook/issues/1659\n- https://access.redhat.com/documentation/en-us/red_hat_openshift_container_storage/3.11/html/operations_guide/enable_vol_metrics",
           "fill": 0,
           "gridPos": {
@@ -2158,7 +2158,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "${DS_OPENSHIFT}",
+        "datasource": "LSDobserve - Prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": true,
@@ -2180,7 +2180,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "${DS_OPENSHIFT}",
+        "datasource": "LSDobserve - Prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": true,
@@ -2230,6 +2230,6 @@
   },
   "timezone": "browser",
   "title": "Kubernetes/Openshift Node & Namespace Level Monitoring",
-  "uid": "31-ky4Xik",
+  "uid": "lsdcontainer-003",
   "version": 2
 }

@@ -20,6 +20,7 @@ lsdobserve:
   supportAddress: &anchorsupportAddress "address-that-must-receive-alerts@lsdopen.io"
   fromAddress: &anchorfromAddress "lsdobserve+noreply+k8s-01.qa.lsdopen.io@lsdopen.io"
   fromName: &anchorfromName "LSDobserve - LSD - k8s-01.qa.lsdopen.io@lsdopen.io"
+  storageClass: &anchorstorageClass "standard"
   curl:
     image: docker.io/curlimages/curl:7.74.0
   grafana:
@@ -31,7 +32,7 @@ lsdobserve:
     image: "docker.elastic.co/elasticsearch/elasticsearch:7.10.0"
     count: *anchorelasticClusterSize
     storage: "50Gi"
-    storageClassName: "vsphere-thin"
+    storageClassName: *anchorstorageClass
     filebeat:
       enabled: true
       image: "docker.elastic.co/beats/filebeat:7.10.0"
@@ -101,6 +102,11 @@ grafana:
     requests:
       cpu: 10m
       memory: 128Mi
+  persistence:
+    enabled: "true"
+    type: pvc
+    size: 1Gi
+    storageClassName: *anchorstorageClass
   datasources:
     datasources.yaml:
       apiVersion: 1
@@ -115,7 +121,7 @@ grafana:
       providers:
         - name: "ds-01"
           orgId: 1
-          folder: "LSDobserve"
+          folder: "LSDcontainer"
           type: file
           disableDeletion: false
           editable: false
@@ -125,9 +131,8 @@ grafana:
     ds-01: "grafana-dashboard-kubernetes-overview"
     ds-02: "grafana-dashboard-namespace-details"
     ds-03: "grafana-dashboard-node-namespace-details"
-    ds-04: "grafana-dashboard-apiserver"
-    ds-05: "grafana-dashboard-rook-ceph-overview"
-    ds-06: "node-exporter-for-prometheus-dashboard"
+    ds-04: "grafana-dashboard-rook-ceph-overview"
+    ds-05: "node-exporter-for-prometheus-dashboard"
   imageRenderer:
     enabled: false
     replicas: 1

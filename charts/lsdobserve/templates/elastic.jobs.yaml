@@ -1,3 +1,4 @@
+{{- if .Values.lsdobserve.elastic.enabled -}}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -78,3 +79,4 @@ spec:
           name: elastic-filbeat-custom-files
         name: elastic-filbeat-custom-files
 ---
+{{- end }}

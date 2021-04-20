@@ -7,7 +7,7 @@ data:
     providers:
     - disableDeletion: false
       editable: false
-      folder: LSDobserve
+      folder: LSDcontainer
       name: ds-01
       options:
         path: /var/lib/grafana/dashboards/ds-01
@@ -15,7 +15,7 @@ data:
       type: file
     - disableDeletion: false
       editable: false
-      folder: LSDobserve
+      folder: LSDcontainer
       name: ds-02
       options:
         path: /var/lib/grafana/dashboards/ds-02
@@ -23,7 +23,7 @@ data:
       type: file
     - disableDeletion: false
       editable: false
-      folder: LSDobserve
+      folder: LSDcontainer
       name: ds-03
       options:
         path: /var/lib/grafana/dashboards/ds-03
@@ -31,7 +31,7 @@ data:
       type: file
     - disableDeletion: false
       editable: false
-      folder: Kubernetes
+      folder: LSDcontainer
       name: ds-04
       options:
         path: /var/lib/grafana/dashboards/ds-04
@@ -39,18 +39,10 @@ data:
       type: file
     - disableDeletion: false
       editable: false
-      folder: Storage
+      folder: LSDcontainer
       name: ds-05
       options:
         path: /var/lib/grafana/dashboards/ds-05
-      orgId: 1
-      type: file
-    - disableDeletion: false
-      editable: false
-      folder: Nodes
-      name: ds-06
-      options:
-        path: /var/lib/grafana/dashboards/ds-06
       orgId: 1
       type: file
   datasources.yaml: |
@@ -61,6 +53,8 @@ data:
       type: prometheus
       url: http://lsdobserve-prometheus-server
   grafana.ini: |
+    [server]
+    root_url = https://{{ .Values.lsdobserve.grafana.ingress.url }}
     [analytics]
     check_for_updates = true
     [grafana_net]

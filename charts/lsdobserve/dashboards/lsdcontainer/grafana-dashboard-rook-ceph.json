@@ -4654,6 +4654,12 @@
       }
     ]
   },
+  "tags": [
+    "kubernetes",
+    "lsdcontainer",
+    "ceph",
+    "rook"
+  ],
   "time": {
     "from": "now-12h",
     "to": "now"
@@ -4685,6 +4691,6 @@
   },
   "timezone": "browser",
   "title": "Rook Ceph",
-  "uid": "r6lloPJmz",
+  "uid": "lsdcontainer-004",
   "version": 1
 }
