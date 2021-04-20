@@ -12,7 +12,7 @@ helm repo update
 Basic installation
 ```
 helm show values lsdopen/lsdobserve > values.yaml
-helm install lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml ; helm upgrade lsdobserve -n lsdobserve --values values.yaml
+helm install lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml ; helm upgrade lsdobserve lsdopen/lsdobserve -n lsdobserve --values values.yaml
 ```
 
 Install on GKE with Admin Password and Elastic disabled
