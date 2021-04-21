@@ -7,13 +7,12 @@ spec:
   hard:
     requests.cpu: "6"
     limits.cpu: "20"
-    requests.memory: "24Gi"
-    limits.memory: "42Gi"
+    requests.memory: "32Gi"
+    limits.memory: "60Gi"
     requests.storage: "1Ti"
     persistentvolumeclaims: "20"
     requests.nvidia.com/gpu: 4
     configmaps: "50"
-    persistentvolumeclaims: "10"
     pods: "100"
     replicationcontrollers: "50"
     secrets: "100"
