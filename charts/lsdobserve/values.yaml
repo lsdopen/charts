@@ -92,6 +92,7 @@ grafana:
   nodeSelector:
     node-role.kubernetes.io/worker: "true"
   replicas: 1
+  deploymentStrategy: { "type": "Recreate" }
   # ingress is disable because it is created via the lsd-observe template
   ingress:
     enabled: false
