@@ -10,8 +10,10 @@ lsdobserve:
   grafanaPassword: &anchorgrafanaPassword "ChangeMe-PassowrdForGrafana"
   grafanaVersion: &anchorgrafanaVersion "7.5.2"
   grafanaURL: &anchorgrafanaURL "grafana.apps.k8s-01.qa.lsdopen.io"
+  prometheusRenention: &anchorprometheusRenention "30d"
   prometheusURL: &anchorprometheusURL "prometheus.apps.k8s-01.qa.lsdopen.io"
   prometheusHttpURL: &anchorprometheusHttpURL "https://prometheus.apps.k8s-01.qa.lsdopen.io"
+  prometheusStorageSize: &anchorprometheusStorageSize "25Gi"
   alertmanagerURL: &anchoralertmanagerURL "alertmanager.apps.k8s-01.qa.lsdopen.io"
   alertmanagerHttpURL: &anchoralertmanagerHttpURL "https://alertmanager.apps.k8s-01.qa.lsdopen.io"
   smtpHost: &anchorsmtpHost "smtp.lsdopen.io"
@@ -182,10 +184,10 @@ prometheus:
   server:
     image:
       repository: quay.io/prometheus/prometheus
-      tag: v2.24.0
+      tag: v2.26.0
     replicaCount: 1
     baseURL: *anchorprometheusHttpURL
-    retention: 14d
+    retention: *anchorprometheusRenention
     statefulSet:
       enabled: true
     ingress:
@@ -196,7 +198,7 @@ prometheus:
       enabled: true
       accessModes:
         - ReadWriteOnce
-      size: 25Gi
+      size: *anchorprometheusStorageSize
     resources:
       limits:
         cpu: 500m
@@ -430,3 +432,13 @@ prometheus:
               annotations:
                 description: 'Namespace {{ $labels.kubernetes_namespace }} contains a Ceph cluster with a current usage of {{ printf "%.0f" $value }}%'
                 message: "Ceph clusters over 95% can begin to fail and need to be expanded or pruned"
+        - name: PodNotReady
+          rules:
+            - alert: PodNotReady
+              expr: sum by(namespace, pod, container) (kube_pod_container_status_waiting_reason{namespace=~"(openshift-.*|kube-.*|default|logging)"}) > 0
+              for: 30m
+              labels:
+                severity: warning
+              annotations:
+                description: "Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 30 minutes"
+                message: "Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 30 minutes"

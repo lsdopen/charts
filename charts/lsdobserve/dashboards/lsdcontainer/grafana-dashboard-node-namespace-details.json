@@ -162,12 +162,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "topk(5, max(container_memory_working_set_bytes{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}) by (pod_name,namespace,instance))",
+          "expr": "topk(5, max(container_memory_working_set_bytes{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}) by (pod,namespace,instance))",
           "format": "time_series",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ pod_name }}",
+          "legendFormat": "{{ pod }}",
           "refId": "B"
         }
       ],
@@ -272,21 +272,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "topk(5, sum(rate(container_fs_writes_total {pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod_name,namespace,instance))",
+          "expr": "topk(5, sum(rate(container_fs_writes_total {pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod,namespace,instance))",
           "format": "time_series",
           "hide": true,
           "instant": true,
           "intervalFactor": 1,
-          "legendFormat": "{{ pod_name }}",
+          "legendFormat": "{{ pod }}",
           "refId": "A"
         },
         {
-          "expr": "topk(5, sum(irate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name,namespace,instance)) > 0",
+          "expr": "topk(5, sum(irate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod,namespace,instance)) > 0",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "{{ pod_name }}",
+          "legendFormat": "{{ pod }}",
           "refId": "B"
         }
       ],
@@ -396,25 +396,25 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "topk(5, (sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}[2m])) by (pod_name)))",
+          "expr": "topk(5, (sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}[2m])) by (pod)))",
           "format": "time_series",
           "hide": true,
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ pod_name }}",
+          "legendFormat": "{{ pod }}",
           "metric": "container_cpu",
           "refId": "A",
           "step": 1
         },
         {
-          "expr": "topk(5, sum(irate(container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",namespace=~\"^$Namespace$\",kubernetes_io_hostname=~\"^$Node$\"}[2m])) by (pod_name))",
+          "expr": "topk(5, sum(irate(container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",namespace=~\"^$Namespace$\",kubernetes_io_hostname=~\"^$Node$\"}[2m])) by (pod))",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ pod_name }}",
+          "legendFormat": "{{ pod }}",
           "refId": "C"
         }
       ],
@@ -636,21 +636,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "topk(5, sum(rate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod_name,namespace,instance))",
+          "expr": "topk(5, sum(rate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod,namespace,instance))",
           "format": "time_series",
           "hide": true,
           "instant": true,
           "intervalFactor": 1,
-          "legendFormat": "{{ pod_name }}",
+          "legendFormat": "{{ pod }}",
           "refId": "A"
         },
         {
-          "expr": "topk(5, sum(irate(container_fs_reads_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name,namespace,instance)) > 0",
+          "expr": "topk(5, sum(irate(container_fs_reads_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod,namespace,instance)) > 0",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "{{ pod_name }}",
+          "legendFormat": "{{ pod }}",
           "refId": "B"
         }
       ],
@@ -1089,34 +1089,34 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "topk(5, sum(rate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name,namespace,instance))",
+              "expr": "topk(5, sum(rate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod,namespace,instance))",
               "format": "time_series",
               "hide": true,
               "instant": true,
               "intervalFactor": 1,
-              "legendFormat": "{{ pod_name }}",
+              "legendFormat": "{{ pod }}",
               "refId": "A"
             },
             {
-              "expr": "- topk(5, sum(rate(container_fs_reads_total{pod_name!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod_name))",
+              "expr": "- topk(5, sum(rate(container_fs_reads_total{pod!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod))",
               "format": "time_series",
               "hide": true,
               "instant": true,
               "intervalFactor": 1,
-              "legendFormat": "<-- {{ pod_name }}",
+              "legendFormat": "<-- {{ pod }}",
               "refId": "B"
             },
             {
-              "expr": "sum(irate(container_fs_reads_total{pod_name!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name)",
+              "expr": "sum(irate(container_fs_reads_total{pod!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod)",
               "format": "time_series",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod_name }}",
+              "legendFormat": "{{ pod }}",
               "refId": "C"
             },
             {
-              "expr": "sum(irate(container_fs_reads_total{pod_name!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m]))",
+              "expr": "sum(irate(container_fs_reads_total{pod!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m]))",
               "interval": "",
               "legendFormat": "Total Reads",
               "refId": "D"
@@ -1221,34 +1221,34 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "topk(5, sum(rate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name,namespace,instance))",
+              "expr": "topk(5, sum(rate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod,namespace,instance))",
               "format": "time_series",
               "hide": true,
               "instant": true,
               "intervalFactor": 1,
-              "legendFormat": "{{ pod_name }}",
+              "legendFormat": "{{ pod }}",
               "refId": "A"
             },
             {
-              "expr": "- topk(5, sum(rate(container_fs_reads_total{pod_name!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod_name))",
+              "expr": "- topk(5, sum(rate(container_fs_reads_total{pod!~\"rook-ceph-osd.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[${__range_s}s])) by (pod))",
               "format": "time_series",
               "hide": true,
               "instant": true,
               "intervalFactor": 1,
-              "legendFormat": "<-- {{ pod_name }}",
+              "legendFormat": "<-- {{ pod }}",
               "refId": "B"
             },
             {
-              "expr": "sum(rate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod_name)",
+              "expr": "sum(rate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m])) by (pod)",
               "format": "time_series",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod_name }}",
+              "legendFormat": "{{ pod }}",
               "refId": "C"
             },
             {
-              "expr": "sum(rate(container_fs_writes_total{pod_name!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m]))",
+              "expr": "sum(rate(container_fs_writes_total{pod!~\"rook-ceph-osd.*|glusterfs-storage.*\",image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\", namespace=~\"^$Namespace$\"}[2m]))",
               "interval": "",
               "legendFormat": "Total Writes",
               "refId": "D"
@@ -1501,7 +1501,7 @@
               "hide": false,
               "instant": false,
               "intervalFactor": 1,
-              "legendFormat": "<- {{ pod_name }}",
+              "legendFormat": "<- {{ pod }}",
               "refId": "A",
               "step": 1
             },
@@ -1511,7 +1511,7 @@
               "hide": false,
               "instant": false,
               "intervalFactor": 1,
-              "legendFormat": "-> {{ pod_name }}",
+              "legendFormat": "-> {{ pod }}",
               "refId": "B",
               "step": 1
             }
@@ -1620,13 +1620,13 @@
           "steppedLine": true,
           "targets": [
             {
-              "expr": "sort_desc(sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}[2m])) by (pod_name))",
+              "expr": "sort_desc(sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}[2m])) by (pod))",
               "format": "time_series",
               "hide": false,
               "instant": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod_name }}",
+              "legendFormat": "{{ pod }}",
               "metric": "container_cpu",
               "refId": "A",
               "step": 1
@@ -1725,7 +1725,7 @@
           "steppedLine": true,
           "targets": [
             {
-              "expr": "sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",container_name!=\"POD\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace\"}[2m])) by (container_name,pod_name)",
+              "expr": "sum (irate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",container_name!=\"POD\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace\"}[2m])) by (container_name,pod)",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -1841,12 +1841,12 @@
           "steppedLine": true,
           "targets": [
             {
-              "expr": "sum (container_memory_working_set_bytes{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}) by (pod_name)",
+              "expr": "sum (container_memory_working_set_bytes{image!=\"\",name=~\"^k8s_.*\",kubernetes_io_hostname=~\"^$Node$\",namespace=~\"^$Namespace$\"}) by (pod)",
               "format": "time_series",
               "instant": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod_name }}",
+              "legendFormat": "{{ pod }}",
               "metric": "container_memory_usage:sort_desc",
               "refId": "A",
               "step": 1
