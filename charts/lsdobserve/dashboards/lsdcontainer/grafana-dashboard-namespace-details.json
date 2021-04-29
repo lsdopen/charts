@@ -82,7 +82,7 @@
       },
       "id": 88,
       "options": {
-        "content": "\n<p style=\"text-align:center;\">LSDobserve - Kubernetes Namespace Details - Version 2.25</p>",
+        "content": "\n<p style=\"text-align:center;\">LSDobserve - Kubernetes Namespace Details - Version 2.28</p>",
         "mode": "html"
       },
       "pluginVersion": "7.5.2",
@@ -3786,10 +3786,7 @@
         "multi": false,
         "name": "Namespace",
         "options": [],
-        "query": {
-          "query": "label_values(namespace)",
-          "refId": "LSDobserve - Prometheus-Namespace-Variable-Query"
-        },
+        "query": "label_values(namespace)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3834,5 +3831,5 @@
   "timezone": "browser",
   "title": "Namespace Details",
   "uid": "lsdcontainer-002",
-  "version": 2
+  "version": 3
 }
