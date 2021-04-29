@@ -59,7 +59,7 @@
   "links": [],
   "panels": [
     {
-      "content": "\n<p style=\"text-align:center;\">LSD Observe - Node Level Details - Version 2.28</p>",
+      "content": "\n<p style=\"text-align:center;\">LSDobserve - Node Level Details - Version 2.29</p>",
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
@@ -76,7 +76,7 @@
       "id": 160,
       "mode": "html",
       "options": {
-        "content": "\n<p style=\"text-align:center;\">LSD Observe - Node Level Details - Version 2.26</p>",
+        "content": "\n<p style=\"text-align:center;\">LSDobserve - Node Level Details - Version 2.29</p>",
         "mode": "html"
       },
       "pluginVersion": "7.1.0",
