@@ -50,7 +50,7 @@
       }
     ]
   },
-  "description": "Monitors Kubernetes/Openshift cluster using Prometheus. Shows Namespace/Node level CPU Cores / Memory / Network IO and PVC usage of both aggregate pod sets and individual pods.",
+  "description": "Monitors Kubernetes cluster using Prometheus. Shows Namespace/Node level CPU Cores / Memory / Network IO and PVC usage of both aggregate pod sets and individual pods.",
   "editable": true,
   "gnetId": 315,
   "graphTooltip": 0,
@@ -59,7 +59,7 @@
   "links": [],
   "panels": [
     {
-      "content": "\n<p style=\"text-align:center;\">LSD Observe - Node Level Details - Version 2.26</p>",
+      "content": "\n<p style=\"text-align:center;\">LSD Observe - Node Level Details - Version 2.28</p>",
       "datasource": "LSDobserve - Prometheus",
       "fieldConfig": {
         "defaults": {
@@ -2229,7 +2229,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Kubernetes/Openshift Node & Namespace Level Monitoring",
+  "title": "Kubernetes Node & Namespace Level Monitoring",
   "uid": "lsdcontainer-003",
   "version": 2
 }
