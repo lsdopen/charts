@@ -90,6 +90,7 @@ spec:
           capabilities:
             add:
             - NET_ADMIN
+          runAsUser: 0
         volumeMounts:
         - mountPath: /usr/local/etc/haproxy/haproxy.cfg
           name: haproxy
