@@ -1271,7 +1271,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[2m]) + avg_over_time(node_memory_Cached_bytes[2m]) + avg_over_time(node_memory_Buffers_bytes[2m])) / avg_over_time(node_memory_MemTotal_bytes[2m])))",
+          "expr": "100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[2m]) + avg_over_time(node_memory_Cached_bytes[2m]) + avg_over_time(node_memory_Buffers_bytes[2m]) + avg_over_time(node_memory_SReclaimable_bytes[2m])) / avg_over_time(node_memory_MemTotal_bytes[2m])))",
           "interval": "",
           "legendFormat": "{{ kubernetes_node }}",
           "refId": "A"
