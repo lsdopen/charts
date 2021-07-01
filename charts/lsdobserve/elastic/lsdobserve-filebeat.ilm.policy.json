@@ -12,9 +12,10 @@
         },
         "delete": {
           "min_age": "7d",
-          "actions": {}
+            "actions": {
+              "delete" : { }
+          }
         }
       }
     }
   }
-  
