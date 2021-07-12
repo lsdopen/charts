@@ -3,9 +3,10 @@ lsdobserve:
   # There are your options clusterType: openshift | gke | rancher
   clusterType: "rancher"
   eckOperatorVersion: &anchoreckOperatorVersion "1.3.0"
-  eckVersion: &anchoreckVersion "7.10.0"
+  eckVersion: &anchoreckVersion "7.10.2"
   elasticClusterSize: &anchorelasticClusterSize "1"
   kibanaURL: &anchorkibanaURL "kibana.apps.k8s-01.qa.lsdopen.io"
+  logstashJavaOpts: &anchorlogstashJavaOpts "-Xms1g -Xmx1g"
   grafanaUsername: &anchorgrafanaUsername "admin"
   grafanaPassword: &anchorgrafanaPassword "ChangeMe-PassowrdForGrafana"
   grafanaVersion: &anchorgrafanaVersion "7.5.2"
@@ -31,35 +32,58 @@ lsdobserve:
       url: *anchorgrafanaURL
   elastic:
     enabled: true
-    image: "docker.elastic.co/elasticsearch/elasticsearch:7.10.0"
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.10.2"
     count: *anchorelasticClusterSize
     storage: "50Gi"
     storageClassName: *anchorstorageClass
     filebeat:
       enabled: true
-      image: "docker.elastic.co/beats/filebeat:7.10.0"
+      image: "docker.elastic.co/beats/filebeat:7.10.2"
       version: *anchoreckVersion
     ## Metricbeat as a Daemonset to collect metrics from Nodes
     metricbeat:
       enabled: false
-      image: "docker.elastic.co/beats/metricbeat:7.10.0"
+      image: "docker.elastic.co/beats/metricbeat:7.10.2"
       version: *anchoreckVersion
     ## Metricbeat to connect to Prometheus
     metricbeatPrometheus:
       enabled: true
-      image: "docker.elastic.co/beats/metricbeat:7.10.0"
+      image: "docker.elastic.co/beats/metricbeat:7.10.2"
       version: *anchoreckVersion
     apm:
       enabled: false
-      image: "docker.elastic.co/apm/apm-server:7.10.0"
+      image: "docker.elastic.co/apm/apm-server:7.10.2"
       version: *anchoreckVersion
     kibana:
       enabled: true
-      image: "docker.elastic.co/kibana/kibana:7.10.0"
+      image: "docker.elastic.co/kibana/kibana:7.10.2"
       version: *anchoreckVersion
       count: "1"
       ingress:
         url: *anchorkibanaURL
+
+# Logstash
+logstash:
+  image: "docker.elastic.co/logstash/logstash"
+  imageTag: *anchoreckVersion
+  replicas: "1"
+  logstashJavaOpts: *anchorlogstashJavaOpts
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "1536Mi"
+    limits:
+      cpu: "1000m"
+      memory: "1536Mi"
+  volumeClaimTemplate: {}
+  service: 
+    type: ClusterIP
+    loadBalancerIP: ""
+    ports:
+      - name: beats
+        port: 5044
+        protocol: TCP
+        targetPort: 5044
 
 # Elastic Operator
 # To get a latest values you can run:
