@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "kafka-army-knife.fullname" . }}-test-connection"
+  labels:
+    {{- include "kafka-army-knife.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "kafka-army-knife.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
