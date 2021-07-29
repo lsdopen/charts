@@ -14,6 +14,11 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+env: {}
+  # Specifies environment variables to run the containers with
+  #- name: ENV_VAR
+  #  value: VALUE
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: false
