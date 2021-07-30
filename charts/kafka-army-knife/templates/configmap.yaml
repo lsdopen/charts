@@ -1,0 +1,11 @@
+{{- if .Values.configmap.enabled }}
+  {{- range $name, $file := .Values.configmap.files }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $file.name }}
+data:
+  {{- toYaml $file.data | nindent 2 }}
+  {{- end }}
+  {{- end }}
