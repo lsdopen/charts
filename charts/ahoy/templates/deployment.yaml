@@ -21,7 +21,7 @@ spec:
           configMap:
             name: ahoy-properties-prod
       containers:
-        - image: lsdopen/ahoy:{{ .Chart.Version }}
+        - image: lsdopen/ahoy:{{ .Chart.AppVersion }}
           imagePullPolicy: Always
           name: ahoy-server
           ports:
