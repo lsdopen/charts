@@ -5533,10 +5533,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "count(node_disk_io_now{device=~\"sd.*\"})  by (kubernetes_node)",
+              "expr": "count(node_disk_io_now{device=~\"sd.*\"})  by (instance)",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{ kubernetes_node }}",
+              "legendFormat": "{{ instance }}",
               "refId": "A"
             }
           ],
