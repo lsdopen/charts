@@ -54,6 +54,7 @@ spec:
   config:
     filebeat.inputs:
     - type: container
+      close_inactive: 4h
       paths:
       - /var/log/containers/*.log
       processors:
