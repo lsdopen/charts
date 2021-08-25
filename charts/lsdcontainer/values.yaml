@@ -1,0 +1,32 @@
+# LSDcontainer
+lsdcontainer:
+  # k8s-flavour options are: openshift, gke, rancher
+  clusterType: gke
+  minio:
+    enabled: "true"
+    image: "minio/minio:RELEASE.2021-08-05T22-01-19Z"
+    accesskey: "admin"
+    secretkey: "SuperDuperPassword"
+    servers: 1
+    volumesperserver: 4
+    # volumesize is in Gi
+    volumesize: 10
+    storageclass: standard
+    resources:
+      requests:
+        cpu: 25m
+        memory: 2Gi
+      limits:
+        cpu: 500m
+        memory: 2Gi
+    console:
+      image: minio/console:v0.9.4
+      accesskey: "lsdcontainer"
+      secretkey: "SuperDuperPassword"
+      ingress:
+        annotations:
+          ingress.kubernetes.io/ssl-redirect: "true"
+          kubernetes.io/ingress.class: traefik
+          traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+        hostname: lsdcontainer-minio-console.apps.cluster-01.gke.lsd.co.za
+        

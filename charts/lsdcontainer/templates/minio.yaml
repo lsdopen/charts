@@ -1,0 +1,152 @@
+---
+{{- if .Values.lsdcontainer.minio.enabled -}}
+apiVersion: v1
+data:
+  CONSOLE_ACCESS_KEY: {{.Values.lsdcontainer.minio.console.accesskey | b64enc | quote}}
+  CONSOLE_SECRET_KEY: {{.Values.lsdcontainer.minio.console.secretkey | b64enc | quote}}
+immutable: true
+kind: Secret
+metadata:
+  labels:
+    v1.min.io/tenant: lsdcontainer-minio-console-user-0
+  name: lsdcontainer-minio-console-user-0
+type: Opaque
+---
+apiVersion: v1
+data:
+  accesskey: {{.Values.lsdcontainer.minio.accesskey | b64enc | quote}}
+  secretkey: {{.Values.lsdcontainer.minio.secretkey | b64enc | quote}}
+immutable: true
+kind: Secret
+metadata:
+  labels:
+    v1.min.io/tenant: {{.Chart.Name}}-minio
+  name: {{.Chart.Name}}-minio
+type: Opaque
+---
+apiVersion: v1
+data:
+  CONSOLE_PBKDF_PASSPHRASE: {{randAlphaNum 32 | b64enc | quote}}
+  CONSOLE_PBKDF_SALT: {{randAlphaNum 32 | b64enc | quote}}
+immutable: true
+kind: Secret
+metadata:
+  labels:
+    v1.min.io/tenant: {{.Chart.Name}}-minio
+  name: {{.Chart.Name}}-minio-console
+type: Opaque
+---
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  name: lsdcontainer-minio
+scheduler:
+  name: ""
+spec:
+  console:
+    consoleSecret:
+      name: {{.Chart.Name}}-minio-console
+    image: {{default "minio/console:v0.9.4" .Values.lsdcontainer.minio.console.image}} 
+    replicas: 1
+    resources:
+      requests:
+        memory: 64Mi
+  credsSecret:
+    name: {{.Chart.Name}}-minio
+  env:
+  - name: MINIO_STORAGE_CLASS_STANDARD
+    value: EC:2
+  exposeServices:
+    # setting these vales to true will create LoadBalancer services. We set them to false because we are using Ingress 
+    console: false
+    minio: false
+  image: {{default "minio/minio:RELEASE.2021-08-05T22-01-19Z" .Values.lsdcontainer.minio.image}} 
+  imagePullSecret: {}
+  log:
+    audit:
+      diskCapacityGB: 1
+    db:
+      resources: {}
+      volumeClaimTemplate:
+        metadata:
+          name: lsdcontainer-minio-log
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: "1"
+          storageClassName: standard
+        status: {}
+    resources: {}
+  mountPath: /export
+  pools:
+  - affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: v1.min.io/tenant
+              operator: In
+              values:
+              - lsdcontainer-minio
+            - key: v1.min.io/pool
+              operator: In
+              values:
+              - pool-0
+          topologyKey: kubernetes.io/hostname
+    name: pool-0
+    resources:
+      requests:
+        cpu: {{default "50m" .Values.lsdcontainer.minio.resources.requests.cpu}}
+        memory: {{default "4Gi" .Values.lsdcontainer.minio.resources.requests.memory}}
+        cpu: {{default "500m" .Values.lsdcontainer.minio.resources.limits.cpu}}
+        memory: {{default "4Gi" .Values.lsdcontainer.minio.resources.limits.memory}}
+    servers: {{.Values.lsdcontainer.minio.servers}}
+    volumeClaimTemplate:
+      metadata:
+        name: data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{.Values.lsdcontainer.minio.volumesize}}
+        storageClassName: {{.Values.lsdcontainer.minio.storageclass}}
+    volumesPerServer: {{.Values.lsdcontainer.minio.volumesperserver}}
+  prometheus:
+    diskCapacityGB: 5
+    resources: {}
+    storageClassName: {{.Values.lsdcontainer.minio.storageclass}}
+  # setting these vales to true will create certificates inside of minio services. We set them to false because we are using Ingress which will do the termination
+  requestAutoCert: false
+  users:
+  - name: lsdcontainer-minio-console-user-0
+---
+{{- if or (eq .Values.lsdcontainer.clusterType "gke") (eq .Values.lsdcontainer.clusterType "rancher") -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+  {{- if .Values.lsdcontainer.minio.console.ingress.annotations}}  
+{{toYaml .Values.lsdcontainer.minio.console.ingress.annotations | indent 4}}
+  {{- end}}
+  labels:
+    app: {{.Chart.Name}}-minio-console
+  name: {{.Chart.Name}}-minio-console
+spec:
+  rules:
+  - host: {{.Values.lsdcontainer.minio.console.ingress.hostname}}
+    http:
+      paths:
+      - backend:
+          service:
+            name: {{.Chart.Name}}-console
+            port:
+              number: 9090
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - {{.Values.lsdcontainer.minio.console.ingress.hostname}}
+{{- end}}    
+{{- end}}
