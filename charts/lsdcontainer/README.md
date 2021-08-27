@@ -45,8 +45,6 @@ kubectl delete crd tenants.minio.min.io
 ## Notes
 
 Stuff we want here:
-- MinIO - Cloud Object Storage
-- Velero - Project / Namespace backups
 - ETCD backups for Openshift & Rancher
 - Maybe move LSDobserve to LSDmonitoring here
 - ArgoCD or lightweight GitOps to enforce cluster changes

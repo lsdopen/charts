@@ -157,17 +157,30 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: minio-make-buckets
+  name: {{.Chart.Name}}-minio-make-buckets
 spec:
   template:
     spec:
+      initContainers:
+      - args:
+        - /bin/sh
+        - -c
+        - |
+          set -x; while [ $(curl -sw '%{http_code}' "http://$HTTP_SERVER/minio/health/live" -o /dev/null) -ne 200 ]; do
+            sleep 5;
+          done
+        env:
+        - name: HTTP_SERVER
+          value: lsdcontainer-minio-hl:9000
+        image: yauritux/busybox-curl
+        name: wait-for-server
       containers:
       - name: minio-client
         image: docker.io/minio/mc:latest
         command:
         - sh
         - -c
-        - mc alias set minio http://lsdcontainer-minio-hl:9000 $CONSOLE_ACCESS_KEY $CONSOLE_SECRET_KEY ; if [ $(mc ls minio | grep velero | wc -l)  = "0" ] ; then mc mb minio/velero ; fi
+        - until mc alias set minio http://lsdcontainer-minio-hl:9000 $CONSOLE_ACCESS_KEY $CONSOLE_SECRET_KEY ; do sleep 30 ; done ; if [ $(mc ls minio | grep velero | wc -l)  = "0" ] ; then mc mb minio/velero ; fi
         envFrom:
         - secretRef:
             name: lsdcontainer-minio-console-user-0

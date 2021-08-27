@@ -1,14 +1,14 @@
-# ---
-# apiVersion: velero.io/v1
-# kind: Backup
-# metadata:
-#   labels:
-#     velero.io/storage-location: default
-#   name: entire-cluster
-# spec:
-#   defaultVolumesToRestic: false
-#   hooks: {}
-#   includedNamespaces:
-#   - '*'
-#   storageLocation: default
-#   ttl: 720h0m0s
+---
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  labels:
+    velero.io/storage-location: default
+  name: entire-cluster
+spec:
+  defaultVolumesToRestic: false
+  hooks: {}
+  includedNamespaces:
+  - '*'
+  storageLocation: default
+  ttl: 720h0m0s

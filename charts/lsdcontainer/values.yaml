@@ -23,6 +23,7 @@ lsdcontainer:
       image: minio/console:v0.9.4
       accesskey: "lsdcontainer"
       secretkey: "SuperDuperPassword"
+      # change the pbkdf to something random for both Passphrase and Salt
       pbkdfPassphrase: 1B3qmGkKlCJ7u7KniiesgvWRwSDtZpuc
       pbkdfSalt: UOX3OFDpcVz3ZVbjHa233ymSpVfGJzz1
       ingress:
@@ -32,4 +33,84 @@ lsdcontainer:
           traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
           cert-manager.io/cluster-issuer: letsencrypt-staging
         hostname: lsdcontainer-minio-console.apps.cluster-01.gke.lsd.co.za
-        
+velero:
+  image:
+    repository: velero/velero
+    tag: v1.6.3
+    pullPolicy: IfNotPresent
+    imagePullSecrets: []
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 1000m
+      memory: 512Mi
+  initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.2.1
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+    - mountPath: /target
+      name: plugins
+  metrics:
+    enabled: true
+    scrapeInterval: 30s
+    scrapeTimeout: 10s
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8085"
+      prometheus.io/path: "/metrics"
+    serviceMonitor:
+      enabled: false
+      additionalLabels: {}
+  kubectl:
+    image:
+      repository: docker.io/bitnami/kubectl
+      tag: 1.16.15
+  upgradeCRDs: true
+  cleanUpCRDs: false
+  configuration:
+    provider: aws
+    backupStorageLocation:
+      name: default
+      provider: aws
+      bucket: velero
+      caCert: {}
+      prefix: {}
+      default: {}
+      config:
+        region: minio
+        s3ForcePathStyle: "true"
+        s3Url: http://lsdcontainer-minio-hl:9000
+  rbac:
+    create: true
+    clusterAdministrator: true
+  serviceAccount:
+    server:
+      create: true
+  credentials:
+    useSecret: true
+    name: velero-credentials
+    existingSecret: {}
+    secretContents:
+      cloud: |
+        [default]
+        aws_access_key_id=lsdcontainer
+        aws_secret_access_key=SuperDuperPassword
+    extraEnvVars: {}
+    extraSecretRef: ""
+  backupsEnabled: true
+  snapshotsEnabled: false
+  deployRestic: false
+  restic:
+    podVolumePath: /var/lib/kubelet/pods
+    privileged: false
+    priorityClassName: ""
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: 1000m
+        memory: 1024Mi

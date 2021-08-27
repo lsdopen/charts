@@ -20,3 +20,7 @@ maintainers:
     url: https://lsdopen.io
 deprecated: false
 tillerVersion: ">=v3.2.1"
+dependencies:
+- name: velero
+  version: "2.23.6"
+  repository: https://vmware-tanzu.github.io/helm-charts
