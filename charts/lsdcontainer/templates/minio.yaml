@@ -26,8 +26,11 @@ type: Opaque
 ---
 apiVersion: v1
 data:
-  CONSOLE_PBKDF_PASSPHRASE: {{randAlphaNum 32 | b64enc | quote}}
-  CONSOLE_PBKDF_SALT: {{randAlphaNum 32 | b64enc | quote}}
+  # The randAlphaNum bugs out when you try to do a helm upgrade because the values change all the time
+  #CONSOLE_PBKDF_PASSPHRASE: {{randAlphaNum 32 | b64enc | quote}}
+  #CONSOLE_PBKDF_SALT: {{randAlphaNum 32 | b64enc | quote}}
+  CONSOLE_PBKDF_PASSPHRASE: {{.Values.lsdcontainer.minio.console.pbkdfPassphrase | b64enc | quote}}
+  CONSOLE_PBKDF_SALT: {{.Values.lsdcontainer.minio.console.pbkdfSalt | b64enc | quote}}
 immutable: true
 kind: Secret
 metadata:
@@ -141,12 +144,33 @@ spec:
       paths:
       - backend:
           service:
-            name: {{.Chart.Name}}-console
+            name: {{.Chart.Name}}-minio-console
             port:
               number: 9090
         pathType: ImplementationSpecific
   tls:
   - hosts:
     - {{.Values.lsdcontainer.minio.console.ingress.hostname}}
-{{- end}}    
+    secretName: {{.Chart.Name}}-minio-console-ingress
+{{- end}}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: minio-make-buckets
+spec:
+  template:
+    spec:
+      containers:
+      - name: minio-client
+        image: docker.io/minio/mc:latest
+        command:
+        - sh
+        - -c
+        - mc alias set minio http://lsdcontainer-minio-hl:9000 $CONSOLE_ACCESS_KEY $CONSOLE_SECRET_KEY ; if [ $(mc ls minio | grep velero | wc -l)  = "0" ] ; then mc mb minio/velero ; fi
+        envFrom:
+        - secretRef:
+            name: lsdcontainer-minio-console-user-0
+      restartPolicy: Never
+  backoffLimit: 4
 {{- end}}

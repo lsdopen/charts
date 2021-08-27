@@ -168,7 +168,7 @@ configuration:
     config:
       region: minio
       s3ForcePathStyle: "true"
-      s3Url: http://minio-hl:9000
+      s3Url: http://lsdcontainer-minio-hl:9000
     #  kmsKeyId:
     #  resourceGroup:
     #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
@@ -282,7 +282,7 @@ credentials:
   secretContents:
     cloud: |
       [default]
-      aws_access_key_id=admin
+      aws_access_key_id=lsdcontainer
       aws_secret_access_key=SuperDuperPassword
   # additional key/value pairs to be used as environment variables such as "DIGITALOCEAN_TOKEN: <your-key>". Values will be stored in the secret.
   extraEnvVars: {}

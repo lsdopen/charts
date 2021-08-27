@@ -23,10 +23,13 @@ lsdcontainer:
       image: minio/console:v0.9.4
       accesskey: "lsdcontainer"
       secretkey: "SuperDuperPassword"
+      pbkdfPassphrase: 1B3qmGkKlCJ7u7KniiesgvWRwSDtZpuc
+      pbkdfSalt: UOX3OFDpcVz3ZVbjHa233ymSpVfGJzz1
       ingress:
         annotations:
           ingress.kubernetes.io/ssl-redirect: "true"
           kubernetes.io/ingress.class: traefik
           traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+          cert-manager.io/cluster-issuer: letsencrypt-staging
         hostname: lsdcontainer-minio-console.apps.cluster-01.gke.lsd.co.za
         
