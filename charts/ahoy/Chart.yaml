@@ -1,7 +1,7 @@
 apiVersion: v2
 name: ahoy
-version: '0.2.0-SNAPSHOT'
-appVersion: '0.2.0-SNAPSHOT'
+version: '0.2.0'
+appVersion: '0.2.0'
 dependencies:
   - name: postgresql
     version: "8.10.4"
