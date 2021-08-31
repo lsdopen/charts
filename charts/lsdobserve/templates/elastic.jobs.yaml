@@ -26,7 +26,7 @@ spec:
       containers:
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.ilm.policy.json \"https://lsdobserve-es-http:9200/_ilm/policy/filebeat-lsdobserve\""
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.ilm.policy.k8s.json \"https://lsdobserve-es-http:9200/_ilm/policy/filebeat-k8s\""
         command:
         - /bin/sh
         env:
@@ -36,13 +36,13 @@ spec:
                 name: lsdobserve-es-elastic-user
                 key: elastic
         image: {{ .Values.lsdobserve.curl.image }}
-        name: filebeat-ilm-policy
+        name: filebeat-ilm-policy-k8s
         volumeMounts:
         - mountPath: /opt/elastic/
-          name: elastic-filbeat-custom-files
+          name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.pipeline.json \"https://lsdobserve-es-http:9200/_ingest/pipeline/filebeat-lsdobserve-basic\""
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.ilm.policy.lsdo.json \"https://lsdobserve-es-http:9200/_ilm/policy/filebeat-lsdo\""
         command:
         - /bin/sh
         env:
@@ -52,13 +52,29 @@ spec:
                 name: lsdobserve-es-elastic-user
                 key: elastic
         image: {{ .Values.lsdobserve.curl.image }}
-        name: filebeat-pipeline
+        name: filebeat-ilm-policy-lsdo
         volumeMounts:
         - mountPath: /opt/elastic/
-          name: elastic-filbeat-custom-files
+          name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.template.json \"https://lsdobserve-es-http:9200/_template/filebeat-7.10.0-lsdobserve\""
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.ilm.policy.project.json \"https://lsdobserve-es-http:9200/_ilm/policy/filebeat-project\""
+        command:
+        - /bin/sh
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdobserve-es-elastic-user
+                key: elastic
+        image: {{ .Values.lsdobserve.curl.image }}
+        name: filebeat-ilm-policy-project
+        volumeMounts:
+        - mountPath: /opt/elastic/
+          name: elastic-filebeat-custom-files
+      - args:
+        - -c
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.template.7.10.2.json \"https://lsdobserve-es-http:9200/_template/filebeat-7.10.2\""
         command:
         - /bin/sh
         env:
@@ -71,12 +87,108 @@ spec:
         name: filebeat-template
         volumeMounts:
         - mountPath: /opt/elastic/
-          name: elastic-filbeat-custom-files
+          name: elastic-filebeat-custom-files
+      - args:
+        - -c
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.template.k8s.json \"https://lsdobserve-es-http:9200/_template/filebeat-k8s\""
+        command:
+        - /bin/sh
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdobserve-es-elastic-user
+                key: elastic
+        image: {{ .Values.lsdobserve.curl.image }}
+        name: filebeat-template-k8s
+        volumeMounts:
+        - mountPath: /opt/elastic/
+          name: elastic-filebeat-custom-files
+      - args:
+        - -c
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.template.lsdo.json \"https://lsdobserve-es-http:9200/_template/filebeat-lsdo\""
+        command:
+        - /bin/sh
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdobserve-es-elastic-user
+                key: elastic
+        image: {{ .Values.lsdobserve.curl.image }}
+        name: filebeat-template-lsdo
+        volumeMounts:
+        - mountPath: /opt/elastic/
+          name: elastic-filebeat-custom-files
+      - args:
+        - -c
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.template.project.json \"https://lsdobserve-es-http:9200/_template/filebeat-project\""
+        command:
+        - /bin/sh
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdobserve-es-elastic-user
+                key: elastic
+        image: {{ .Values.lsdobserve.curl.image }}
+        name: filebeat-template-project
+        volumeMounts:
+        - mountPath: /opt/elastic/
+          name: elastic-filebeat-custom-files
+      - args:
+        - -c
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.bootstrap.k8s.json \"https://lsdobserve-es-http:9200/%3Cfilebeat-7.10.2-k8s-%7Bnow%2Fd%7D-000001%3E\""
+        command:
+        - /bin/sh
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdobserve-es-elastic-user
+                key: elastic
+        image: {{ .Values.lsdobserve.curl.image }}
+        name: filebeat-bootstrap-k8s
+        volumeMounts:
+        - mountPath: /opt/elastic/
+          name: elastic-filebeat-custom-files
+      - args:
+        - -c
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.bootstrap.lsdo.json \"https://lsdobserve-es-http:9200/%3Cfilebeat-7.10.2-lsdo-%7Bnow%2Fd%7D-000001%3E\""
+        command:
+        - /bin/sh
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdobserve-es-elastic-user
+                key: elastic
+        image: {{ .Values.lsdobserve.curl.image }}
+        name: filebeat-bootstrap-lsdo
+        volumeMounts:
+        - mountPath: /opt/elastic/
+          name: elastic-filebeat-custom-files
+      - args:
+        - -c
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.bootstrap.project.json \"https://lsdobserve-es-http:9200/%3Cfilebeat-7.10.2-project-all-%7Bnow%2Fd%7D-000001%3E\""
+        command:
+        - /bin/sh
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdobserve-es-elastic-user
+                key: elastic
+        image: {{ .Values.lsdobserve.curl.image }}
+        name: filebeat-bootstrap-project
+        volumeMounts:
+        - mountPath: /opt/elastic/
+          name: elastic-filebeat-custom-files
       restartPolicy: Never
       volumes:
       - configMap:
           defaultMode: 420
-          name: elastic-filbeat-custom-files
-        name: elastic-filbeat-custom-files
+          name: elastic-filebeat-custom-files
+        name: elastic-filebeat-custom-files
 ---
 {{- end }}
