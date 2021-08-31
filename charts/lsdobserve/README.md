@@ -10,9 +10,13 @@ helm repo update
 ### Install on Generic Kubernetes Cluster
 
 Basic installation
+
+Only run `kubectl scale sts lsdobserve-logstash --replicas=1` once elastic-post-setup has finished running
 ```
 helm show values lsdopen/lsdobserve > values.yaml
 helm install lsdobserve lsdopen/lsdobserve -n lsdobserve --create-namespace --values values.yaml ; helm upgrade lsdobserve lsdopen/lsdobserve -n lsdobserve --values values.yaml
+
+kubectl scale sts lsdobserve-logstash --replicas=1
 ```
 
 Install on GKE with Admin Password and Elastic disabled
@@ -38,11 +42,15 @@ helm install lsdobserve -n lsdobserve --create-namespace \
 ### Restricted Network Installation
 
 Simple installation
+
+Only run `kubectl scale sts lsdobserve-logstash --replicas=1` once elastic-post-setup has finished running
 ```
 helm dependency update .
 
 kubectl create ns lsdobserve
 helm install lsdobserve . -n lsdobserve --create-namespace --values values.yaml ; helm upgrade lsdobserve . -n lsdobserve --create-namespace --values values.yaml
+
+kubectl scale sts lsdobserve-logstash --replicas=1
 ```
 
 
