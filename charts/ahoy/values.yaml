@@ -7,6 +7,7 @@ ahoy:
     redirectUri: http://ahoy.minikube.host/
     issuer: https://keycloak.minikube.host/auth/realms/Ahoy
     jwkSetUri: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy/protocol/openid-connect/certs
+    accountUri: https://keycloak.minikube.host/auth/realms/Ahoy/account/?referrer=ahoy
 
 postgresql:
   ## PostgreSQL user (has superuser privileges if username is `postgres`)

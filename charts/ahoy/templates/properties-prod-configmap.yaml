@@ -15,6 +15,7 @@ data:
     ahoy.auth.client-id={{ .Values.ahoy.auth.clientId }}
     ahoy.auth.issuer={{ .Values.ahoy.auth.issuer }}
     ahoy.auth.jwk-set-uri={{ .Values.ahoy.auth.jwkSetUri }}
+    ahoy.auth.account-uri={{ .Values.ahoy.auth.accountUri }}
 
     server.port=8080
 
