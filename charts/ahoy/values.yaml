@@ -1073,8 +1073,9 @@ sealed-secrets:
 
   image:
     repository: quay.io/bitnami/sealed-secrets-controller
-    tag: v0.15.0
+    tag: v0.16.0
     pullPolicy: IfNotPresent
+    pullSecret: ""
 
   resources: { }
   nodeSelector: { }
@@ -1084,6 +1085,12 @@ sealed-secrets:
   controller:
     # controller.create: `true` if Sealed Secrets controller should be created
     create: true
+    # controller.labels: Extra labels to be added to controller deployment
+    labels: {}
+    # controller.service: Configuration options for controller service
+    service:
+      # controller.service.labels: Extra labels to be added to controller service
+      labels: {}
 
   # namespace: Namespace to deploy the controller.
   namespace: ""
@@ -1091,12 +1098,16 @@ sealed-secrets:
   serviceAccount:
     # serviceAccount.create: Whether to create a service account or not
     create: true
+    # serviceAccount.labels: Extra labels to be added to service account
+    labels: {}
     # serviceAccount.name: The name of the service account to create or use
     name: ""
 
   rbac:
     # rbac.create: `true` if rbac resources should be created
     create: true
+    # rbac.labels: Extra labels to be added to rbac resources
+    labels: {}
     pspEnabled: false
 
   # secretName: The name of the TLS secret containing the key used to encrypt secrets
