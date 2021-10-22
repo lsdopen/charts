@@ -69,7 +69,8 @@ keycloak:
         host: 'keycloak.minikube.host'
         # Paths for the host
         paths:
-          - /
+          - path: /
+            pathType: Prefix
     # TLS configuration
     tls:
       - hosts:
