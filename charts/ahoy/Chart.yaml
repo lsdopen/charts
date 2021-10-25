@@ -1,6 +1,6 @@
 apiVersion: v2
 name: ahoy
-version: '0.5.1'
+version: '0.5.2'
 appVersion: '0.5.1'
 dependencies:
   - name: postgresql
