@@ -628,8 +628,8 @@ argo-cd:
 
     ## Additional command line arguments to pass to argocd-server
     ##
-    extraArgs: [ ]
-    #  - --insecure
+    extraArgs:
+      - --insecure
 
     # This flag is used to either remove or pass the CLI flag --staticassets /shared/app to the argocd-server app
     staticAssets:
@@ -736,7 +736,7 @@ argo-cd:
     service:
       annotations: { }
       labels: { }
-      type: ClusterIP
+      type: NodePort
       ## For node port default ports
       nodePortHttp: 30080
       nodePortHttps: 30443
@@ -779,12 +779,6 @@ argo-cd:
     ingress:
       enabled: true
       annotations:
-        kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-        nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
-        nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-        nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
 
       labels: { }
       ingressClassName: ""
@@ -804,9 +798,11 @@ argo-cd:
             service:
               name: ahoy-argocd-server
               port:
-                number: 443
+                name: http
       tls:
-        [ ]
+        - secretName: argocd-tls-certificate
+          hosts:
+            - argocd.gke.host
       # - secretName: argocd-tls-certificate
       #   hosts:
       #     - argocd.example.com
