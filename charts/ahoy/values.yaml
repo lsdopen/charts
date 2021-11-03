@@ -108,8 +108,6 @@ argo-cd:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
         nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
         nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
@@ -128,7 +126,7 @@ argo-cd:
             service:
               name: ahoy-argocd-server
               port:
-                number: 443
+                name: http
       tls:
         [ ]
       https: false
