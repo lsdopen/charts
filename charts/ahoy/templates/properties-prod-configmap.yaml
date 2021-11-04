@@ -16,6 +16,8 @@ data:
     ahoy.auth.issuer={{ .Values.ahoy.auth.issuer }}
     ahoy.auth.jwk-set-uri={{ .Values.ahoy.auth.jwkSetUri }}
     ahoy.auth.account-uri={{ .Values.ahoy.auth.accountUri }}
+    ahoy.sealed-secrets.controller-name={{ .Values.ahoy.sealedSecrets.controllerName }}
+    ahoy.sealed-secrets.controller-namespace={{ .Values.ahoy.sealedSecrets.controllerNamespace }}
 
     server.port=8080
 

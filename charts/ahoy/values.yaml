@@ -9,6 +9,10 @@ ahoy:
     jwkSetUri: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy/protocol/openid-connect/certs
     accountUri: https://keycloak.minikube.host/auth/realms/Ahoy/account/?referrer=ahoy
 
+  sealedSecrets:
+    controllerName: ahoy-sealed-secrets
+    controllerNamespace: ahoy
+
 postgresql:
   ## PostgreSQL user (has superuser privileges if username is `postgres`)
   ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#setting-the-root-password-on-first-run
