@@ -1,6 +1,6 @@
 apiVersion: v2
 name: ahoy
-version: '0.5.3'
+version: '0.5.4'
 appVersion: '0.5.1'
 dependencies:
   - name: postgresql
@@ -12,7 +12,7 @@ dependencies:
     repository: "https://codecentric.github.io/helm-charts"
   - name: argo-cd
     condition: argo-cd.install
-    version: "3.25.2"
+    version: "3.26.5"
     repository: "https://argoproj.github.io/argo-helm"
   - name: sealed-secrets
     condition: sealed-secrets.install
