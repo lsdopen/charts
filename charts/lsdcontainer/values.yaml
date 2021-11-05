@@ -6,11 +6,11 @@ lsdcontainer:
     enabled: "true"
     image: "minio/minio:RELEASE.2021-08-05T22-01-19Z"
     accesskey: "admin"
-    secretkey: "SuperDuperPassword"
+    secretkey: "Ooyee3yieb7uv5Eiph1aithaik0ahjou"
     servers: 1
     volumesperserver: 4
     # volumesize is in Gi
-    volumesize: 10
+    volumesize: 25
     storageclass: standard
     resources:
       requests:
@@ -22,12 +22,12 @@ lsdcontainer:
     console:
       image: minio/console:v0.9.4
       accesskey: "lsdcontainer"
-      secretkey: "SuperDuperPassword"
+      secretkey: "ooMee0evooghoo9yo8thai4oosilieph"
       # change the pbkdf to something random for both Passphrase and Salt
-      pbkdfPassphrase: 1B3qmGkKlCJ7u7KniiesgvWRwSDtZpuc
+      pbkdfPassphrase: ohk3thood4Aiw4aiT9tohs1oucheifie
       pbkdfSalt: UOX3OFDpcVz3ZVbjHa233ymSpVfGJzz1
       ingress:
-        annotations:
+        annotations: {}
           ingress.kubernetes.io/ssl-redirect: "true"
           kubernetes.io/ingress.class: traefik
           traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip

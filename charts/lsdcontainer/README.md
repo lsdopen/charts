@@ -4,9 +4,19 @@
 
 First install the minIO operator
 
+### Kubernetes / GKE / Rancher
+```
+helm repo add minio https://operator.min.io/
+helm search repo minio/minio-operator --versions
+helm install minio-operator --namespace minio-operator --create-namespace minio/minio-operator --version 4.1.5 --values minio-values.yaml
+```
+
+### Openshift
 ```
 helm repo add minio https://operator.min.io/
 helm install minio-operator --namespace minio-operator --create-namespace minio/minio-operator --values minio-values.yaml
+oc adm policy add-scc-to-user anyuid -z minio-operator -n minio-operator
+oc adm policy add-scc-to-user anyuid -z console-sa -n minio-operator
 ```
 
 Edit your values file

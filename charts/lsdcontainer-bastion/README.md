@@ -2,12 +2,16 @@
 
 The purpose of this Helm chart is to deploy all the services that are typically deployed on a Bastion server for environments that have restricted services.
 
+This is useful when you want to have all your services containerized on a bastion server
+
 This chart will deploy the following services:
 
 - dnsmasq (dns + dhcp + tftp)
 - haproxy (load balancer)
 - nginx (http server)
 - okd-installer (okd ignition files)
+
+This assumes you are running Minikube on the bastion server
 
 ## Installation and use
 
