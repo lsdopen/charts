@@ -4,6 +4,8 @@ metadata:
   labels:
     run: gen-alert
   name: gen-alert
+  annotations:
+    "helm.sh/hook": test
 spec:
   containers:
   - image: qixtand/debian-jessie-curl
