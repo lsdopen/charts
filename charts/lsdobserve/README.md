@@ -44,7 +44,10 @@ helm dependency update .
 kubectl create ns lsdobserve
 helm install lsdobserve . -n lsdobserve --create-namespace --values values.yaml ; helm upgrade lsdobserve . -n lsdobserve --create-namespace --values values.yaml
 ```
+## Test smtp details
 
+Run this to trigger an alert to alertmanager manually:
+```helm test lsdobserve```
 
 ## Adding New Dashboards to Grafana
 
