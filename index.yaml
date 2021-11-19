@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   ahoy:
   - apiVersion: v2
-    created: "2021-11-19T11:27:01.667733037Z"
+    created: "2021-11-19T11:49:54.262006414Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -26,7 +26,7 @@ entries:
     version: 1.0.0-SNAPSHOT
   - apiVersion: v2
     appVersion: 0.6.0-SNAPSHOT
-    created: "2021-11-19T11:27:01.651038007Z"
+    created: "2021-11-19T11:49:54.244078537Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -43,14 +43,14 @@ entries:
       name: sealed-secrets
       repository: https://bitnami-labs.github.io/sealed-secrets
       version: 1.16.1
-    digest: e2570d099c69fc77c9708075ccf22cae84582fc664a9021ea51410c35a5678f9
+    digest: f3ed71d69a5153a3e7ddef28e8afe6740641efb5e312eb5884588ea41dade0b9
     name: ahoy
     urls:
     - https://lsdopen.github.io/charts/ahoy-0.6.0-SNAPSHOT.tgz
     version: 0.6.0-SNAPSHOT
   - apiVersion: v2
     appVersion: 0.5.1
-    created: "2021-11-19T11:27:01.63333717Z"
+    created: "2021-11-19T11:49:54.22611846Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -74,7 +74,7 @@ entries:
     version: 0.5.4
   - apiVersion: v2
     appVersion: 0.5.1
-    created: "2021-11-19T11:27:01.616417638Z"
+    created: "2021-11-19T11:49:54.207683279Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -98,7 +98,7 @@ entries:
     version: 0.5.3
   - apiVersion: v2
     appVersion: 0.5.1
-    created: "2021-11-19T11:27:01.598187197Z"
+    created: "2021-11-19T11:49:54.188162987Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -122,7 +122,7 @@ entries:
     version: 0.5.2
   - apiVersion: v2
     appVersion: 0.5.1
-    created: "2021-11-19T11:27:01.57789664Z"
+    created: "2021-11-19T11:49:54.167529183Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -146,7 +146,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.5.0
-    created: "2021-11-19T11:27:01.557679783Z"
+    created: "2021-11-19T11:49:54.145412666Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -170,7 +170,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2021-11-19T11:27:01.538522434Z"
+    created: "2021-11-19T11:49:54.124189857Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -194,7 +194,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2021-11-19T11:27:01.522274808Z"
+    created: "2021-11-19T11:49:54.105184769Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -218,7 +218,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2021-11-19T11:27:01.505859981Z"
+    created: "2021-11-19T11:49:54.084731968Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -242,7 +242,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.3.0-SNAPSHOT
-    created: "2021-11-19T11:27:01.49022876Z"
+    created: "2021-11-19T11:49:54.065529679Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -266,7 +266,7 @@ entries:
     version: 0.3.0-SNAPSHOT
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2021-11-19T11:27:01.472351921Z"
+    created: "2021-11-19T11:49:54.048021407Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -290,7 +290,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.2.0-SNAPSHOT
-    created: "2021-11-19T11:27:01.45549839Z"
+    created: "2021-11-19T11:49:54.029800327Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -314,7 +314,7 @@ entries:
     version: 0.2.0-SNAPSHOT
   - apiVersion: v2
     appVersion: 0.1.1
-    created: "2021-11-19T11:27:01.439682668Z"
+    created: "2021-11-19T11:49:54.011363146Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -338,7 +338,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-19T11:27:01.422115831Z"
+    created: "2021-11-19T11:49:53.993081066Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -363,9 +363,9 @@ entries:
   kafka-army-knife:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.668643744Z"
+    created: "2021-11-19T11:49:54.263038424Z"
     description: A Helm chart for Kafka Army Knife
-    digest: 76b25c9ad28d05d6aa1040f1a5436c683c814897ffb383a65de4d9f67a9ca8ed
+    digest: 5891484670363639a6056db87a584545b47bffb1366f0f32cc0f88d7f0f85c6e
     name: kafka-army-knife
     type: application
     urls:
@@ -373,7 +373,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.66817214Z"
+    created: "2021-11-19T11:49:54.262509719Z"
     description: A Helm chart for Kafka Army Knife
     digest: c6a91fcd27c3a07973bc7c2cdcd7f2899880decc5157315b5d7ab6e6df77296d
     name: kafka-army-knife
@@ -384,9 +384,9 @@ entries:
   keycloak-operator:
   - apiVersion: v2
     appVersion: 10.0.0
-    created: "2021-11-19T11:27:01.670991762Z"
+    created: "2021-11-19T11:49:54.26570905Z"
     description: A Helm chart to deploy the Keycloak Operator on Kubernets
-    digest: 3f96eaa6436c3c314d7c2d740c80ffc1f8aac9a907025ef7b5e5b43b3f6afff0
+    digest: a7109775336d0639cfee5ff143b43ec0d339d8b8f2546313043e471ce282c51d
     name: keycloak-operator
     type: application
     urls:
@@ -394,7 +394,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 10.0.0
-    created: "2021-11-19T11:27:01.670335957Z"
+    created: "2021-11-19T11:49:54.264940643Z"
     description: A Helm chart to deploy the Keycloak Operator on Kubernets
     digest: e568cfe341a75e0b3c330231743b1df266c410f695366ca51afbacc5190fc3ab
     name: keycloak-operator
@@ -404,7 +404,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 10.0.0
-    created: "2021-11-19T11:27:01.66952195Z"
+    created: "2021-11-19T11:49:54.264032334Z"
     description: A Helm chart to deploy the Keycloak Operator on Kubernets
     digest: 44957fe22cbfd16580fb7df2d3e6234b2bdb044dc7d3bf0a6724f3f2a2752ee8
     name: keycloak-operator
@@ -415,7 +415,7 @@ entries:
   lsdautomate:
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:01.680798638Z"
+    created: "2021-11-19T11:49:54.277511666Z"
     dependencies:
     - name: postgresql-ha
       repository: https://charts.bitnami.com/bitnami
@@ -427,7 +427,7 @@ entries:
       repository: https://oteemo.github.io/charts
       version: 4.2.0
     description: A Helm chart for LSDautomate
-    digest: 8a4b620c0241610a2e3772d2ec5bea0ab1d6a03fcf34218f4c95cbeaa8925828
+    digest: dbd208a0dc10cc1b83dd9466f8d653dccfdbc8a47e6585080cb1152a2b7ee9e3
     home: https://github.com/lsdopen/charts
     keywords:
     - lsdautomate
@@ -450,10 +450,10 @@ entries:
   lsdcontainer-bastion:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.703164311Z"
+    created: "2021-11-19T11:49:54.304854036Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
-    digest: 07454ba12c06e7f1761f79c6f1811419a45e264ef34b63c64739dbb446649f00
+    digest: c7a89a5c490aea5bd799d7cb08c3a36a9608cd6943e9c4b3f14a852b9111f57a
     home: https://github.com/lsdopen/charts
     keywords:
     - lsdcontainer
@@ -471,7 +471,7 @@ entries:
     version: 1.0.32
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.702290905Z"
+    created: "2021-11-19T11:49:54.304066828Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: c9e15bd0c7c0efa7491ec6df233c0790d0846ed1e1701abe4af79d647dace8d8
@@ -492,7 +492,7 @@ entries:
     version: 1.0.31
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.701377097Z"
+    created: "2021-11-19T11:49:54.30325822Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: f3c2ba185887d50a8b8348fee28e42f0bf5a7383f9e4422ef9744ead7df2fdb9
@@ -513,7 +513,7 @@ entries:
     version: 1.0.30
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.700491091Z"
+    created: "2021-11-19T11:49:54.301719705Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: 31c2f55ea57ff6973be6c3e36d105a7ff69e0e9b8b9466cdbfcc3b0a6396f385
@@ -534,7 +534,7 @@ entries:
     version: 1.0.29
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.699930986Z"
+    created: "2021-11-19T11:49:54.300770095Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: a1bc9b1803166fe98fc9fe19b3d0a1e4462e4860dc65bcc84d478ccf7a5ded3e
@@ -555,7 +555,7 @@ entries:
     version: 1.0.28
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.699381182Z"
+    created: "2021-11-19T11:49:54.299792086Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: d022c6e173113acaea6f03d960828fdb245fb57ab996667668ea6af86693cf36
@@ -576,7 +576,7 @@ entries:
     version: 1.0.27
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.698774977Z"
+    created: "2021-11-19T11:49:54.299073079Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: a5d891e13160399fff60468a5c13dda2ebf737a7a5935f62ce59ada956500c4c
@@ -597,7 +597,7 @@ entries:
     version: 1.0.26
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.698186173Z"
+    created: "2021-11-19T11:49:54.298319571Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: 96d6ae701fe74a8b67eacb0149e3e83d1b833b7b47f3664d485082e0d771936f
@@ -618,7 +618,7 @@ entries:
     version: 1.0.25
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.697581068Z"
+    created: "2021-11-19T11:49:54.297589964Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: 06c28e197d0ac4471831a97a204de8be73b53351cb0f441f1ced20ecb4d59019
@@ -639,7 +639,7 @@ entries:
     version: 1.0.22
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.696939663Z"
+    created: "2021-11-19T11:49:54.296867457Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: 136ddecf54cd0cc2da5697cd48eb4885f83948979890430998c685bb25a9a3a3
@@ -660,7 +660,7 @@ entries:
     version: 1.0.21
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.696037256Z"
+    created: "2021-11-19T11:49:54.295852447Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: d3ba8ed6fe8372d6307466637397528c01cabc52e18048ed8254d6335432e904
@@ -682,7 +682,7 @@ entries:
     version: 1.0.19
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.695399851Z"
+    created: "2021-11-19T11:49:54.29513744Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: 956271bce54ce306f70b8a03ad2ec15b14cf15ca1006a763699020b184f4bd1c
@@ -704,7 +704,7 @@ entries:
     version: 1.0.18
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.694842347Z"
+    created: "2021-11-19T11:49:54.294504834Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: 2819682c2f08b67797e59ce41279c6cacfecfca187b91acf5a45ad7a9bb7bd53
@@ -726,7 +726,7 @@ entries:
     version: 1.0.15
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.691544821Z"
+    created: "2021-11-19T11:49:54.290758797Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: d799ad4fd07d91efce045b49865a1f2e6b04a6fc4b689a2d273cb445ff1ed5eb
@@ -748,7 +748,7 @@ entries:
     version: 1.0.14
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.688116795Z"
+    created: "2021-11-19T11:49:54.286368854Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: bf2572f69a2e486bfda1561747ec4c28d602c1dd32e443fb122551ca68031282
@@ -770,7 +770,7 @@ entries:
     version: 1.0.13
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.68491847Z"
+    created: "2021-11-19T11:49:54.282245113Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: a1668700144cafa61614183a82259deb56d2fab684122f942f18bfeb253fe48c
@@ -792,7 +792,7 @@ entries:
     version: 1.0.12
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.681806546Z"
+    created: "2021-11-19T11:49:54.278657978Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: 7f00ad165a260e2606325038a1c7e7c3d7ac2bc8956e1c481754dcfdc9e6685b
@@ -814,7 +814,7 @@ entries:
     version: 1.0.10
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.705065826Z"
+    created: "2021-11-19T11:49:54.306644053Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: c300abd669c4fe4d8e655795a1b9a487201b79a9986fde37a7465bb21a30c748
@@ -836,7 +836,7 @@ entries:
     version: 1.0.9
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.704620223Z"
+    created: "2021-11-19T11:49:54.306131248Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: ea8a29cf880dc240e64222db668ee4f938aa1bb2cb42c6d79fd031bf5a0c280e
@@ -858,7 +858,7 @@ entries:
     version: 1.0.8
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.704129819Z"
+    created: "2021-11-19T11:49:54.305622643Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: d018b1726bd4ca2352dce372ab7bed826c2c733b9f2d3eb54ab6f2dfa4f2aa99
@@ -880,7 +880,7 @@ entries:
     version: 1.0.5
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.703539714Z"
+    created: "2021-11-19T11:49:54.30527394Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: b5246c34647c750cc312bf7de1cfa8af9ba09e41c4364889b42c4d987ac7f56b
@@ -902,7 +902,7 @@ entries:
     version: 1.0.4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.700761393Z"
+    created: "2021-11-19T11:49:54.302182809Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: 1b1f74f19c67830c29cc533b63c078e4307772788551bcf6201ff6fe9adaf9de
@@ -924,7 +924,7 @@ entries:
     version: 1.0.3
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.696327658Z"
+    created: "2021-11-19T11:49:54.29617175Z"
     description: A Helm chart for LSDContainer for a bastion server that will house
       all services LSD uses for OKD/RKE/K8S deployments
     digest: b8d9fb0f8fddf75498a707681333262f8fa79d70f474442e4fbfd710f889ccc8
@@ -946,7 +946,7 @@ entries:
     version: 1.0.2
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.681340742Z"
+    created: "2021-11-19T11:49:54.278138773Z"
     description: All the services LSD uses to create a bastion server for OKD/RKE/K8S
       deployments
     digest: eecc559ccc8907f418f444ad0b4343454f465d1932291f5267babbb295cc8636
@@ -967,7 +967,7 @@ entries:
     - https://lsdopen.github.io/charts/lsdcontainer-bastion-1.0.1.tgz
     version: 1.0.1
   - apiVersion: v1
-    created: "2021-11-19T11:27:01.68107604Z"
+    created: "2021-11-19T11:49:54.27783617Z"
     description: All the services LSD uses to create a bastion server for OKD/RKE/K8S
       deployments
     digest: c2de7e541d36e0528e4da598305a1a3a033ccebdd61f4ffa79cdcee3ad24b64c
@@ -990,7 +990,7 @@ entries:
   lsdobserve:
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2021-11-19T11:27:03.02306295Z"
+    created: "2021-11-19T11:49:55.772103384Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1005,7 +1005,7 @@ entries:
       repository: https://grafana.github.io/helm-charts
       version: 6.7.4
     description: A Helm chart for LSDobserve
-    digest: 3e9b1d1d06f02824ee5ce0a5121c881008f732aae54067a7c344b51348b80849
+    digest: 799ad805f6241aa05ffd73e0e87e7733646c36bba0edd19352ae7c18dc18ce0b
     home: https://github.com/lsdopen/charts
     keywords:
     - lsdobserve
@@ -1025,7 +1025,7 @@ entries:
     version: 1.0.83
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2021-11-19T11:27:03.004683107Z"
+    created: "2021-11-19T11:49:55.750941975Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1060,7 +1060,7 @@ entries:
     version: 1.0.82
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2021-11-19T11:27:02.987192772Z"
+    created: "2021-11-19T11:49:55.730707676Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1095,7 +1095,7 @@ entries:
     version: 1.0.81
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2021-11-19T11:27:02.969497534Z"
+    created: "2021-11-19T11:49:55.709972172Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1130,7 +1130,7 @@ entries:
     version: 1.0.80
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2021-11-19T11:27:02.936310077Z"
+    created: "2021-11-19T11:49:55.669786776Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1165,7 +1165,7 @@ entries:
     version: 1.0.79
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2021-11-19T11:27:02.917617532Z"
+    created: "2021-11-19T11:49:55.647613058Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1200,7 +1200,7 @@ entries:
     version: 1.0.78
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2021-11-19T11:27:02.899831594Z"
+    created: "2021-11-19T11:49:55.62751326Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1235,7 +1235,7 @@ entries:
     version: 1.0.77
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2021-11-19T11:27:02.881621253Z"
+    created: "2021-11-19T11:49:55.607536963Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1270,7 +1270,7 @@ entries:
     version: 1.0.76
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2021-11-19T11:27:02.863003508Z"
+    created: "2021-11-19T11:49:55.585831849Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1305,7 +1305,7 @@ entries:
     version: 1.0.75
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.844739767Z"
+    created: "2021-11-19T11:49:55.564506939Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1340,7 +1340,7 @@ entries:
     version: 1.0.72
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.825738419Z"
+    created: "2021-11-19T11:49:55.544054238Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1375,7 +1375,7 @@ entries:
     version: 1.0.71
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.808585086Z"
+    created: "2021-11-19T11:49:55.522221323Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1410,7 +1410,7 @@ entries:
     version: 1.0.70
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.768791077Z"
+    created: "2021-11-19T11:49:55.482498832Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1445,7 +1445,7 @@ entries:
     version: 1.0.69
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.74714151Z"
+    created: "2021-11-19T11:49:55.460487415Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1480,7 +1480,7 @@ entries:
     version: 1.0.68
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.726962353Z"
+    created: "2021-11-19T11:49:55.440875422Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1515,7 +1515,7 @@ entries:
     version: 1.0.67
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.707904005Z"
+    created: "2021-11-19T11:49:55.421442731Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1550,7 +1550,7 @@ entries:
     version: 1.0.66
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.690178868Z"
+    created: "2021-11-19T11:49:55.400359423Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1585,7 +1585,7 @@ entries:
     version: 1.0.62
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.670678016Z"
+    created: "2021-11-19T11:49:55.380963132Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1620,7 +1620,7 @@ entries:
     version: 1.0.61
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.652624076Z"
+    created: "2021-11-19T11:49:55.360159527Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1655,7 +1655,7 @@ entries:
     version: 1.0.60
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.613699774Z"
+    created: "2021-11-19T11:49:55.322750959Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1690,7 +1690,7 @@ entries:
     version: 1.0.59
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.594650427Z"
+    created: "2021-11-19T11:49:55.302834063Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1725,7 +1725,7 @@ entries:
     version: 1.0.58
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2021-11-19T11:27:02.576702587Z"
+    created: "2021-11-19T11:49:55.283593473Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1760,7 +1760,7 @@ entries:
     version: 1.0.56
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.557118136Z"
+    created: "2021-11-19T11:49:55.263089671Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1795,7 +1795,7 @@ entries:
     version: 1.0.54
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.539530299Z"
+    created: "2021-11-19T11:49:55.243326177Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1830,7 +1830,7 @@ entries:
     version: 1.0.53
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.522693868Z"
+    created: "2021-11-19T11:49:55.224590992Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1865,7 +1865,7 @@ entries:
     version: 1.0.52
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.50359862Z"
+    created: "2021-11-19T11:49:55.204592095Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1900,7 +1900,7 @@ entries:
     version: 1.0.51
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.484357671Z"
+    created: "2021-11-19T11:49:55.185922212Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1935,7 +1935,7 @@ entries:
     version: 1.0.50
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.451170114Z"
+    created: "2021-11-19T11:49:55.148082439Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -1970,7 +1970,7 @@ entries:
     version: 1.0.49
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.432238567Z"
+    created: "2021-11-19T11:49:55.127704538Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2005,7 +2005,7 @@ entries:
     version: 1.0.48
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.413638423Z"
+    created: "2021-11-19T11:49:55.108950454Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2040,7 +2040,7 @@ entries:
     version: 1.0.47
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.39528558Z"
+    created: "2021-11-19T11:49:55.087661444Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2075,7 +2075,7 @@ entries:
     version: 1.0.46
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.377525642Z"
+    created: "2021-11-19T11:49:55.06898106Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2110,7 +2110,7 @@ entries:
     version: 1.0.45
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.358797497Z"
+    created: "2021-11-19T11:49:55.049612569Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2145,7 +2145,7 @@ entries:
     version: 1.0.42
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.340959959Z"
+    created: "2021-11-19T11:49:55.03136619Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2180,7 +2180,7 @@ entries:
     version: 1.0.41
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.322504216Z"
+    created: "2021-11-19T11:49:55.011430393Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2215,7 +2215,7 @@ entries:
     version: 1.0.40
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.287605445Z"
+    created: "2021-11-19T11:49:54.974254227Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2250,7 +2250,7 @@ entries:
     version: 1.0.39
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.269584105Z"
+    created: "2021-11-19T11:49:54.955987947Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2285,7 +2285,7 @@ entries:
     version: 1.0.38
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.254056585Z"
+    created: "2021-11-19T11:49:54.93595065Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2323,7 +2323,7 @@ entries:
     version: 1.0.37
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.236368847Z"
+    created: "2021-11-19T11:49:54.916574659Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2361,7 +2361,7 @@ entries:
     version: 1.0.36
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.219222114Z"
+    created: "2021-11-19T11:49:54.89632926Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2399,7 +2399,7 @@ entries:
     version: 1.0.35
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.202146082Z"
+    created: "2021-11-19T11:49:54.875863758Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2437,7 +2437,7 @@ entries:
     version: 1.0.34
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.185012549Z"
+    created: "2021-11-19T11:49:54.856839071Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2475,7 +2475,7 @@ entries:
     version: 1.0.33
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.168078518Z"
+    created: "2021-11-19T11:49:54.83539416Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2513,7 +2513,7 @@ entries:
     version: 1.0.32
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.150638282Z"
+    created: "2021-11-19T11:49:54.815828667Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2551,7 +2551,7 @@ entries:
     version: 1.0.31
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.133253148Z"
+    created: "2021-11-19T11:49:54.794414756Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2589,7 +2589,7 @@ entries:
     version: 1.0.30
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.100375493Z"
+    created: "2021-11-19T11:49:54.756378782Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2627,7 +2627,7 @@ entries:
     version: 1.0.29
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.083887365Z"
+    created: "2021-11-19T11:49:54.736472986Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2665,7 +2665,7 @@ entries:
     version: 1.0.28
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.067263436Z"
+    created: "2021-11-19T11:49:54.717433898Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2703,7 +2703,7 @@ entries:
     version: 1.0.27
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.049613599Z"
+    created: "2021-11-19T11:49:54.696642394Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2741,7 +2741,7 @@ entries:
     version: 1.0.26
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.033137471Z"
+    created: "2021-11-19T11:49:54.677673307Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2779,7 +2779,7 @@ entries:
     version: 1.0.25
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.015650535Z"
+    created: "2021-11-19T11:49:54.6567066Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2818,7 +2818,7 @@ entries:
     version: 1.0.24
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.998397001Z"
+    created: "2021-11-19T11:49:54.637565212Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2857,7 +2857,7 @@ entries:
     version: 1.0.23
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.98145007Z"
+    created: "2021-11-19T11:49:54.61706981Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -2896,7 +2896,7 @@ entries:
     version: 1.0.22
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.964181736Z"
+    created: "2021-11-19T11:49:54.597921421Z"
     dependencies:
     - name: eck-operator-crds
       repository: https://helm.elastic.co
@@ -2938,7 +2938,7 @@ entries:
     version: 1.0.21
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.946479899Z"
+    created: "2021-11-19T11:49:54.576717213Z"
     dependencies:
     - name: eck-operator-crds
       repository: https://helm.elastic.co
@@ -2980,7 +2980,7 @@ entries:
     version: 1.0.20
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.912165433Z"
+    created: "2021-11-19T11:49:54.53780903Z"
     dependencies:
     - name: eck-operator-crds
       repository: https://helm.elastic.co
@@ -3022,7 +3022,7 @@ entries:
     version: 1.0.19
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.893473288Z"
+    created: "2021-11-19T11:49:54.516675021Z"
     dependencies:
     - name: eck-operator-crds
       repository: https://helm.elastic.co
@@ -3064,7 +3064,7 @@ entries:
     version: 1.0.18
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.876703558Z"
+    created: "2021-11-19T11:49:54.497580933Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3106,7 +3106,7 @@ entries:
     version: 1.0.17
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.858503416Z"
+    created: "2021-11-19T11:49:54.477317334Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3148,7 +3148,7 @@ entries:
     version: 1.0.16
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.841637585Z"
+    created: "2021-11-19T11:49:54.458322947Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3190,7 +3190,7 @@ entries:
     version: 1.0.15
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.825725062Z"
+    created: "2021-11-19T11:49:54.43838645Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3232,7 +3232,7 @@ entries:
     version: 1.0.14
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.808566329Z"
+    created: "2021-11-19T11:49:54.419708967Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3274,7 +3274,7 @@ entries:
     version: 1.0.13
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.790294587Z"
+    created: "2021-11-19T11:49:54.400698879Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3316,7 +3316,7 @@ entries:
     version: 1.0.12
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.771491241Z"
+    created: "2021-11-19T11:49:54.381393289Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3358,7 +3358,7 @@ entries:
     version: 1.0.11
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.754094806Z"
+    created: "2021-11-19T11:49:54.362917707Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3400,7 +3400,7 @@ entries:
     version: 1.0.10
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:03.038458369Z"
+    created: "2021-11-19T11:49:55.791875378Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3442,7 +3442,7 @@ entries:
     version: 1.0.9
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.951862298Z"
+    created: "2021-11-19T11:49:55.689297268Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3484,7 +3484,7 @@ entries:
     version: 1.0.8
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.788091527Z"
+    created: "2021-11-19T11:49:55.500782512Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3526,7 +3526,7 @@ entries:
     version: 1.0.7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.632000616Z"
+    created: "2021-11-19T11:49:55.340392233Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3568,7 +3568,7 @@ entries:
     version: 1.0.6
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.467905343Z"
+    created: "2021-11-19T11:49:55.166185617Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3610,7 +3610,7 @@ entries:
     version: 1.0.5
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.30378337Z"
+    created: "2021-11-19T11:49:54.992118403Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3652,7 +3652,7 @@ entries:
     version: 1.0.4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:02.11685192Z"
+    created: "2021-11-19T11:49:54.775161667Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3694,7 +3694,7 @@ entries:
     version: 1.0.3
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.928885962Z"
+    created: "2021-11-19T11:49:54.555912608Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3736,7 +3736,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.738010482Z"
+    created: "2021-11-19T11:49:54.343589117Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3778,7 +3778,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:01.721912857Z"
+    created: "2021-11-19T11:49:54.325541039Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -3821,13 +3821,13 @@ entries:
   lsdsecure:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-19T11:27:03.045090121Z"
+    created: "2021-11-19T11:49:55.798854647Z"
     dependencies:
     - name: keycloak
       repository: https://charts.bitnami.com/bitnami
       version: 1.1.5
     description: A Helm chart for LSDsecure
-    digest: 3b8f0c1bb4e7127abb6d61545ce83a6aa991db73e14aaf006386d32e7d2cdec8
+    digest: 87a5536e23eefa7061587e86fff31590d4d9b6893195c75ec48e625e2a67f154
     home: https://github.com/lsdopen/charts
     keywords:
     - lsdsecure
@@ -3846,12 +3846,12 @@ entries:
   swiss-army-knife:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-19T11:27:03.045546924Z"
+    created: "2021-11-19T11:49:55.799354552Z"
     description: A Helm chart for LSD Swiss Army Knife
-    digest: 20749875facfeb970834ef1e7e2fadd9792bfaffbc7b821bb2ba5c594323fd5f
+    digest: 84be21c152985e26e3687d1e8753efc68926624d474a851b8c33f8e82dd163b8
     name: swiss-army-knife
     type: application
     urls:
     - https://lsdopen.github.io/charts/swiss-army-knife-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-19T11:27:01.4052433Z"
+generated: "2021-11-19T11:49:53.972902467Z"
