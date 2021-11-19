@@ -87,6 +87,8 @@ eck-operator:
 grafana:
   adminUser: *anchorgrafanaUsername
   adminPassword: *anchorgrafanaPassword
+  testFramework:   
+    enabled: false 
   image:
     repository: grafana/grafana
     tag: *anchorgrafanaVersion
