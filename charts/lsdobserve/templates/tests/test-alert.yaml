@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: gen-alert
+  name: gen-alert
+spec:
+  containers:
+  - image: qixtand/debian-jessie-curl
+    name: alert
+    command:
+    args:
+    - /usr/local/bin/alert-test.sh
+    volumeMounts:
+      - name: config-volume
+        mountPath: /usr/local/bin/alert-test.sh
+        subPath: alert-test.sh
+        readOnly: true
+  volumes:
+    - name: config-volume
+      configMap:
+        name:  alert-test
+        defaultMode: 493
+
+---
+apiVersion: v1
+data:
+  alert-test.sh: |
+    #!/bin/sh
+
+    name=monitoring
+    url='http://lsdobserve-prometheus-alertmanager/api/v1/alerts'
+
+    generate_post_data() {
+      cat <<EOF
+    [{
+      "status": "firing",
+      "labels": {
+        "alertname": "${name}",
+        "name": "${name}",
+        "prometheus": "openshift-monitoring/k8s",
+        "severity": "Warning"
+      },
+      "annotations": {
+        "summary": "LSD alermanager test",
+        "description": "Testing the alerts do not panic!"
+      },
+      "generatorURL": "http://localhost/$name",
+      "endsAt": "$(date -d @$(( $(date +'%s')+300 )) +'%Y-%m-%dT%H:%M:%S%:z')",
+      "startsAt": "$(date -d @$(( $(date +'%s'))) +'%Y-%m-%dT%H:%M:%S%:z')"
+    }]
+    EOF
+    }
+
+    echo "Firing alert ${name}"
+    POSTDATA=$(generate_post_data)
+    curl -vk $url --data "$POSTDATA" --trace-ascii /dev/stdout
+    echo -e "\n"
+    echo "$POSTDATA"
+kind: ConfigMap
+metadata:
+  name: alert-test
+  namespace: lsdobserve
