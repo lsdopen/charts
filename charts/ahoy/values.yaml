@@ -9,6 +9,10 @@ ahoy:
     jwkSetUri: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy/protocol/openid-connect/certs
     accountUri: https://keycloak.minikube.host/auth/realms/Ahoy/account/?referrer=ahoy
 
+  env: ""
+    # - name: SPRING_PROFILES
+    #   value: prod,keycloak
+
   sealedSecrets:
     controllerName: ahoy-sealed-secrets
     controllerNamespace: ahoy
@@ -63,13 +67,12 @@ keycloak:
     # The Service port targeted by the Ingress
     servicePort: http
     # Ingress annotations
-    annotations: {}
+    annotations: { }
     # Additional Ingress labels
-    labels: {}
+    labels: { }
     # List of rules for the Ingress
     rules:
-      -
-        # Ingress host
+      - # Ingress host
         host: 'keycloak.minikube.host'
         # Paths for the host
         paths:

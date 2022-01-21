@@ -10,6 +10,10 @@ ahoy:
     jwkSetUri: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy/protocol/openid-connect/certs
     accountUri: https://keycloak.k8s.host/auth/realms/Ahoy/account/?referrer=ahoy
 
+  env: ""
+    # - name: SPRING_PROFILES
+    #   value: prod,keycloak
+
   sealedSecrets:
     controllerName: ahoy-sealed-secrets
     controllerNamespace: ahoy

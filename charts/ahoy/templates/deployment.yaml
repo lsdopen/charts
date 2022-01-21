@@ -24,6 +24,10 @@ spec:
         - image: lsdopen/ahoy:{{ .Chart.AppVersion }}
           imagePullPolicy: Always
           name: ahoy-server
+          env:
+            {{- with .Values.ahoy.env }}
+            {{- tpl . $ | nindent 12 }}
+            {{- end }}
           ports:
             - containerPort: 8080
               protocol: TCP

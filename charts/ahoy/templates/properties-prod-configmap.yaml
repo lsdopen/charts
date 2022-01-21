@@ -21,7 +21,6 @@ data:
 
     server.port=8080
 
-    spring.profiles.include=keycloak
     spring.datasource.url=jdbc:postgresql://ahoy-postgresql.ahoy.svc/ahoy
     spring.datasource.platform=postgres
     spring.datasource.username={{ .Values.postgresql.postgresqlUsername }}
