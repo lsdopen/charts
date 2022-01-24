@@ -1,14 +1,14 @@
 # Values for Openshift Container Platform setup
 ahoy:
-  host: ahoy.ocp.host
+  host: ahoy.apps-crc.testing
   clusterType: openshift
 
   auth:
     clientId: ahoy
-    redirectUri: http://ahoy.ocp.host/
-    issuer: https://keycloak.ocp.host/auth/realms/Ahoy
+    redirectUri: http://ahoy.apps-crc.testing/
+    issuer: https://keycloak.apps-crc.testing/auth/realms/Ahoy
     jwkSetUri: http://ahoy-keycloak-http.ahoy.svc/auth/realms/Ahoy/protocol/openid-connect/certs
-    accountUri: https://keycloak.ocp.host/auth/realms/Ahoy/account/?referrer=ahoy
+    accountUri: https://keycloak.apps-crc.testing/auth/realms/Ahoy/account/?referrer=ahoy
 
   env: ""
     # - name: SPRING_PROFILES
@@ -71,7 +71,7 @@ keycloak:
     # Additional Route labels
     labels: {}
     # Host name for the Route
-    host: "keycloak.ocp.host"
+    host: "keycloak.apps-crc.testing"
     # TLS configuration
     tls:
       # If `true`, TLS is enabled for the Route
@@ -117,7 +117,7 @@ argo-cd:
       # -- Enable a OpenShift route for the Argo CD server
       enabled: true
       # -- Hostname of OpenShift route
-      hostname: "argocd.ocp.host"
+      hostname: "argocd.apps-crc.testing"
 
     # -- [General Argo CD configuration]
     # @default -- See [values.yaml]
@@ -138,3 +138,9 @@ sealed-secrets:
 
   commandArgs:
     - --update-status
+
+  securityContext:
+    # securityContext.runAsUser defines under which user the operator Pod and its containers/processes run.
+    runAsUser: ""
+    # securityContext.fsGroup defines the filesystem group
+    fsGroup: ""
