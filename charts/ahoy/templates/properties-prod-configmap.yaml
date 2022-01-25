@@ -4,7 +4,7 @@ metadata:
   labels:
     app: ahoy-server
   name: ahoy-properties-prod
-  namespace: ahoy
+  namespace: {{ .Release.Namespace }}
 data:
   application-prod.properties: |
     ahoy.release-name={{ .Release.Name }}

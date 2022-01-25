@@ -16,7 +16,7 @@ ahoy:
 
   sealedSecrets:
     controllerName: ahoy-sealed-secrets
-    controllerNamespace: ahoy
+    controllerNamespace: {{ .Release.Namespace }}
 
 postgresql:
   ## PostgreSQL user (has superuser privileges if username is `postgres`)

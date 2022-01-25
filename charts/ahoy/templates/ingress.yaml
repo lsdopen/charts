@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ahoy-server
   name: ahoy-server
-  namespace: ahoy
+  namespace: {{ .Release.Namespace }}
 spec:
   {{ if .Values.ahoy.tlsSecret }}
   tls:

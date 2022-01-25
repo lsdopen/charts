@@ -4,7 +4,7 @@ metadata:
   labels:
     app: ahoy-server
   name: ahoy-server
-  namespace: ahoy
+  namespace: {{ .Release.Namespace }}
   annotations:
     cloud.google.com/app-protocols: '{"8080-tcp":"HTTP"}'
     service.alpha.kubernetes.io/app-protocols: '{"8080-tcp":"HTTP"}'
