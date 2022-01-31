@@ -102,8 +102,10 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: lsdobserve-grafana
-          servicePort: 80
+          service:
+            name: lsdobserve-grafana
+            port:
+              number: 80
         path: /
         pathType: ImplementationSpecific
 ---

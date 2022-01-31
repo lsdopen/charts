@@ -50,8 +50,10 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: lsdobserve-kb-http
-          servicePort: 5601
+          service:
+            name: lsdobserve-kb-http
+            port:
+              number: 5601
         path: /
         pathType: ImplementationSpecific
 ---
