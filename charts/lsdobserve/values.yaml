@@ -112,6 +112,25 @@ grafana:
     type: pvc
     size: 1Gi
     storageClassName: *anchorstorageClass
+  grafana.ini:
+    analytics:
+      check_for_updates: true
+    smtp:
+      enabled: true
+      host: *anchorsmtpSmartHost
+      skip_verify: true
+      from_address: *anchorfromAddress
+      from_name: *anchorfromName
+    emails:
+      welcome_email_on_sign_up: true
+      templates_pattern: emails/*.html
+    log:
+      mode: console
+    paths:
+      data: /var/lib/grafana/data
+      logs: /var/log/grafana
+      plugins: /var/lib/grafana/plugins
+      provisioning: /etc/grafana/provisioning
   datasources:
     datasources.yaml:
       apiVersion: 1
@@ -124,14 +143,46 @@ grafana:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
-        - name: "ds-01"
-          orgId: 1
-          folder: "LSDcontainer"
-          type: file
-          disableDeletion: false
+        - disableDeletion: false
           editable: false
+          folder: LSDcontainer
+          name: ds-01
           options:
             path: /var/lib/grafana/dashboards/ds-01
+          orgId: 1
+          type: file
+        - disableDeletion: false
+          editable: false
+          folder: LSDcontainer
+          name: ds-02
+          options:
+            path: /var/lib/grafana/dashboards/ds-02
+          orgId: 1
+          type: file
+        - disableDeletion: false
+          editable: false
+          folder: LSDcontainer
+          name: ds-03
+          options:
+            path: /var/lib/grafana/dashboards/ds-03
+          orgId: 1
+          type: file
+        - disableDeletion: false
+          editable: false
+          folder: LSDcontainer
+          name: ds-04
+          options:
+            path: /var/lib/grafana/dashboards/ds-04
+          orgId: 1
+          type: file
+        - disableDeletion: false
+          editable: false
+          folder: LSDcontainer
+          name: ds-05
+          options:
+            path: /var/lib/grafana/dashboards/ds-05
+          orgId: 1
+          type: file
   dashboardsConfigMaps:
     ds-01: "grafana-dashboard-kubernetes-overview"
     ds-02: "grafana-dashboard-namespace-details"
