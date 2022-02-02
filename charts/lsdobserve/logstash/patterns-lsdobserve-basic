@@ -1,0 +1,16 @@
+LSDO_BASIC_001 ^(%{TIMESTAMP_ISO8601}|%{TIME})%{SPACE}%{LOGLEVEL:[log][level]}%{SPACE}%{GREEDYDATA:[log][message]}$
+LSDO_BASIC_002 ^(%{TIMESTAMP_ISO8601}|%{TIME})%{SPACE}\[%{DATA}\]%{SPACE}%{LOGLEVEL:[log][level]}%{SPACE}%{GREEDYDATA:[log][message]}$
+LSDO_BASIC_003 ^\[(%{TIMESTAMP_ISO8601}|%{TIME})\]%{SPACE}%{LOGLEVEL:[log][level]}%{SPACE}%{GREEDYDATA:[log][message]}$
+LSDO_BASIC_004 ^\[%{TIMESTAMP_ISO8601}\]\[%{LOGLEVEL:[log][level]}%{SPACE}\]%{GREEDYDATA:[log][message]}$
+LSDO_BASIC_005 ^%{TIMESTAMP_ISO8601} %{NOTSPACE}%{SPACE}\[%{NUMBER}\]: %{LOGLEVEL:[log][level]}%{SPACE}%{GREEDYDATA:[log][message]}$
+LSDO_BASIC_006 ^%{SYSLOGTIMESTAMP} %{NOTSPACE}%{DATA}%{LOGLEVEL_SINGLECHAR:[log][level]}%{MONTHNUM}%{MONTHDAY} %{TIME}%{SPACE}%{GREEDYDATA:[log][message]}$
+LSDO_BASIC_007 ^%{TIME:[@metadata][timestamp]} \|\-%{DATA:[log][level]} %{GREEDYDATA:[log][message]}$
+LSDO_BASIC_008 ^%{YEAR}/%{MONTHNUM}/%{MONTHDAY} %{TIME}%{SPACE}%{SYSLOG5424SD:[log][level]}%{SPACE}%{GREEDYDATA:[log][message]}$
+LSDO_BASIC_009 ^%{TIMESTAMP_ISO8601} %{LOGLEVEL_SINGLECHAR:[log][level]} \| %{GREEDYDATA:[log][message]}$
+LSDO_BASIC_010 ^%{MONTH} %{MONTHDAY}, %{YEAR} %{TIME} (AM|PM) %{GREEDYDATA:[log][message]}$
+LSDO_BASIC_011 ^%{LOGLEVEL:[log][level]}%{SPACE}\[%{DATA}\] %{TIMESTAMP_ISO8601} %{GREEDYDATA:[log][message]}$
+LSDO_BASIC_012 ^%{LOGLEVEL_SINGLECHAR:[log][level]}%{MONTHNUM}%{MONTHDAY} %{TIME}%{SPACE}%{BASE10NUM} %{NOTSPACE}\] %{GREEDYDATA:[log][message]}$
+LSDO_BASIC_013 ^%{LOGLEVEL_SINGLECHAR:[log][level]}%{MONTHNUM}%{MONTHDAY} %{TIME}%{SPACE}%{GREEDYDATA:[log][message]}$
+LSDO_BASIC_014 ^\[%{DATA}\] %{DATA:[log][level]} %{YEAR}/%{MONTHNUM}/%{MONTHDAY} %{TIME} %{GREEDYDATA:[log][message]}$
+LSDO_BASIC_015 ^%{LOGLEVEL:[log][level]}[,:]\s+%{GREEDYDATA:[log][message]}$
+LSDO_BASIC_016 ^%{SYSLOGBASE2} %{GREEDYDATA:[log][message]}$
