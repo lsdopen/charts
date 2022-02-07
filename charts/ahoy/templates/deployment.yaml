@@ -4,7 +4,6 @@ metadata:
   labels:
     app: ahoy-server
   name: ahoy-server
-  namespace: ahoy
 spec:
   replicas: 1
   selector:

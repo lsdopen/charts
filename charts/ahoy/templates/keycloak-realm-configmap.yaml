@@ -5,7 +5,6 @@ metadata:
   labels:
     app: ahoy-server
   name: ahoy-keycloak-realm
-  namespace: ahoy
 data:
   ahoy-realm.json: |
     {
@@ -630,13 +629,13 @@ data:
         "id" : "291f8683-5052-4aac-90e4-b01309c71de8",
         "clientId" : "ahoy",
         "name" : "Ahoy",
-        "baseUrl" : "http://ahoy.minikube.host/",
+        "baseUrl" : "{{ .Values.ahoy.auth.redirectUri }}",
         "surrogateAuthRequired" : false,
         "enabled" : true,
         "alwaysDisplayInConsole" : false,
         "clientAuthenticatorType" : "client-secret",
         "secret" : "57808eb9-a5ca-476b-9a15-169f13385a0c",
-        "redirectUris" : [ "http://ahoy.minikube.host/*" ],
+        "redirectUris" : [ "{{ .Values.ahoy.auth.redirectUri }}*" ],
         "webOrigins" : [ "*" ],
         "notBefore" : 0,
         "bearerOnly" : false,

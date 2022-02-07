@@ -4,7 +4,6 @@ metadata:
   labels:
     app: ahoy-server
   name: ahoy-properties-prod
-  namespace: ahoy
 data:
   application-prod.properties: |
     ahoy.release-name={{ .Release.Name }}
@@ -21,7 +20,7 @@ data:
 
     server.port=8080
 
-    spring.datasource.url=jdbc:postgresql://ahoy-postgresql.ahoy.svc/ahoy
+    spring.datasource.url=jdbc:postgresql://{{ .Release.Name }}-postgresql.{{ .Release.Namespace }}.svc/{{ .Values.postgresql.postgresqlDatabase }}
     spring.datasource.platform=postgres
     spring.datasource.username={{ .Values.postgresql.postgresqlUsername }}
     spring.datasource.password={{ .Values.postgresql.postgresqlPassword }}

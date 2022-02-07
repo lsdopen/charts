@@ -5,7 +5,6 @@ metadata:
   labels:
     app: ahoy-server
   name: ahoy-server
-  namespace: ahoy
 spec:
   host: {{ .Values.ahoy.host }}
   port:
