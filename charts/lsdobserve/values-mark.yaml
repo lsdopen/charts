@@ -1,0 +1,521 @@
+# LSDobserve
+lsdobserve:
+  # There are your options clusterType: openshift | gke | rancher
+  clusterType: "rancher"
+  #eckNamespace: &anchoreckNamespace "lsdobserve" 
+  eckOperatorVersion: &anchoreckOperatorVersion "1.9.1"
+  eckVersion: &anchoreckVersion "7.16.3"
+  eckElasticsearchImage: &anchoreckElasticsearchImage "docker.elastic.co/elasticsearch/elasticsearch:7.16.3"
+  eckKibanaImage: &anchoreckKibanaImage "docker.elastic.co/kibana/kibana:7.16.3"
+  eckApmImage: &anchoreckApmImage "docker.elastic.co/apm/apm-server:7.16.3"
+  eckFilebeatImage: &anchoreckFilebeatImage "docker.elastic.co/beats/filebeat:7.16.3"
+  eckMetricbeatImage: &anchoreckMetricbeatImage "docker.elastic.co/beats/metricbeat:7.16.3"
+  elasticClusterSize: &anchorelasticClusterSize "1"
+  kibanaURL: &anchorkibanaURL "kibana.rancher.my.org"
+  logstashJavaOpts: &anchorlogstashJavaOpts "-Xms1g -Xmx1g"
+  grafanaUsername: &anchorgrafanaUsername "admin"
+  grafanaPassword: &anchorgrafanaPassword "ChangeMe-PasswordForGrafana"
+  grafanaVersion: &anchorgrafanaVersion "7.5.2"
+  grafanaURL: &anchorgrafanaURL "grafana.rancher.my.org"
+  prometheusRenention: &anchorprometheusRenention "30d"
+  prometheusURL: &anchorprometheusURL "prometheus.rancher.my.org"
+  prometheusHttpURL: &anchorprometheusHttpURL "https://prometheus.rancher.my.org"
+  prometheusStorageSize: &anchorprometheusStorageSize "25Gi"
+  alertmanagerURL: &anchoralertmanagerURL "alertmanager.rancher.my.org"
+  alertmanagerHttpURL: &anchoralertmanagerHttpURL "https://alertmanager.rancher.my.org"
+  smtpHost: &anchorsmtpHost "smtp.lsdopen.io"
+  smtpPort: &anchorsmtpPort "25"
+  smtpSmartHost: &anchorsmtpSmartHost "smtp.lsdopen.io:25"
+  supportAddress: &anchorsupportAddress "address-that-must-receive-alerts@lsdopen.io"
+  fromAddress: &anchorfromAddress "lsdobserve+noreply+k8s-01.qa.lsdopen.io@lsdopen.io"
+  fromName: &anchorfromName "LSDobserve - LSD - k8s-01.qa.lsdopen.io@lsdopen.io"
+  storageClass: &anchorstorageClass "longhorn"
+  curl:
+    image: docker.io/curlimages/curl:7.74.0
+  grafana:
+    enabled: true
+    ingress:
+      url: *anchorgrafanaURL
+  elastic:
+    enabled: true
+    image: *anchoreckElasticsearchImage
+    version: *anchoreckVersion
+    count: *anchorelasticClusterSize
+    storage: "50Gi"
+    storageClassName: *anchorstorageClass
+    filebeat:
+      enabled: true
+      image: *anchoreckFilebeatImage
+      version: *anchoreckVersion
+    ## Metricbeat as a Daemonset to collect metrics from Nodes
+    metricbeat:
+      enabled: true
+      image: *anchoreckMetricbeatImage
+      version: *anchoreckVersion
+    ## Metricbeat to connect to Prometheus
+    metricbeatPrometheus:
+      enabled: true
+      image: *anchoreckMetricbeatImage
+      version: *anchoreckVersion
+    apm:
+      enabled: false
+      image: *anchoreckApmImage
+      version: *anchoreckVersion
+    kibana:
+      enabled: true
+      image: *anchoreckKibanaImage
+      version: *anchoreckVersion
+      count: "1"
+      ingress:
+        url: *anchorkibanaURL
+
+# Logstash
+logstash:
+  image: "docker.elastic.co/logstash/logstash"
+  imageTag: *anchoreckVersion
+  replicas: "0"
+  logstashJavaOpts: *anchorlogstashJavaOpts
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "1536Mi"
+    limits:
+      cpu: "1000m"
+      memory: "1536Mi"
+  volumeClaimTemplate: {}
+  service: 
+    type: ClusterIP
+    loadBalancerIP: ""
+    ports:
+      - name: beats
+        port: 5044
+        protocol: TCP
+        targetPort: 5044
+  logstashPatternDir: "/usr/share/logstash/patterns/"
+  logstashConfig: 
+    logstash.yml: |
+      http.host: "0.0.0.0"
+      monitoring.enabled: true
+      monitoring.elasticsearch.username: elastic
+      monitoring.elasticsearch.password: ${ELASTIC_PASSWORD}
+      monitoring.elasticsearch.hosts: [ "https://lsdobserve-es-http:9200" ]
+      monitoring.elasticsearch.ssl.certificate_authority: /usr/share/logstash/certs/tls.crt
+      pipeline.ordered: false
+    pipelines.yml: |
+      - pipeline.id: main
+        path.config: "/usr/share/logstash/pipeline"
+      - pipeline.id: lsdobserve
+        path.config: "/usr/share/logstash/pipeline/lsdobserve"
+  secretMounts:
+    - name: elastic-ca-certs
+      secretName: lsdobserve-es-http-ca-internal
+      path: /usr/share/logstash/certs
+      defaultMode: 420
+  extraEnvs:
+    - name: ELASTIC_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: lsdobserve-es-elastic-user
+          key: elastic
+  extraVolumes: |
+    - configMap:
+        defaultMode: 420
+        name: logstash-pipeline
+      name: logstash-pipeline
+    - configMap:
+        defaultMode: 420
+        name: logstash-pipeline-lsdobserve
+      name: logstash-pipeline-lsdobserve
+    - configMap:
+        defaultMode: 420
+        name: logstash-patterns
+      name: logstash-patterns
+  extraVolumeMounts: |
+    - mountPath: /usr/share/logstash/pipeline
+      name: logstash-pipeline
+    - mountPath: /usr/share/logstash/pipeline/lsdobserve
+      name: logstash-pipeline-lsdobserve
+    - mountPath: /usr/share/logstash/patterns
+      name: logstash-patterns
+
+# Elastic Operator
+# To get a latest values you can run:
+# helm show values elastic/eck-operator
+eck-operator:
+  image:
+    # repository is the container image prefixed by the registry name.
+    # skopeo copy --all docker://docker.elastic.co/eck/eck-operator:1.5.0 docker://my.local.registry:5000/eck/eck-operator:1.5.0
+    repository: docker.elastic.co/eck/eck-operator
+    tag: *anchoreckOperatorVersion
+  replicaCount: 1
+  # installCRDs must be disabled because CRDs are put into the Helm chart
+  installCRDs: false
+  resources:
+    limits:
+      cpu: 200m
+      memory: 512Mi
+    requests:
+      cpu: 20m
+      memory: 150Mi
+
+# Grafana
+# To get a latest values you can run:
+# helm show values grafana/grafana
+grafana:
+  adminUser: *anchorgrafanaUsername
+  adminPassword: *anchorgrafanaPassword
+  image:
+    repository: grafana/grafana
+    tag: *anchorgrafanaVersion
+  # If you want to install on specific nodes, for example Infra nodes on Openshift
+  nodeSelector:
+    node-role.kubernetes.io/worker: "true"
+  replicas: 1
+  deploymentStrategy: { "type": "Recreate" }
+  # ingress is disable because it is created via the lsd-observe template
+  ingress:
+    enabled: false
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 128Mi
+  persistence:
+    enabled: "true"
+    type: pvc
+    size: 1Gi
+    storageClassName: *anchorstorageClass
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: LSDobserve - Prometheus
+          type: prometheus
+          url: http://lsdobserve-prometheus-server
+          isDefault: true
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: "ds-01"
+          orgId: 1
+          folder: "LSDcontainer"
+          type: file
+          disableDeletion: false
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/ds-01
+  dashboardsConfigMaps:
+    ds-01: "grafana-dashboard-kubernetes-overview"
+    ds-02: "grafana-dashboard-namespace-details"
+    ds-03: "grafana-dashboard-node-namespace-details"
+    ds-04: "grafana-dashboard-rook-ceph-overview"
+    ds-05: "node-exporter-for-prometheus-dashboard"
+  imageRenderer:
+    enabled: false
+    replicas: 1
+    image:
+      repository: grafana/grafana-image-renderer
+      tag: latest
+    service:
+      portName: "http"
+      port: 8081
+    podPortName: http
+    revisionHistoryLimit: 10
+    networkPolicy:
+      limitIngress: true
+      limitEgress: false
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 50m
+        memory: 50Mi
+
+# Prometheus
+# To get a latest values you can run:
+# helm show values prometheus-community/prometheus
+prometheus:
+  configmapReload:
+    prometheus:
+      enabled: true
+      name: configmap-reload
+      image:
+        repository: jimmidyson/configmap-reload
+        tag: v0.4.0
+    alertmanager:
+      enabled: true
+      name: configmap-reload
+      image:
+        repository: jimmidyson/configmap-reload
+        tag: v0.4.0
+  # https://kubernetes.github.io/kube-state-metrics
+  kubeStateMetrics:
+    enabled: true
+    image:
+      repository: quay.io/coreos/kube-state-metrics
+      tag: v1.9.7
+  server:
+    image:
+      repository: quay.io/prometheus/prometheus
+      tag: v2.26.0
+    replicaCount: 1
+    baseURL: *anchorprometheusHttpURL
+    retention: *anchorprometheusRenention
+    statefulSet:
+      enabled: true
+    ingress:
+      enabled: true
+      hosts:
+        - *anchorprometheusURL
+    persistentVolume:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      size: *anchorprometheusStorageSize
+    resources:
+      limits:
+        cpu: 500m
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 512Mi
+  pushgateway:
+    enabled: false
+  nodeExporter:
+    image:
+      repository: quay.io/prometheus/node-exporter
+      tag: v1.0.1
+    enabled: true
+    hostNetwork: true
+    hostPID: true
+    name: node-exporter
+    pod:
+      labels:
+        org: lsd
+        product: lsdobserve
+        name: node-exporter
+    resources:
+      limits:
+        cpu: 200m
+        memory: 50Mi
+      requests:
+        cpu: 10m
+        memory: 10Mi
+    securityContext: {}
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+      labels: {}
+      clusterIP: None
+      externalIPs: []
+      hostPort: 8100
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      servicePort: 8100
+      type: ClusterIP
+    tolerations:
+      - key: "node-role.kubernetes.io/controlplane"
+        operator: "Exists"
+      - key: "node-role.kubernetes.io/etcd"
+        operator: "Exists"
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+  alertmanager:
+    enabled: true
+    replicaCount: 3
+    prefixURL: ""
+    baseURL: *anchoralertmanagerHttpURL
+    service:
+      enableMeshPeer: true
+    statefulSet:
+      enabled: true
+      annotations: {}
+      labels: {}
+      podManagementPolicy: OrderedReady
+      headless:
+        annotations: {}
+        labels: {}
+        enableMeshPeer: true
+    image:
+      repository: prom/alertmanager
+      tag: v0.21.0
+    ingress:
+      enabled: true
+      hosts:
+        - *anchoralertmanagerURL
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 32Mi
+    persistentVolume:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      size: 1Gi
+  alertmanagerFiles:
+    alertmanager.yml:
+      global:
+        resolve_timeout: 5m
+      receivers:
+        - name: LSD Support
+          email_configs:
+            - to: *anchorsupportAddress
+              from: *anchorfromAddress
+              smarthost: *anchorsmtpSmartHost
+              require_tls: false
+              auth_username: ""
+              auth_password: ""
+      route:
+        group_by:
+          - job
+        group_interval: 5m
+        group_wait: 30s
+        receiver: "LSD Support"
+        repeat_interval: 12h
+        routes:
+          - receiver: LSD Support
+            match:
+              severity: warning
+          - receiver: LSD Support
+            match:
+              severity: critical
+  serverFiles:
+    alerting_rules.yml:
+      groups:
+        - name: Instances
+          rules:
+            - alert: InstanceDown
+              expr: up == 0
+              for: 5m
+              labels:
+                severity: warning
+              annotations:
+                description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
+                message: "When Instance/Endpoints are marked as down it means Prometheus cannot scrape those targets. You can get more details by gong to the Prometheus frontend, going to Status and Targets. You always want all you Instance/Endpoints up else you will not be able to monitor anything"
+        - name: NodesMarkedAsUnscheduled
+          rules:
+            - alert: NodesMarkedAsUnscheduled
+              expr: kube_node_spec_unschedulable > 0
+              for: 1h
+              labels:
+                severity: warning
+              annotations:
+                description: "{{ $labels.kubernetes_node }} is marked as Unscheduled for longer than 1h minutes."
+                message: "When Nodes are marked Unscheduled no new pods will be scheduled "
+        - name: NodeMemoryUsageAbove85Percent
+          rules:
+            - alert: NodeMemoryUsageAbove85Percent
+              expr: 100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[2m]) + avg_over_time(node_memory_Cached_bytes[2m]) + avg_over_time(node_memory_Buffers_bytes[2m]) + avg_over_time(node_memory_SReclaimable_bytes[2m])) / avg_over_time(node_memory_MemTotal_bytes[2m]))) > 85 < 90
+              for: 1h
+              labels:
+                severity: warning
+              annotations:
+                description: '{{ $labels.kubernetes_node }} is using {{ printf "%.0f" $value }}% of the total memory'
+                message: "When the memory of a node is exhausted pods will be evicted and sacrificed to keep the node ready. It is recommended that you cordon node {{ $labels.kubernetes_node }} and delete a couple of pods on the node, forcing them to start up on another node, then uncordone {{ $labels.kubernetes_node }}. You can find more info here: https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/"
+        - name: NodeMemoryUsageAbove95Percent
+          rules:
+            - alert: NodeMemoryUsageAbove95Percent
+              expr: 100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[2m]) + avg_over_time(node_memory_Cached_bytes[2m]) + avg_over_time(node_memory_Buffers_bytes[2m]) + avg_over_time(node_memory_SReclaimable_bytes[2m])) / avg_over_time(node_memory_MemTotal_bytes[2m]))) > 95
+              for: 1h
+              labels:
+                severity: critical
+              annotations:
+                description: '{{ $labels.kubernetes_node }} is using {{ printf "%.0f" $value }}% of the total memory'
+                message: "When the memory of a node is exhausted pods will be evicted and sacrificed to keep the node ready. It is recommended that you cordon node {{ $labels.kubernetes_node }} and delete a couple of pods on the node, forcing them to start up on another node, then uncordone {{ $labels.kubernetes_node }}. You can find more info here: https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/"
+        - name: PVCUsageOver85Percent
+          rules:
+            - alert: PVCUsageOver85Percent
+              expr: (kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes) * 100 > 85
+              for: 1h
+              labels:
+                severity: warning
+              annotations:
+                description: 'PVC {{ $labels.persistentvolumeclaim }} in namespace {{ $labels.namespace }} is using {{ printf "%.0f" $value }}% of the capacity'
+                message: 'You will need to go into the Pod that is using that PVC and clean up some storage. For example "kubectl -n {{ $labels.namespace }} exec -it PODNAME -- sh"'
+        - name: PVCUsageOver95Percent
+          rules:
+            - alert: PVCUsageOver95Percent
+              expr: (kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes) * 100 > 95
+              for: 1h
+              labels:
+                severity: critical
+              annotations:
+                description: 'PVC {{ $labels.persistentvolumeclaim }} in namespace {{ $labels.namespace }} is using {{ printf "%.0f" $value }}% of the capacity'
+                message: 'You will need to go into the Pod that is using that PVC and clean up some storage. For example "kubectl -n {{ $labels.namespace }} exec -it PODNAME -- sh"'
+        - name: NodeFileSystemUsageOver85Percent
+          rules:
+            - alert: NodeFileSystemUsageOver85Percent
+              expr: 100 - ((node_filesystem_avail_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"} * 100) / node_filesystem_size_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"}) > 85
+              for: 1h
+              labels:
+                severity: warning
+              annotations:
+                description: 'Mount point {{ $labels.mountpoint }} on Node {{ $labels.kubernetes_node }} is at {{ printf "%.0f" $value }}% of total capacity'
+                message: "You will need to SSH into Node {{ $labels.kubernetes_node }} and clean up storage on {{ $labels.mountpoint }}"
+        - name: NodeFileSystemUsageOver95Percent
+          rules:
+            - alert: NodeFileSystemUsageOver95Percent
+              expr: 100 - ((node_filesystem_avail_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"} * 100) / node_filesystem_size_bytes {mountpoint!~".*/host/.*",mountpoint!~".*/etc/.*",mountpoint!~".*/run/secrets.*",mountpoint!~".*/var/run/.*"}) > 95
+              for: 1h
+              labels:
+                severity: critical
+              annotations:
+                description: 'Mount point {{ $labels.mountpoint }} on Node {{ $labels.kubernetes_node }} is at {{ printf "%.0f" $value }}% of total capacity'
+                message: "You will need to SSH into Node {{ $labels.kubernetes_node }} and clean up storage on {{ $labels.mountpoint }}"
+        - name: TotalAvailableCPURequestsOver90Percent
+          rules:
+            - alert: TotalAvailableCPURequestsOver90Percent
+              expr: (sum ((sum(kube_pod_container_resource_requests_cpu_cores{container!="deployment",container!="docker-build",namespace!="logging",namespace!="default",namespace!~".*openshift-.*",namespace!~".*openmonitoring.*",namespace!~".*kube-.*"} > 0) by (container,pod) / count(kube_pod_container_status_running > 0) by (container,pod))*1000)) / (sum (kube_node_status_allocatable_cpu_cores)*1000) * 100 > 90
+              for: 1h
+              labels:
+                severity: critical
+              annotations:
+                description: 'The total allowed CPU requests are at {{ printf "%.0f" $value }}%'
+                message: "When the total allowed CPU requests hits 100% no more pods will be allowed to start up. You either need to lower the CPU requests of pods or add more CPU into the cluster"
+        - name: NodeCpuUtilizationOver95Percent
+          rules:
+            - alert: NodeCpuUtilizationOver95Percent
+              expr: 100 - (avg by (kubernetes_node) (rate( node_cpu_seconds_total {mode="idle"}[2m])) * 100) > 95
+              for: 1h
+              labels:
+                severity: warning
+              annotations:
+                description: 'Node {{ $labels.kubernetes_node }} has a CPU utlization over 95% for over 1 hour. Current CPU utilization of Node {{ $labels.kubernetes_node }} is {{ printf "%.0f" $value }}%'
+                message: "When the CPU is maxed out for over an hour it indicates an that a process is killing the node or the node does not have enough CPU assigned to it"
+        - name: NodeLoadOver50
+          rules:
+            - alert: NodeLoadOver50
+              expr: node_load15 > 50
+              for: 1h
+              labels:
+                severity: critical
+              annotations:
+                description: 'Node {{ $labels.kubernetes_node }} has a 15 minute load average of {{ printf "%.0f" $value }}%'
+                message: "When the load is over 50 this indicates an issue of high CPU, low memory (going into swap) and high disk utlization"
+        - name: RookCephClusterOver90Percent
+          rules:
+            - alert: RookCephClusterOver90Percent
+              expr: 100 - (sum without(instance) ((ceph_cluster_total_bytes - ceph_cluster_total_used_bytes) / ceph_cluster_total_bytes) * 100) > 90
+              for: 5m
+              labels:
+                severity: critical
+              annotations:
+                description: 'Namespace {{ $labels.kubernetes_namespace }} contains a Ceph cluster with a current usage of {{ printf "%.0f" $value }}%'
+                message: "Ceph clusters over 95% can begin to fail and need to be expanded or pruned"
+        - name: PodNotReady
+          rules:
+            - alert: PodNotReady
+              expr: sum by(namespace, pod, container) (kube_pod_container_status_waiting_reason{namespace=~"(openshift-.*|kube-.*|default|logging)"}) > 0
+              for: 30m
+              labels:
+                severity: warning
+              annotations:
+                description: "Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 30 minutes"
+                message: "Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 30 minutes"

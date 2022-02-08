@@ -17,8 +17,8 @@ data:
 {{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.lsdo.json" | indent 4}}
   lsdobserve-filebeat.ilm.policy.project.json: |-
 {{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.project.json" | indent 4}}
-  lsdobserve-filebeat.template.7.10.2.json: |-
-{{ .Files.Get "elastic/lsdobserve-filebeat.template.7.10.2.json" | indent 4}}
+  lsdobserve-filebeat.template.7.16.3.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.template.7.16.3.json" | indent 4}}
   lsdobserve-filebeat.template.k8s.json: |-
 {{ .Files.Get "elastic/lsdobserve-filebeat.template.k8s.json" | indent 4}}
   lsdobserve-filebeat.template.lsdo.json: |-

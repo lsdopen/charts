@@ -54,11 +54,17 @@ data:
 
     processors:
       - add_cloud_metadata:
+      - add_kubernetes_metadata:
+
+    monitoring:
+      enabled: true
 
     output.elasticsearch:
-      hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
+      hosts: ['https://${ELASTICSEARCH_HOST:elasticsearch-es-http}:${ELASTICSEARCH_PORT:9200}']
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
+      ssl.enabled: "true"
+      ssl.verification_mode: "none"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -88,13 +94,16 @@ spec:
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: elasticsearch
+          value: {{ .Release.Name }}-es-http
         - name: ELASTICSEARCH_PORT
           value: "9200"
         - name: ELASTICSEARCH_USERNAME
           value: elastic
         - name: ELASTICSEARCH_PASSWORD
-          value: changeme
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-es-elastic-user
+              key: "elastic"
         - name: NODE_NAME
           valueFrom:
             fieldRef:
@@ -152,8 +161,8 @@ metadata:
   name: metricbeat
 subjects:
 - kind: ServiceAccount
-  name: metricbeat
-  namespace: kube-system
+  name: {{ .Release.Name }}-metricbeat
+  namespace: {{ .Release.Name }}
 roleRef:
   kind: ClusterRole
   name: metricbeat

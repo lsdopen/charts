@@ -74,7 +74,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.template.7.10.2.json \"https://lsdobserve-es-http:9200/_template/filebeat-7.10.2\""
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.template.7.16.3.json \"https://lsdobserve-es-http:9200/_template/filebeat-7.16.3\""
         command:
         - /bin/sh
         env:
@@ -138,7 +138,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.bootstrap.k8s.json \"https://lsdobserve-es-http:9200/%3Cfilebeat-7.10.2-k8s-%7Bnow%2Fd%7D-000001%3E\""
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.bootstrap.k8s.json \"https://lsdobserve-es-http:9200/%3Cfilebeat-7.16.3-k8s-%7Bnow%2Fd%7D-000001%3E\""
         command:
         - /bin/sh
         env:
@@ -154,7 +154,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.bootstrap.lsdo.json \"https://lsdobserve-es-http:9200/%3Cfilebeat-7.10.2-lsdo-%7Bnow%2Fd%7D-000001%3E\""
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.bootstrap.lsdo.json \"https://lsdobserve-es-http:9200/%3Cfilebeat-7.16.3-lsdo-%7Bnow%2Fd%7D-000001%3E\""
         command:
         - /bin/sh
         env:
@@ -170,7 +170,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.bootstrap.project.json \"https://lsdobserve-es-http:9200/%3Cfilebeat-7.10.2-project-all-%7Bnow%2Fd%7D-000001%3E\""
+        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdobserve-filebeat.bootstrap.project.json \"https://lsdobserve-es-http:9200/%3Cfilebeat-7.16.3-project-all-%7Bnow%2Fd%7D-000001%3E\""
         command:
         - /bin/sh
         env:
