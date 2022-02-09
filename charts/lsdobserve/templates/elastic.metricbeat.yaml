@@ -87,7 +87,7 @@ spec:
           type: kubernetes
       modules:
       - module: system
-        period: 10s
+        period: 20s
         metricsets:
         - cpu
         - load
