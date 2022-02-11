@@ -25,4 +25,6 @@ data:
 {{ .Files.Get "elastic/lsdobserve-filebeat.template.lsdo.json" | indent 4}}
   lsdobserve-filebeat.template.apps.json: |-
 {{ .Files.Get "elastic/lsdobserve-filebeat.template.apps.json" | indent 4}}
+  lsdobserve-elastic-load-sample-dashboard.json: |-
+{{ .Files.Get "elastic/lsdobserve-elastic-load-sample-dashboard.json" | indent 4}}
 ---

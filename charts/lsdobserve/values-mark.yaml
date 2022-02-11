@@ -48,6 +48,13 @@ lsdobserve:
       image: *anchoreckFilebeatImage
       version: *anchoreckVersion
     ## Metricbeat as a Daemonset to collect metrics from Nodes
+    kibana:
+      enabled: true
+      image: *anchoreckKibanaImage
+      version: *anchoreckVersion
+      count: "1"
+      ingress:
+        url: *anchorkibanaURL
     metricbeat:
       enabled: true
       image: *anchoreckMetricbeatImage
@@ -61,13 +68,6 @@ lsdobserve:
       enabled: false
       image: *anchoreckApmImage
       version: *anchoreckVersion
-    kibana:
-      enabled: true
-      image: *anchoreckKibanaImage
-      version: *anchoreckVersion
-      count: "1"
-      ingress:
-        url: *anchorkibanaURL
 
 # Logstash
 logstash:

@@ -196,15 +196,15 @@ spec:
                 name: lsdobserve-es-elastic-user
                 key: elastic
         image: {{ .Values.lsdobserve.curl.image }}
-        name: filebeat-bootstrap-apps
+        name: elastic-load-sample-dashboard
         volumeMounts:
         - mountPath: /opt/elastic/
-          name: elastic-load-sample-dashboard
+          name: elastic-filebeat-custom-files
       restartPolicy: Never
       volumes:
       - configMap:
           defaultMode: 420
           name: elastic-filebeat-custom-files
-        name: elastic-filebeat-custom-files
+        name: elastic-filebeat-custom-files          
 ---
 {{- end }}

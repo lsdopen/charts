@@ -5,7 +5,7 @@ metadata:
   name: lsdobserve
 spec:
   hard:
-    requests.cpu: "6"
+    requests.cpu: "8"
     limits.cpu: "20"
     requests.memory: "32Gi"
     limits.memory: "60Gi"
@@ -26,7 +26,7 @@ metadata:
 spec:
   limits:
   - max:
-      cpu: "4"
+      cpu: "8"
       memory: 8Gi
     min:
       cpu: 10m
@@ -39,7 +39,7 @@ spec:
       cpu: 200m
       memory: 128Mi
     max:
-      cpu: "4"
+      cpu: "8"
       memory: 8Gi
     maxLimitRequestRatio:
       cpu: "20"
