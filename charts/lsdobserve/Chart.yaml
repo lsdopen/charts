@@ -37,3 +37,6 @@ dependencies:
 - name: logstash
   version: "7.10.2"
   repository: https://helm.elastic.co
+- name: elastalert2
+  version: "2.2.2"
+  repository: https://helm.jertel.com

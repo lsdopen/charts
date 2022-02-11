@@ -10,24 +10,25 @@ lsdobserve:
   eckFilebeatImage: &anchoreckFilebeatImage "docker.elastic.co/beats/filebeat:7.10.2"
   eckMetricbeatImage: &anchoreckMetricbeatImage "docker.elastic.co/beats/metricbeat:7.10.2"
   elasticClusterSize: &anchorelasticClusterSize "1"
-  kibanaURL: &anchorkibanaURL "kibana.apps.k8s-01.qa.lsdopen.io"
+  kibanaURL: &anchorkibanaURL "kibana.apps.local.covenant"
   logstashJavaOpts: &anchorlogstashJavaOpts "-Xms1g -Xmx1g"
   grafanaUsername: &anchorgrafanaUsername "admin"
   grafanaPassword: &anchorgrafanaPassword "ChangeMe-PasswordForGrafana"
   grafanaVersion: &anchorgrafanaVersion "7.5.2"
-  grafanaURL: &anchorgrafanaURL "grafana.apps.k8s-01.qa.lsdopen.io"
+  grafanaURL: &anchorgrafanaURL "grafana.apps.local.covenant"
   prometheusRenention: &anchorprometheusRenention "30d"
-  prometheusURL: &anchorprometheusURL "prometheus.apps.k8s-01.qa.lsdopen.io"
-  prometheusHttpURL: &anchorprometheusHttpURL "https://prometheus.apps.k8s-01.qa.lsdopen.io"
+  prometheusURL: &anchorprometheusURL "prometheus.apps.local.covenant"
+  prometheusHttpURL: &anchorprometheusHttpURL "https://prometheus.apps.local.covenant"
   prometheusStorageSize: &anchorprometheusStorageSize "25Gi"
-  alertmanagerURL: &anchoralertmanagerURL "alertmanager.apps.k8s-01.qa.lsdopen.io"
-  alertmanagerHttpURL: &anchoralertmanagerHttpURL "https://alertmanager.apps.k8s-01.qa.lsdopen.io"
+  alertmanagerURL: &anchoralertmanagerURL "alertmanager.apps.local.covenant"
+  alertmanagerHttpURL: &anchoralertmanagerHttpURL "https://alertmanager.apps.local.covenant"
   smtpHost: &anchorsmtpHost "smtp.lsdopen.io"
   smtpPort: &anchorsmtpPort "25"
   smtpSmartHost: &anchorsmtpSmartHost "smtp.lsdopen.io:25"
+
   supportAddress: &anchorsupportAddress "address-that-must-receive-alerts@lsdopen.io"
-  fromAddress: &anchorfromAddress "lsdobserve+noreply+k8s-01.qa.lsdopen.io@lsdopen.io"
-  fromName: &anchorfromName "LSDobserve - LSD - k8s-01.qa.lsdopen.io@lsdopen.io"
+  fromAddress: &anchorfromAddress "lsdobserve+noreply+local.covenant@lsdopen.io"
+  fromName: &anchorfromName "LSDobserve - LSD - local.covenant@lsdopen.io"
   storageClass: &anchorstorageClass "standard"
   curl:
     image: docker.io/curlimages/curl:7.74.0
@@ -70,6 +71,7 @@ lsdobserve:
 
 # Logstash
 logstash:
+  enabled: true
   image: "docker.elastic.co/logstash/logstash"
   imageTag: *anchoreckVersion
   replicas: "0"
@@ -136,6 +138,40 @@ logstash:
       name: logstash-pipeline-lsdobserve
     - mountPath: /usr/share/logstash/patterns
       name: logstash-patterns
+
+# ElastAlert 2
+elastalert2:
+  enabled: true
+  image:
+    repository: jertel/elastalert2
+    tag: 2.2.2
+  replicaCount: 1
+  elasticsearch:
+    host: lsdobserve-es-http
+    port: 9200
+    useSsl: "True"
+    verifyCerts: "True"
+    username: "elastic"
+    credentialsSecret: "lsdobserve-es-elastic-user"
+    credentialsSecretPasswordKey: "elastic"
+    caCerts: "/usr/share/logstash/certs/tls.crt"
+    certsVolumes:
+      - name: elastic-ca-certs
+        secret:
+          defaultMode: 420
+          secretName: lsdobserve-es-http-ca-internal
+    certsVolumeMounts:
+      - name: elastic-ca-certs
+        mountPath: /usr/share/logstash/certs
+        readOnly: true
+  extraVolumes:
+    - name: smtp-auth
+      secret:
+        secretName: "lsdobserve-elastalert-smtp-auth"
+        items:
+          - key: smtp_auth.yaml
+            path: smtp_auth.yaml
+            mode: 0400
 
 # Elastic Operator
 # To get a latest values you can run:
