@@ -27,7 +27,7 @@ lsdobserve:
   smtpPort: &anchorsmtpPort "25"
   smtpSmartHost: &anchorsmtpSmartHost "smtp.lsdopen.io:25"
   supportAddress: &anchorsupportAddress "address-that-must-receive-alerts@lsdopen.io"
-  fromAddress: &anchorfromAddress "lsdobserve+noreply+k8s-01.qa.lsdopen.io@lsdopen.io"
+  fromAddress: &anchorfromAddress "lsdobserve+noreply+infra-01.qa.lsdopen.io@lsdopen.io"
   fromName: &anchorfromName "LSDobserve - LSD - k8s-01.qa.lsdopen.io@lsdopen.io"
   storageClass: &anchorstorageClass "longhorn"
   curl:

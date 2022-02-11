@@ -1,7 +1,7 @@
 {
   "order" : 1,
   "index_patterns" : [
-    "filebeat-7.10.2-*"
+    "filebeat-{{ .Values.lsdobserve.eckVersion }}-*"
   ],
   "settings" : {
     "index" : {
@@ -915,7 +915,7 @@
   "mappings" : {
     "_meta" : {
       "beat" : "filebeat",
-      "version" : "7.10.2"
+      "version" : "{{ .Values.lsdobserve.eckVersion }}"
     },
     "dynamic_templates" : [
       {

@@ -1,0 +1,14 @@
+{
+  "order": 2,
+  "index_patterns": [
+    "filebeat-{{ .Values.lsdobserve.eckVersion }}-apps-all-*"
+  ],
+  "settings": {
+    "index": {
+      "lifecycle": {
+        "name": "filebeat-apps",
+        "rollover_alias": "filebeat-{{ .Values.lsdobserve.eckVersion }}-apps"
+      }
+    }
+  }
+}

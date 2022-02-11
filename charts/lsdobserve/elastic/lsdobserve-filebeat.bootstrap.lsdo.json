@@ -1,6 +1,6 @@
 {
   "aliases": {
-    "filebeat-7.10.2-lsdo": {
+    "filebeat-{{ .Values.lsdobserve.eckVersion }}-lsdo": {
       "is_write_index": true
     }
   }

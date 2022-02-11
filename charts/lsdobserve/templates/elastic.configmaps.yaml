@@ -5,24 +5,24 @@ kind: ConfigMap
 metadata:
   name: elastic-filebeat-custom-files
 data:
-  lsdobserve-filebeat.bootstrap.k8s.json: |-
-{{ .Files.Get "elastic/lsdobserve-filebeat.bootstrap.k8s.json" | indent 4}}
+  lsdobserve-filebeat.bootstrap.infra.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.bootstrap.infra.json" | indent 4}}
   lsdobserve-filebeat.bootstrap.lsdo.json: |-
 {{ .Files.Get "elastic/lsdobserve-filebeat.bootstrap.lsdo.json" | indent 4}}
-  lsdobserve-filebeat.bootstrap.project.json: |-
-{{ .Files.Get "elastic/lsdobserve-filebeat.bootstrap.project.json" | indent 4}}
-  lsdobserve-filebeat.ilm.policy.k8s.json: |-
-{{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.k8s.json" | indent 4}}
+  lsdobserve-filebeat.bootstrap.apps.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.bootstrap.apps.json" | indent 4}}
+  lsdobserve-filebeat.ilm.policy.infra.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.infra.json" | indent 4}}
   lsdobserve-filebeat.ilm.policy.lsdo.json: |-
 {{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.lsdo.json" | indent 4}}
-  lsdobserve-filebeat.ilm.policy.project.json: |-
-{{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.project.json" | indent 4}}
+  lsdobserve-filebeat.ilm.policy.apps.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.apps.json" | indent 4}}
   lsdobserve-filebeat.template.7.16.3.json: |-
 {{ .Files.Get "elastic/lsdobserve-filebeat.template.7.16.3.json" | indent 4}}
-  lsdobserve-filebeat.template.k8s.json: |-
-{{ .Files.Get "elastic/lsdobserve-filebeat.template.k8s.json" | indent 4}}
+  lsdobserve-filebeat.template.infra.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.template.infra.json" | indent 4}}
   lsdobserve-filebeat.template.lsdo.json: |-
 {{ .Files.Get "elastic/lsdobserve-filebeat.template.lsdo.json" | indent 4}}
-  lsdobserve-filebeat.template.project.json: |-
-{{ .Files.Get "elastic/lsdobserve-filebeat.template.project.json" | indent 4}}
+  lsdobserve-filebeat.template.apps.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.template.apps.json" | indent 4}}
 ---
