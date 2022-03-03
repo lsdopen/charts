@@ -1,5 +1,6 @@
-# Elastic Metricbeat
+# Elastic Metricbeat {{ .Release.Name }}-metricbeat
 {{- if .Values.lsdobserve.elastic.metricbeat.enabled -}}
+
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -87,7 +88,7 @@ spec:
           type: kubernetes
       modules:
       - module: system
-        period: 20s
+        period: 10s
         metricsets:
         - cpu
         - load
@@ -141,7 +142,7 @@ spec:
           - -c
           - /etc/beat.yml
           - -system.hostfs=/hostfs
-          name: {{ .Release.Name }}-metricbeat
+          name: metricbeat
           volumeMounts:
           - mountPath: /hostfs/sys/fs/cgroup
             name: cgroup

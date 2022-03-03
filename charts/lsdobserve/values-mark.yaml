@@ -30,10 +30,11 @@ lsdobserve:
   fromAddress: &anchorfromAddress "lsdobserve+noreply+infra-01.qa.lsdopen.io@lsdopen.io"
   fromName: &anchorfromName "LSDobserve - LSD - k8s-01.qa.lsdopen.io@lsdopen.io"
   storageClass: &anchorstorageClass "longhorn"
+  #storageClass: &anchorstorageClass "local"
   curl:
     image: docker.io/curlimages/curl:7.74.0
   grafana:
-    enabled: true
+    enabled: false
     ingress:
       url: *anchorgrafanaURL
   elastic:
@@ -61,7 +62,7 @@ lsdobserve:
       version: *anchoreckVersion
     ## Metricbeat to connect to Prometheus
     metricbeatPrometheus:
-      enabled: true
+      enabled: false
       image: *anchoreckMetricbeatImage
       version: *anchoreckVersion
     apm:
