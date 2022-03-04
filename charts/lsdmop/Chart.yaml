@@ -1,0 +1,39 @@
+apiVersion: v2
+name: lsdmop
+version: "1.0.85"
+appVersion: "1.0.2"
+# Disabling kubeVersion because GKE is dumb
+# kubeVersion: ">=v1.11.0"
+description: A Helm chart for LSDobserve
+keywords:
+  - lsdmop
+  - kubernetes
+  - grafana
+  - prometheus
+  - elastic
+home: https://github.com/lsdopen/charts
+sources:
+  - https://github.com/lsdopen
+maintainers:
+  - name: LSD
+    email: support@lsdopen.io
+    url: https://lsdopen.io
+deprecated: false
+tillerVersion: ">=v3.2.1"
+
+dependencies:
+- name: prometheus
+  version: "15.1.1"
+  repository: https://prometheus-community.github.io/helm-charts
+- name: prometheus-blackbox-exporter
+  version: "5.3.1"
+  repository: https://prometheus-community.github.io/helm-charts
+- name: eck-operator
+  version: "1.9.1"
+  repository: https://helm.elastic.co
+- name: grafana
+  version: "6.21.1"
+  repository: https://grafana.github.io/helm-charts
+- name: logstash
+  version: "7.16.3"
+  repository: https://helm.elastic.co

@@ -1,0 +1,14 @@
+{
+  "order": 2,
+  "index_patterns": [
+    "filebeat-7.16.3-apps-*"
+  ],
+  "settings": {
+    "index": {
+      "lifecycle": {
+        "name": "filebeat-apps",
+        "rollover_alias": "filebeat-7.16.3-apps"
+      }
+    }
+  }
+}

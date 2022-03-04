@@ -1,0 +1,90 @@
+# Kibana CRD
+{{- if .Values.lsdmop.elastic.kibana.enabled -}}
+---
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  version: "{{ .Values.lsdmop.elastic.kibana.version }}"
+  image: "{{ .Values.lsdmop.elastic.kibana.image }}"
+  count: {{ .Values.lsdmop.elastic.kibana.count }}
+  elasticsearchRef:
+    name: {{ .Release.Name }}
+  podTemplate:
+    spec:
+      containers:
+      - name: kibana
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 50m
+          limits:
+            memory: 2Gi
+            cpu: 250m
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+---
+{{- end }}
+
+# Kibana Ingress
+{{- if or (eq .Values.lsdmop.clusterType "gke") (eq .Values.lsdmop.clusterType "rancher") -}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+  labels:
+    app: kibana
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"    
+  name: lsdmop-kb
+spec:
+  rules:
+  - host: {{ .Values.lsdmop.elastic.kibana.ingress.url }}
+    http:
+      paths:
+      - backend:
+          serviceName: lsdmop-kb-http
+          servicePort: 5601
+        path: /
+        pathType: ImplementationSpecific
+---
+{{- end }}
+
+# Kibana Route for Openshift
+{{- if eq .Values.lsdmop.clusterType "openshift" -}}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: {{ .Release.Name }}-kb-http
+  name: {{ .Release.Name }}-kb-http
+spec:
+  host: {{ .Values.lsdmop.elastic.kibana.ingress.url }}
+  port:
+    targetPort: http
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: {{ .Release.Name }}-kb-http
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+  - conditions:
+    - status: "True"
+      type: Admitted
+    host: {{ .Values.lsdmop.elastic.kibana.ingress.url }}
+    routerName: router
+    wildcardPolicy: None
+---
+{{- end }}

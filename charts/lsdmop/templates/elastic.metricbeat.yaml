@@ -1,0 +1,174 @@
+# Elastic Metricbeat {{ .Release.Name }}-metricbeat
+{{- if .Values.lsdmop.elastic.metricbeat.enabled -}}
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Release.Name }}-metricbeat
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - namespaces
+  - events
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - "extensions"
+  resources:
+  - replicasets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  - deployments
+  - replicasets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - nodes/stats
+  verbs:
+  - get
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Release.Name }}-metricbeat
+subjects:
+- kind: ServiceAccount
+  name: {{ .Release.Name }}-metricbeat
+  namespace: lsdmop
+roleRef:
+  kind: ClusterRole
+  name: {{ .Release.Name }}-metricbeat
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Release.Name }}-metricbeat
+---
+apiVersion: beat.k8s.elastic.co/v1beta1
+kind: Beat
+metadata:
+  name: {{ .Release.Name }}-metricbeat
+spec:
+  type: metricbeat
+  version: {{ .Values.lsdmop.elastic.metricbeat.version }}
+  image: {{ .Values.lsdmop.elastic.metricbeat.image }}
+  elasticsearchRef:
+    name: {{ .Release.Name }}
+  kibanaRef:
+    name: {{ .Release.Name }}
+  config:
+    metricbeat:
+      autodiscover:
+        providers:
+        - hints:
+            default_config: {}
+            enabled: "true"
+          host: ${NODE_NAME}
+          type: kubernetes
+      modules:
+      - module: system
+        period: 10s
+        metricsets:
+        - cpu
+        - load
+        - memory
+        - network
+        - process
+        - process_summary
+        process:
+          include_top_n:
+            by_cpu: 5
+            by_memory: 5
+        processes:
+        - .*
+      - module: system
+        period: 1m
+        metricsets:
+        - filesystem
+        - fsstat
+        processors:
+        - drop_event:
+            when:
+              regexp:
+                system:
+                  filesystem:
+                    mount_point: ^/(sys|cgroup|proc|dev|etc|host|lib)($|/)
+      - module: kubernetes
+        period: 10s
+        host: ${NODE_NAME}
+        hosts:
+        - https://${NODE_NAME}:10250
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        ssl:
+          verification_mode: none
+        metricsets:
+        - node
+        - system
+        - pod
+        - container
+        - volume
+    processors:
+    - add_cloud_metadata: {}
+    - add_host_metadata: {}
+  daemonSet:
+    podTemplate:
+      spec:
+        serviceAccountName: {{ .Release.Name }}-metricbeat
+        automountServiceAccountToken: true
+        containers:
+        - args:
+          - -e
+          - -c
+          - /etc/beat.yml
+          - -system.hostfs=/hostfs
+          name: metricbeat
+          volumeMounts:
+          - mountPath: /hostfs/sys/fs/cgroup
+            name: cgroup
+          - mountPath: /var/run/docker.sock
+            name: dockersock
+          - mountPath: /hostfs/proc
+            name: proc
+          env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          image: docker.elastic.co/beats/metricbeat:7.16.3
+        dnsPolicy: ClusterFirstWithHostNet
+        hostNetwork: true
+        securityContext:
+          runAsUser: 0
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /sys/fs/cgroup
+          name: cgroup
+        - hostPath:
+            path: /var/run/docker.sock
+          name: dockersock
+        - hostPath:
+            path: /proc
+          name: proc
+{{- end }}

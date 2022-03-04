@@ -1,0 +1,235 @@
+# Elastic Metricbeat
+## https://raw.githubusercontent.com/elastic/beats/master/deploy/kubernetes/metricbeat-kubernetes.yaml
+{{- if .Values.lsdmop.elastic.metricbeatPrometheus.enabled -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-metricbeat-prometheus-config
+  labels:
+    name: {{ .Release.Name }}-metricbeat-prometheus
+data:
+  metricbeat.yml: |-
+    metricbeat.modules:
+    # Metrics collected from a Prometheus endpoint
+    - module: prometheus
+      period: 30s
+      metricsets: ["collector"]
+      hosts: ["${LSDOBSERVE_PROMETHEUS_SERVER_PORT_80_TCP_ADDR}:${LSDOBSERVE_PROMETHEUS_SERVER_PORT_80_TCP_PORT}"]
+      metrics_path: /metrics
+      #metrics_filters:
+      #  include: []
+      #  exclude: []
+      #username: "user"
+      #password: "secret"
+
+      # This can be used for service account based authorization:
+      #bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+      #ssl.certificate_authorities:
+      #  - /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+
+
+    # Metrics sent by a Prometheus server using remote_write option
+    #- module: prometheus
+    #  metricsets: ["remote_write"]
+    #  host: "localhost"
+    #  port: "9201"
+
+      # Secure settings for the server using TLS/SSL:
+      #ssl.certificate: "/etc/pki/server/cert.pem"
+      #ssl.key: "/etc/pki/server/cert.key"
+
+    # Metrics that will be collected using a PromQL
+    #- module: prometheus
+    #  metricsets: ["query"]
+    #  hosts: ["localhost:9090"]
+    #  period: 10s
+    #  queries:
+    #  - name: "instant_vector"
+    #    path: "/api/v1/query"
+    #    params:
+    #      query: "sum(rate(prometheus_http_requests_total[1m]))"
+    #  - name: "range_vector"
+    #    path: "/api/v1/query_range"
+    #    params:
+    #      query: "up"
+    #      start: "2019-12-20T00:00:00.000Z"
+    #      end:  "2019-12-21T00:00:00.000Z"
+    #      step: 1h
+    #  - name: "scalar"
+    #    path: "/api/v1/query"
+    #    params:
+    #      query: "100"
+    #  - name: "string"
+    #    path: "/api/v1/query"
+    #    params:
+    #      query: "some_value"
+
+    processors:
+      - add_cloud_metadata:
+      - add_kubernetes_metadata:
+
+    monitoring:
+      enabled: true
+
+    output.elasticsearch:
+      hosts: ['https://${ELASTICSEARCH_HOST:elasticsearch-es-http}:${ELASTICSEARCH_PORT:9200}']
+      username: ${ELASTICSEARCH_USERNAME}
+      password: ${ELASTICSEARCH_PASSWORD}
+      ssl.enabled: "true"
+      ssl.verification_mode: "none"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-metricbeat-prometheus
+  labels:
+    app: {{ .Release.Name }}-metricbeat-prometheus
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-metricbeat-prometheus
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-metricbeat-prometheus
+    spec:
+      serviceAccountName: {{ .Release.Name }}-metricbeat
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: metricbeat
+        image: {{ .Values.lsdmop.elastic.metricbeat.image }}
+        args: [
+          "-c", "/etc/metricbeat.yml",
+          "-e",
+          "-system.hostfs=/hostfs",
+        ]
+        env:
+        - name: ELASTICSEARCH_HOST
+          value: {{ .Release.Name }}-es-http
+        - name: ELASTICSEARCH_PORT
+          value: "9200"
+        - name: ELASTICSEARCH_USERNAME
+          value: elastic
+        - name: ELASTICSEARCH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-es-elastic-user
+              key: "elastic"
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        securityContext:
+          runAsUser: 0
+          # If using Red Hat OpenShift uncomment this:
+          #privileged: true
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: config
+          mountPath: /etc/metricbeat.yml
+          readOnly: true
+          subPath: metricbeat.yml
+        - name: data
+          mountPath: /usr/share/metricbeat/data
+        - name: modules
+          mountPath: /usr/share/metricbeat/modules.d
+          readOnly: true
+        - name: proc
+          mountPath: /hostfs/proc
+          readOnly: true
+        - name: cgroup
+          mountPath: /hostfs/sys/fs/cgroup
+          readOnly: true
+      volumes:
+      - name: proc
+        hostPath:
+          path: /proc
+      - name: cgroup
+        hostPath:
+          path: /sys/fs/cgroup
+      - name: config
+        configMap:
+          defaultMode: 0640
+          name: {{ .Release.Name }}-metricbeat-prometheus-config
+      - name: modules
+        configMap:
+          defaultMode: 0640
+          name: {{ .Release.Name }}-metricbeat-prometheus-config
+      - name: data
+        hostPath:
+          # When metricbeat runs as non-root user, this directory needs to be writable by group (g+w)
+          path: /var/lib/metricbeat-data
+          type: DirectoryOrCreate
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: metricbeat
+subjects:
+- kind: ServiceAccount
+  name: {{ .Release.Name }}-metricbeat
+  namespace: {{ .Release.Name }}
+roleRef:
+  kind: ClusterRole
+  name: metricbeat
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: metricbeat
+  labels:
+    k8s-app: metricbeat
+rules:
+- apiGroups: [""]
+  resources:
+  - nodes
+  - namespaces
+  - events
+  - pods
+  - secrets
+  - services
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["extensions"]
+  resources:
+  - replicasets
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources:
+  - statefulsets
+  - deployments
+  - replicasets
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - ""
+  resources:
+  - nodes/stats
+  verbs:
+  - get
+- nonResourceURLs:
+  - "/metrics"
+  verbs:
+  - get
+- apiGroups:
+    - coordination.k8s.io
+  resources:
+    - leases
+  verbs:
+    - '*'
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Release.Name }}-metricbeat
+  labels:
+    k8s-app: {{ .Release.Name }}-metricbeat
+---
+{{- end }}

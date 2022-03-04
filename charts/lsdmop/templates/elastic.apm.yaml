@@ -1,0 +1,14 @@
+# Elastic APM
+{{- if .Values.lsdmop.elastic.apm.enabled -}}
+---
+apiVersion: apm.k8s.elastic.co/v1
+kind: ApmServer
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  version: {{ .Values.lsdmop.elastic.apm.version }}
+  image: {{ .Values.lsdmop.elastic.apm.image }}
+  count: 1
+  elasticsearchRef:
+    name: lsdmop
+{{- end }}

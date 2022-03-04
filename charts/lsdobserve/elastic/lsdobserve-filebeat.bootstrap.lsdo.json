@@ -1,7 +1,0 @@
-{
-  "aliases": {
-    "filebeat-{{ .Values.lsdobserve.eckVersion }}-lsdo": {
-      "is_write_index": true
-    }
-  }
-}

@@ -1,0 +1,30 @@
+# Elastic ConfigMaps
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: elastic-filebeat-custom-files
+data:
+  lsdmop-filebeat.bootstrap.infra.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.bootstrap.infra.json" | indent 4}}
+  lsdmop-filebeat.bootstrap.lsdo.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.bootstrap.lsdo.json" | indent 4}}
+  lsdmop-filebeat.bootstrap.apps.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.bootstrap.apps.json" | indent 4}}
+  lsdmop-filebeat.ilm.policy.infra.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.ilm.policy.infra.json" | indent 4}}
+  lsdmop-filebeat.ilm.policy.lsdo.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.ilm.policy.lsdo.json" | indent 4}}
+  lsdmop-filebeat.ilm.policy.apps.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.ilm.policy.apps.json" | indent 4}}
+  lsdmop-filebeat.template.7.16.3.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.template.7.16.3.json" | indent 4}}
+  lsdmop-filebeat.template.infra.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.template.infra.json" | indent 4}}
+  lsdmop-filebeat.template.lsdo.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.template.lsdo.json" | indent 4}}
+  lsdmop-filebeat.template.apps.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.template.apps.json" | indent 4}}
+  lsdmop-elastic-load-sample-dashboard.json: |-
+{{ .Files.Get "elastic/lsdmop-elastic-load-sample-dashboard.json" | indent 4}}
+---

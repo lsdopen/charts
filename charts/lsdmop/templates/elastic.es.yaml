@@ -1,0 +1,42 @@
+# Elasticsearch
+{{- if .Values.lsdmop.elastic.enabled -}}
+---
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  version: "{{ .Values.lsdmop.elastic.version }}"
+  image: "{{ .Values.lsdmop.elastic.image }}"
+  nodeSets:
+  - name: default
+    count: {{ .Values.lsdmop.elastic.count }}
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: "{{ .Values.lsdmop.elastic.storage }}"
+        storageClassName: "{{ .Values.lsdmop.elastic.storageClassName }}"
+    config:
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          env:
+          - name: ES_JAVA_OPTS
+            value: -Xms2g -Xmx2g -Dlog4j2.formatMsgNoLookups=true
+          resources:
+            requests:
+              memory: 4Gi
+              cpu: 200m
+            limits:
+              memory: 4Gi
+              cpu: 2
+{{- end }}
