@@ -12,7 +12,7 @@ spec:
         - /bin/sh
         - -c
         - |
-          set -x; while [ $(curl -u elastic:$ELASTIC_PASSWORD -skw '%{http_code}' "https://lsdmop-es-http:9200" -o /dev/null) -ne 200 ]; do
+          set -x; while [ $(curl -u elastic:$ELASTIC_PASSWORD -skvw '%{http_code}' "https://lsdmop-es-http:9200" -o /dev/null) -ne 200 ]; do
             sleep 5;
           done
         env:
@@ -26,7 +26,23 @@ spec:
       containers:
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.ilm.policy.infra.json \"https://lsdmop-es-http:9200/_ilm/policy/filebeat-infra\""
+        - "sleep 1"
+        command:
+        - /bin/sh
+        env:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: lsdmop-es-elastic-user
+                key: elastic
+        image: {{ .Values.lsdmop.curl.image }}
+        name: sleep-debug-container
+        volumeMounts:
+        - mountPath: /opt/elastic/
+          name: elastic-filebeat-custom-files
+      - args:
+        - -c
+        - "curl -skv -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.ilm.policy.infra.json \"https://lsdmop-es-http:9200/_ilm/policy/filebeat-infra\""
         command:
         - /bin/sh
         env:
@@ -42,7 +58,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.ilm.policy.lsdo.json \"https://lsdmop-es-http:9200/_ilm/policy/filebeat-lsdo\""
+        - "curl -skv -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.ilm.policy.lsdo.json \"https://lsdmop-es-http:9200/_ilm/policy/filebeat-lsdo\""
         command:
         - /bin/sh
         env:
@@ -58,7 +74,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.ilm.policy.apps.json \"https://lsdmop-es-http:9200/_ilm/policy/filebeat-apps\""
+        - "curl -skv -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.ilm.policy.apps.json \"https://lsdmop-es-http:9200/_ilm/policy/filebeat-apps\""
         command:
         - /bin/sh
         env:
@@ -74,7 +90,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.template.7.16.3.json \"https://lsdmop-es-http:9200/_template/filebeat-7.16.3\""
+        - "curl -skv -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.template.7.16.3.json \"https://lsdmop-es-http:9200/_template/filebeat-7.16.3\""
         command:
         - /bin/sh
         env:
@@ -90,7 +106,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.template.infra.json \"https://lsdmop-es-http:9200/_template/filebeat-infra\""
+        - "curl -skv -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.template.infra.json \"https://lsdmop-es-http:9200/_template/filebeat-infra\""
         command:
         - /bin/sh
         env:
@@ -106,7 +122,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.template.lsdo.json \"https://lsdmop-es-http:9200/_template/filebeat-lsdo\""
+        - "curl -skv -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.template.lsdo.json \"https://lsdmop-es-http:9200/_template/filebeat-lsdo\""
         command:
         - /bin/sh
         env:
@@ -122,7 +138,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.template.apps.json \"https://lsdmop-es-http:9200/_template/filebeat-apps\""
+        - "curl -skv -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.template.apps.json \"https://lsdmop-es-http:9200/_template/filebeat-apps\""
         command:
         - /bin/sh
         env:
@@ -138,7 +154,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.bootstrap.infra.json \"https://lsdmop-es-http:9200/%3Cfilebeat-7.16.3-infra-%7Bnow%2Fd%7D-000001%3E\""
+        - "curl -skv -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.bootstrap.infra.json \"https://lsdmop-es-http:9200/%3Cfilebeat-7.16.3-infra-%7Bnow%2Fd%7D-000001%3E\""
         command:
         - /bin/sh
         env:
@@ -154,7 +170,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.bootstrap.lsdo.json \"https://lsdmop-es-http:9200/%3Cfilebeat-7.16.3-lsdo-%7Bnow%2Fd%7D-000001%3E\""
+        - "curl -skv -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.bootstrap.lsdo.json \"https://lsdmop-es-http:9200/%3Cfilebeat-7.16.3-lsdo-%7Bnow%2Fd%7D-000001%3E\""
         command:
         - /bin/sh
         env:
@@ -170,7 +186,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.bootstrap.apps.json \"https://lsdmop-es-http:9200/%3Cfilebeat-7.16.3-apps-%7Bnow%2Fd%7D-000001%3E\""
+        - "curl -skv -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-filebeat.bootstrap.apps.json \"https://lsdmop-es-http:9200/%3Cfilebeat-7.16.3-apps-%7Bnow%2Fd%7D-000001%3E\""
         command:
         - /bin/sh
         env:
@@ -186,7 +202,7 @@ spec:
           name: elastic-filebeat-custom-files
       - args:
         - -c
-        - "curl -sk -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X PUT -d @/opt/elastic/lsdmop-elastic-load-sample-dashboard.json \"https://lsdmop-es-http:9200/%3Cfilebeat-7.16.3-apps-all-%7Bnow%2Fd%7D-000001%3E\""
+        - "curl -kv -u elastic:$ELASTIC_PASSWORD -H \"kbn-xsrf: true\" -X POST --form file=@/opt/elastic/lsdmop-elastic-load-sample-dashboard.ndjson http://lsdmop-kb-http:5601/api/saved_objects/_import?createNewCopies=false"
         command:
         - /bin/sh
         env:

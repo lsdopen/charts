@@ -26,5 +26,5 @@ data:
   lsdmop-filebeat.template.apps.json: |-
 {{ .Files.Get "elastic/lsdmop-filebeat.template.apps.json" | indent 4}}
   lsdmop-elastic-load-sample-dashboard.json: |-
-{{ .Files.Get "elastic/lsdmop-elastic-load-sample-dashboard.json" | indent 4}}
+{{ .Files.Get "elastic/lsdmop-elastic-load-sample-dashboard.ndjson" | indent 4}}
 ---

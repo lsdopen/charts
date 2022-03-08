@@ -171,7 +171,7 @@ grafana:
   # If you want to install on specific nodes, for example Infra nodes on Openshift
   nodeSelector:
     node-role.kubernetes.io/worker: "true"
-  replicas: 1
+  replicas: 0
   deploymentStrategy: { "type": "Recreate" }
   # ingress is disable because it is created via the lsd-observe template
   ingress:
@@ -242,7 +242,7 @@ grafana:
 prometheus:
   configmapReload:
     prometheus:
-      enabled: true
+      enabled: false
       name: configmap-reload
       image:
         repository: jimmidyson/configmap-reload
@@ -255,7 +255,7 @@ prometheus:
         tag: v0.4.0
   # https://kubernetes.github.io/kube-state-metrics
   kubeStateMetrics:
-    enabled: true
+    enabled: false
     image:
       repository: quay.io/coreos/kube-state-metrics
       tag: v1.9.7
@@ -290,7 +290,7 @@ prometheus:
     image:
       repository: quay.io/prometheus/node-exporter
       tag: v1.0.1
-    enabled: true
+    enabled: false
     hostNetwork: true
     hostPID: true
     name: node-exporter
@@ -326,7 +326,7 @@ prometheus:
       - key: "node-role.kubernetes.io/master"
         operator: "Exists"
   alertmanager:
-    enabled: true
+    enabled: false
     replicaCount: 3
     prefixURL: ""
     baseURL: *anchoralertmanagerHttpURL
