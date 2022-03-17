@@ -17,14 +17,14 @@ data:
 {{ .Files.Get "elastic/lsdmop-filebeat.ilm.policy.lsdo.json" | indent 4}}
   lsdmop-filebeat.ilm.policy.apps.json: |-
 {{ .Files.Get "elastic/lsdmop-filebeat.ilm.policy.apps.json" | indent 4}}
-  lsdmop-filebeat.template.7.16.3.json: |-
-{{ .Files.Get "elastic/lsdmop-filebeat.template.7.16.3.json" | indent 4}}
+  lsdmop-filebeat.template.7.17.1.json: |-
+{{ .Files.Get "elastic/lsdmop-filebeat.template.7.17.1.json" | indent 4}}
   lsdmop-filebeat.template.infra.json: |-
 {{ .Files.Get "elastic/lsdmop-filebeat.template.infra.json" | indent 4}}
   lsdmop-filebeat.template.lsdo.json: |-
 {{ .Files.Get "elastic/lsdmop-filebeat.template.lsdo.json" | indent 4}}
   lsdmop-filebeat.template.apps.json: |-
 {{ .Files.Get "elastic/lsdmop-filebeat.template.apps.json" | indent 4}}
-  lsdmop-elastic-load-sample-dashboard.json: |-
+  lsdmop-elastic-load-sample-dashboard.ndjson: |-
 {{ .Files.Get "elastic/lsdmop-elastic-load-sample-dashboard.ndjson" | indent 4}}
 ---

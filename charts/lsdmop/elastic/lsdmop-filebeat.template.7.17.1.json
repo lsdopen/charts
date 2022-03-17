@@ -1,7 +1,7 @@
 {
   "order" : 1,
   "index_patterns" : [
-    "filebeat-7.16.3-*"
+    "filebeat-7.17.1-*"
   ],
   "settings" : {
     "index" : {
@@ -915,7 +915,7 @@
   "mappings" : {
     "_meta" : {
       "beat" : "filebeat",
-      "version" : "7.16.3"
+      "version" : "7.17.1"
     },
     "dynamic_templates" : [
       {

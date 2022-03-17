@@ -31,12 +31,12 @@ spec:
         - name: elasticsearch
           env:
           - name: ES_JAVA_OPTS
-            value: -Xms2g -Xmx2g -Dlog4j2.formatMsgNoLookups=true
+            value: -Xms5g -Xmx5g -Dlog4j2.formatMsgNoLookups=true
           resources:
             requests:
-              memory: 4Gi
-              cpu: 200m
+              memory: 8Gi
+              cpu: 4
             limits:
-              memory: 4Gi
-              cpu: 2
+              memory: 8Gi
+              cpu: 8
 {{- end }}

@@ -155,7 +155,7 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: spec.nodeName
-          image: docker.elastic.co/beats/metricbeat:7.16.3
+          image: docker.elastic.co/beats/metricbeat:7.17.1
         dnsPolicy: ClusterFirstWithHostNet
         hostNetwork: true
         securityContext:

@@ -1,6 +1,6 @@
 {
   "aliases": {
-    "filebeat-7.16.3-infra": {
+    "filebeat-7.17.1-infra": {
       "is_write_index": true
     }
   }

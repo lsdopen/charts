@@ -1,13 +1,13 @@
 {
   "order": 2,
   "index_patterns": [
-    "filebeat-7.16.3-lsdo-*"
+    "filebeat-7.17.1-lsdo-*"
   ],
   "settings": {
     "index": {
       "lifecycle": {
         "name": "filebeat-lsdo",
-        "rollover_alias": "filebeat-7.16.3-lsdo"
+        "rollover_alias": "filebeat-7.17.1-lsdo"
       }
     }
   }

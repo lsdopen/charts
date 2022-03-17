@@ -86,6 +86,9 @@ Then you have an SELinux issue, and can resolve it with the following command, t
 chcon -t container_file_t /var/lib/lsdmop/lsdmop-filebeat/filebeat-data
 ```
 
+```
+Delete the elastic-post-setup job before upgrading - otherwise the correcnt tempaltes and ILM policies will not be applied.
+```
 ### Manual removal
 
 ```

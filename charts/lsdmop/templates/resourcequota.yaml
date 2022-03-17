@@ -33,16 +33,16 @@ spec:
       memory: 4Mi
     type: Pod
   - default:
-      cpu: 400m
-      memory: 512Mi
+      cpu: 50m
+      memory: 256Mi
     defaultRequest:
-      cpu: 200m
+      cpu: 50m
       memory: 128Mi
     max:
       cpu: "8"
-      memory: 8Gi
+      memory: 12Gi
     maxLimitRequestRatio:
-      cpu: "20"
+      cpu: "50"
     min:
       cpu: 10m
       memory: 4Mi

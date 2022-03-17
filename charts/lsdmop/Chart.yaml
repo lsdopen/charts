@@ -35,5 +35,5 @@ dependencies:
   version: "6.21.1"
   repository: https://grafana.github.io/helm-charts
 - name: logstash
-  version: "7.16.3"
+  version: "7.17.1"
   repository: https://helm.elastic.co
