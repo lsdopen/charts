@@ -14,14 +14,18 @@ spec:
       labels:
         app: ahoy-server
     spec:
+      {{- if .Values.ahoy.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.ahoy.image.pullSecret }}
+      {{- end }}
       serviceAccountName: ahoy
       volumes:
         - name: properties-prod
           configMap:
             name: ahoy-properties-prod
       containers:
-        - image: lsdopen/ahoy:{{ .Chart.AppVersion }}
-          imagePullPolicy: Always
+        - image: {{ .Values.ahoy.image.repository }}:{{ .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.ahoy.image.pullPolicy }}
           name: ahoy-server
           env:
             {{- with .Values.ahoy.env }}

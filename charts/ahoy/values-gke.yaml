@@ -3,6 +3,11 @@ ahoy:
   clusterType: kubernetes
   tlsSecret: ahoy-tls-secret
 
+  image:
+    repository: lsdopen/ahoy
+    pullPolicy: Always
+    pullSecret: ""
+
   auth:
     clientId: ahoy
     redirectUri: https://ahoy.gke.host/

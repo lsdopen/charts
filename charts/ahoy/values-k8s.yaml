@@ -3,6 +3,11 @@ ahoy:
   host: ahoy.k8s.host
   clusterType: kubernetes
 
+  image:
+    repository: lsdopen/ahoy
+    pullPolicy: Always
+    pullSecret: ""
+
   auth:
     clientId: ahoy
     redirectUri: http://ahoy.k8s.host/

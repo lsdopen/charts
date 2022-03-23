@@ -3,6 +3,11 @@ ahoy:
   host: ahoy.apps-crc.testing
   clusterType: openshift
 
+  image:
+    repository: lsdopen/ahoy
+    pullPolicy: Always
+    pullSecret: ""
+
   auth:
     clientId: ahoy
     redirectUri: http://ahoy.apps-crc.testing/
