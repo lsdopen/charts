@@ -38,23 +38,23 @@ spec:
             - name: properties-prod
               mountPath: "/tmp/config"
           livenessProbe:
-            failureThreshold: 5
             httpGet:
-              path: /
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 300
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 5
-          readinessProbe:
-            failureThreshold: 5
-            httpGet:
-              path: /
+              path: /actuator/health/liveness
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 30
             periodSeconds: 10
-            successThreshold: 1
             timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
           resources: {}
