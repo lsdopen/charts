@@ -24,6 +24,8 @@ ahoy:
     controllerNamespace: ahoy
 
 postgresql:
+  enabled: true
+
   ## PostgreSQL user (has superuser privileges if username is `postgres`)
   ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#setting-the-root-password-on-first-run
   postgresqlUsername: postgres
@@ -37,6 +39,29 @@ postgresql:
   ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#creating-a-database-on-first-run
   ##
   postgresqlDatabase: ahoy
+
+pgchecker:
+  image:
+    # Docker image used to check Postgresql readiness at startup
+    repository: docker.io/busybox
+    # Image tag for the pgchecker image
+    tag: 1.32
+    # Image pull policy for the pgchecker image
+    pullPolicy: IfNotPresent
+  # SecurityContext for the pgchecker container
+  securityContext:
+    allowPrivilegeEscalation: false
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true
+  # Resource requests and limits for the pgchecker container
+  resources:
+    requests:
+      cpu: "20m"
+      memory: "32Mi"
+    limits:
+      cpu: "20m"
+      memory: "32Mi"
 
 keycloak:
   install: true
@@ -87,7 +112,7 @@ keycloak:
       termination: edge
 
   postgresql:
-    fullnameOverride: keycloak-postgresql
+    nameOverride: keycloak-postgresql
 
     # If `true`, the Postgresql dependency is enabled
     enabled: true

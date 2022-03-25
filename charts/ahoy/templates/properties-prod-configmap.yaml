@@ -20,7 +20,7 @@ data:
 
     server.port=8080
 
-    spring.datasource.url=jdbc:postgresql://{{ .Release.Name }}-postgresql.{{ .Release.Namespace }}.svc/{{ .Values.postgresql.postgresqlDatabase }}
+    spring.datasource.url=jdbc:postgresql://{{ include "ahoy.postgresql.fullname" . }}/{{ .Values.postgresql.postgresqlDatabase }}
     spring.datasource.platform=postgres
     spring.datasource.username={{ .Values.postgresql.postgresqlUsername }}
     spring.datasource.password={{ .Values.postgresql.postgresqlPassword }}
