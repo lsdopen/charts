@@ -11,25 +11,25 @@ lsdmop:
   eckFilebeatImage: &anchoreckFilebeatImage "docker.elastic.co/beats/filebeat:7.17.1"
   eckMetricbeatImage: &anchoreckMetricbeatImage "docker.elastic.co/beats/metricbeat:7.17.1"
   elasticClusterSize: &anchorelasticClusterSize "1"
-  kibanaURL: &anchorkibanaURL "kibana.rancher.my.org"
+  kibanaURL: &anchorkibanaURL "kibana.tanzu.my.org"
   logstashJavaOpts: &anchorlogstashJavaOpts "-Xms1g -Xmx1g"
   grafanaUsername: &anchorgrafanaUsername "admin"
   grafanaPassword: &anchorgrafanaPassword "ChangeMe-PasswordForGrafana"
   grafanaVersion: &anchorgrafanaVersion "7.5.2"
-  grafanaURL: &anchorgrafanaURL "grafana.rancher.my.org"
+  grafanaURL: &anchorgrafanaURL "grafana.tanzu.my.org"
   prometheusRenention: &anchorprometheusRenention "30d"
-  prometheusURL: &anchorprometheusURL "prometheus.rancher.my.org"
-  prometheusHttpURL: &anchorprometheusHttpURL "https://prometheus.rancher.my.org"
+  prometheusURL: &anchorprometheusURL "prometheus.tanzu.my.org"
+  prometheusHttpURL: &anchorprometheusHttpURL "https://prometheus.tanzu.my.org"
   prometheusStorageSize: &anchorprometheusStorageSize "25Gi"
-  alertmanagerURL: &anchoralertmanagerURL "alertmanager.rancher.my.org"
-  alertmanagerHttpURL: &anchoralertmanagerHttpURL "https://alertmanager.rancher.my.org"
+  alertmanagerURL: &anchoralertmanagerURL "alertmanager.tanzu.my.org"
+  alertmanagerHttpURL: &anchoralertmanagerHttpURL "https://alertmanager.tanzu.my.org"
   smtpHost: &anchorsmtpHost "smtp.lsdopen.io"
   smtpPort: &anchorsmtpPort "25"
   smtpSmartHost: &anchorsmtpSmartHost "smtp.lsdopen.io:25"
   supportAddress: &anchorsupportAddress "address-that-must-receive-alerts@lsdopen.io"
   fromAddress: &anchorfromAddress "lsdmop+noreply+infra-01.qa.lsdopen.io@lsdopen.io"
   fromName: &anchorfromName "LSDobserve - LSD - k8s-01.qa.lsdopen.io@lsdopen.io"
-  storageClass: &anchorstorageClass "longhorn"
+  storageClass: &anchorstorageClass "standard"
   #storageClass: &anchorstorageClass "local"
   curl:
     image: docker.io/curlimages/curl:7.74.0
@@ -263,7 +263,7 @@ prometheus:
     image:
       repository: quay.io/prometheus/prometheus
       tag: v2.26.0
-    replicaCount: 1
+    replicaCount: 0
     baseURL: *anchorprometheusHttpURL
     retention: *anchorprometheusRenention
     statefulSet:
@@ -327,7 +327,7 @@ prometheus:
         operator: "Exists"
   alertmanager:
     enabled: false
-    replicaCount: 3
+    replicaCount: 0
     prefixURL: ""
     baseURL: *anchoralertmanagerHttpURL
     service:

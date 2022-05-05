@@ -171,4 +171,9 @@ spec:
         - hostPath:
             path: /proc
           name: proc
+        tolerations:
+        - key: dedicated
+          effect: "NoSchedule"
+          operator: Exists
+
 {{- end }}

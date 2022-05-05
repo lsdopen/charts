@@ -11,32 +11,150 @@ spec:
   version: "{{ .Values.lsdmop.elastic.version }}"
   image: "{{ .Values.lsdmop.elastic.image }}"
   nodeSets:
-  - name: default
-    count: {{ .Values.lsdmop.elastic.count }}
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: "{{ .Values.lsdmop.elastic.storage }}"
-        storageClassName: "{{ .Values.lsdmop.elastic.storageClassName }}"
-    config:
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          env:
-          - name: ES_JAVA_OPTS
-            value: -Xms5g -Xmx5g -Dlog4j2.formatMsgNoLookups=true
-          resources:
-            requests:
-              memory: 8Gi
-              cpu: 4
-            limits:
-              memory: 8Gi
-              cpu: 8
+    # - config:
+    #     node.store.allow_mmap: false
+    #     #path.repo: /usr/share/elasticsearch/snapshots
+    #     node.roles: ["master", "data_content", "data", "ml", "transform", "remote_cluster_client", "ingest"]
+    #   count: 1
+    #   name: default
+    #   podTemplate:
+    #     metadata:
+    #       creationTimestamp: null
+    #     spec:
+    #       containers:
+    #         - env:
+    #             - name: ES_JAVA_OPTS
+    #               value: '-Xms8g -Xmx8g -Dlog4j2.formatMsgNoLookups=true'
+    #           name: elasticsearch
+    #           resources:
+    #             limits:
+    #               cpu: '4000m'
+    #               memory: 4Gi
+    #             requests:
+    #               cpu: '4000m'
+    #               memory: 4Gi
+    #       tolerations:
+    #         - effect: NoSchedule
+    #           key: dedicated
+    #           operator: Equal
+    #           value: warm
+    #       affinity:
+    #         nodeAffinity:
+    #           requiredDuringSchedulingIgnoredDuringExecution:
+    #             nodeSelectorTerms:
+    #             - matchExpressions:
+    #               - key: node.type
+    #                 operator: In
+    #                 values:
+    #                 - warm                              
+    #   volumeClaimTemplates:
+    #     - metadata:
+    #         creationTimestamp: null
+    #         name: elasticsearch-data
+    #       spec:
+    #         accessModes:
+    #           - ReadWriteOnce
+    #         resources:
+    #           requests:
+    #             storage: 10Gi
+    #         storageClassName: standard
+    #       status: {}
+    - config:
+        node.store.allow_mmap: false
+        #path.repo: /usr/share/elasticsearch/snapshots
+        #node.roles: ["master", "data_hot", "ml", "transform", "remote_cluster_client", "ingest"]
+        node.attr.data: hot
+      count: 1
+      name: hot-data
+      podTemplate:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+            - env:
+                - name: ES_JAVA_OPTS
+                  value: '-Xms2g -Xmx2g -Dlog4j2.formatMsgNoLookups=true'
+              name: elasticsearch
+              resources:
+                limits:
+                  cpu: '2000m'
+                  memory: 4Gi
+                requests:
+                  cpu: '2000m'
+                  memory: 4Gi
+          tolerations:
+            - effect: NoSchedule
+              key: dedicated
+              operator: Equal
+              value: elastic-hot
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: node.type
+                    operator: In
+                    values:
+                    - hot                  
+      volumeClaimTemplates:
+        - metadata:
+            creationTimestamp: null
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 9Gi
+            storageClassName: standard
+          status: {}
+    - config:
+        node.store.allow_mmap: false
+        #path.repo: /usr/share/elasticsearch/snapshots
+        #node.roles: ["master", "data_warm", "ml", "transform", "remote_cluster_client", "ingest"]
+        node.attr.data: warm
+      count: 2
+      name: warm-data
+      podTemplate:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+            - env:
+                - name: ES_JAVA_OPTS
+                  value: '-Xms2g -Xmx2g -Dlog4j2.formatMsgNoLookups=true'
+              name: elasticsearch
+              resources:
+                limits:
+                  cpu: '2000m'
+                  memory: 4Gi
+                requests:
+                  cpu: '2000m'
+                  memory: 4Gi
+          tolerations:
+            - effect: NoSchedule
+              key: dedicated
+              operator: Equal
+              value: elastic-warm
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: node.type
+                    operator: In
+                    values:
+                    - warm                 
+      volumeClaimTemplates:
+        - metadata:
+            creationTimestamp: null
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 9Gi
+            storageClassName: standard
+          status: {}          
 {{- end }}

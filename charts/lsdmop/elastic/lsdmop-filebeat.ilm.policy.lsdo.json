@@ -1,26 +1,40 @@
 {
-  "policy": {
-    "phases": {
-      "hot": {
-        "min_age": "0ms",
-        "actions": {
-          "rollover": {
-            "max_size": "20gb",
-            "max_age": "3d"
+  "policy" : {
+    "phases" : {
+      "hot" : {
+        "min_age" : "0ms",
+        "actions" : {
+          "rollover" : {
+            "max_primary_shard_size" : "20gb"
           },
-          "set_priority": {
-            "priority": 100
-          }          
+          "set_priority" : {
+            "priority" : 100
+          }
         }
       },
-      "delete": {
-        "min_age": "3d",
-        "actions": {
-          "delete": {
-            "delete_searchable_snapshot": true
+      "delete" : {
+        "min_age" : "90d",
+        "actions" : {
+          "delete" : {
+            "delete_searchable_snapshot" : true
+          }
+        }
+      },
+      "warm" : {
+        "min_age" : "30d",
+        "actions" : {
+          "allocate" : {
+            "include" : { },
+            "exclude" : { },
+            "require" : {
+              "data" : "warm"
+            }
+          },
+          "set_priority" : {
+            "priority" : 50
           }
         }
       }
     }
-  }
+  }  
 }

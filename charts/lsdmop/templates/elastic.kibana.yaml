@@ -19,11 +19,15 @@ spec:
       - name: kibana
         resources:
           requests:
-            memory: 1Gi
-            cpu: 50m
+            memory: 512Mi
+            cpu: 500m
           limits:
             memory: 2Gi
-            cpu: 250m
+            cpu: 2000m
+      tolerations:
+        - effect: NoSchedule
+          key: dedicated
+          operator: Exists
   http:
     tls:
       selfSignedCertificate:

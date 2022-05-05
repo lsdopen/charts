@@ -5,10 +5,10 @@ metadata:
   name: lsdmop
 spec:
   hard:
-    requests.cpu: "8"
-    limits.cpu: "20"
-    requests.memory: "32Gi"
-    limits.memory: "60Gi"
+    requests.cpu: "16"
+    limits.cpu: "32"
+    requests.memory: "64Gi"
+    limits.memory: "64Gi"
     requests.storage: "1Ti"
     persistentvolumeclaims: "20"
     requests.nvidia.com/gpu: 4
