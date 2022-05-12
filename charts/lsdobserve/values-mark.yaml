@@ -2,33 +2,34 @@
 lsdobserve:
   # There are your options clusterType: openshift | gke | rancher
   clusterType: "rancher"
-  eckOperatorVersion: &anchoreckOperatorVersion "1.6.0"
-  eckVersion: &anchoreckVersion "7.10.2"
-  eckElasticsearchImage: &anchoreckElasticsearchImage "docker.elastic.co/elasticsearch/elasticsearch:7.10.2"
-  eckKibanaImage: &anchoreckKibanaImage "docker.elastic.co/kibana/kibana:7.10.2"
-  eckApmImage: &anchoreckApmImage "docker.elastic.co/apm/apm-server:7.10.2"
-  eckFilebeatImage: &anchoreckFilebeatImage "docker.elastic.co/beats/filebeat:7.10.2"
-  eckMetricbeatImage: &anchoreckMetricbeatImage "docker.elastic.co/beats/metricbeat:7.10.2"
+  #eckNamespace: &anchoreckNamespace "lsdobserve" 
+  eckOperatorVersion: &anchoreckOperatorVersion "1.9.1"
+  eckVersion: &anchoreckVersion "7.16.3"
+  eckElasticsearchImage: &anchoreckElasticsearchImage "docker.elastic.co/elasticsearch/elasticsearch:7.16.3"
+  eckKibanaImage: &anchoreckKibanaImage "docker.elastic.co/kibana/kibana:7.16.3"
+  eckApmImage: &anchoreckApmImage "docker.elastic.co/apm/apm-server:7.16.3"
+  eckFilebeatImage: &anchoreckFilebeatImage "docker.elastic.co/beats/filebeat:7.16.3"
+  eckMetricbeatImage: &anchoreckMetricbeatImage "docker.elastic.co/beats/metricbeat:7.16.3"
   elasticClusterSize: &anchorelasticClusterSize "1"
-  kibanaURL: &anchorkibanaURL "kibana.apps.k8s-01.qa.lsdopen.io"
+  kibanaURL: &anchorkibanaURL "kibana.rancher.my.org"
   logstashJavaOpts: &anchorlogstashJavaOpts "-Xms1g -Xmx1g"
   grafanaUsername: &anchorgrafanaUsername "admin"
   grafanaPassword: &anchorgrafanaPassword "ChangeMe-PasswordForGrafana"
   grafanaVersion: &anchorgrafanaVersion "7.5.2"
-  grafanaURL: &anchorgrafanaURL "grafana.apps.k8s-01.qa.lsdopen.io"
+  grafanaURL: &anchorgrafanaURL "grafana.rancher.my.org"
   prometheusRenention: &anchorprometheusRenention "30d"
-  prometheusURL: &anchorprometheusURL "prometheus.apps.k8s-01.qa.lsdopen.io"
-  prometheusHttpURL: &anchorprometheusHttpURL "https://prometheus.apps.k8s-01.qa.lsdopen.io"
+  prometheusURL: &anchorprometheusURL "prometheus.rancher.my.org"
+  prometheusHttpURL: &anchorprometheusHttpURL "https://prometheus.rancher.my.org"
   prometheusStorageSize: &anchorprometheusStorageSize "25Gi"
-  alertmanagerURL: &anchoralertmanagerURL "alertmanager.apps.k8s-01.qa.lsdopen.io"
-  alertmanagerHttpURL: &anchoralertmanagerHttpURL "https://alertmanager.apps.k8s-01.qa.lsdopen.io"
+  alertmanagerURL: &anchoralertmanagerURL "alertmanager.rancher.my.org"
+  alertmanagerHttpURL: &anchoralertmanagerHttpURL "https://alertmanager.rancher.my.org"
   smtpHost: &anchorsmtpHost "smtp.lsdopen.io"
   smtpPort: &anchorsmtpPort "25"
   smtpSmartHost: &anchorsmtpSmartHost "smtp.lsdopen.io:25"
   supportAddress: &anchorsupportAddress "address-that-must-receive-alerts@lsdopen.io"
   fromAddress: &anchorfromAddress "lsdobserve+noreply+k8s-01.qa.lsdopen.io@lsdopen.io"
   fromName: &anchorfromName "LSDobserve - LSD - k8s-01.qa.lsdopen.io@lsdopen.io"
-  storageClass: &anchorstorageClass "standard"
+  storageClass: &anchorstorageClass "longhorn"
   curl:
     image: docker.io/curlimages/curl:7.74.0
   grafana:
@@ -48,7 +49,7 @@ lsdobserve:
       version: *anchoreckVersion
     ## Metricbeat as a Daemonset to collect metrics from Nodes
     metricbeat:
-      enabled: false
+      enabled: true
       image: *anchoreckMetricbeatImage
       version: *anchoreckVersion
     ## Metricbeat to connect to Prometheus
@@ -163,8 +164,6 @@ eck-operator:
 grafana:
   adminUser: *anchorgrafanaUsername
   adminPassword: *anchorgrafanaPassword
-  testFramework:   
-    enabled: false 
   image:
     repository: grafana/grafana
     tag: *anchorgrafanaVersion
@@ -188,25 +187,6 @@ grafana:
     type: pvc
     size: 1Gi
     storageClassName: *anchorstorageClass
-  grafana.ini:
-    analytics:
-      check_for_updates: true
-    smtp:
-      enabled: true
-      host: *anchorsmtpSmartHost
-      skip_verify: true
-      from_address: *anchorfromAddress
-      from_name: *anchorfromName
-    emails:
-      welcome_email_on_sign_up: true
-      templates_pattern: emails/*.html
-    log:
-      mode: console
-    paths:
-      data: /var/lib/grafana/data
-      logs: /var/log/grafana
-      plugins: /var/lib/grafana/plugins
-      provisioning: /etc/grafana/provisioning
   datasources:
     datasources.yaml:
       apiVersion: 1
@@ -219,46 +199,14 @@ grafana:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
-        - disableDeletion: false
+        - name: "ds-01"
+          orgId: 1
+          folder: "LSDcontainer"
+          type: file
+          disableDeletion: false
           editable: false
-          folder: LSDcontainer
-          name: ds-01
           options:
             path: /var/lib/grafana/dashboards/ds-01
-          orgId: 1
-          type: file
-        - disableDeletion: false
-          editable: false
-          folder: LSDcontainer
-          name: ds-02
-          options:
-            path: /var/lib/grafana/dashboards/ds-02
-          orgId: 1
-          type: file
-        - disableDeletion: false
-          editable: false
-          folder: LSDcontainer
-          name: ds-03
-          options:
-            path: /var/lib/grafana/dashboards/ds-03
-          orgId: 1
-          type: file
-        - disableDeletion: false
-          editable: false
-          folder: LSDcontainer
-          name: ds-04
-          options:
-            path: /var/lib/grafana/dashboards/ds-04
-          orgId: 1
-          type: file
-        - disableDeletion: false
-          editable: false
-          folder: LSDcontainer
-          name: ds-05
-          options:
-            path: /var/lib/grafana/dashboards/ds-05
-          orgId: 1
-          type: file
   dashboardsConfigMaps:
     ds-01: "grafana-dashboard-kubernetes-overview"
     ds-02: "grafana-dashboard-namespace-details"

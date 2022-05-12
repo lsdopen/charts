@@ -1,92 +1,9 @@
 # Grafana Configmap
----
-apiVersion: v1
-data:
-  dashboardproviders.yaml: |
-    apiVersion: 1
-    providers:
-    - disableDeletion: false
-      editable: false
-      folder: LSDcontainer
-      name: ds-01
-      options:
-        path: /var/lib/grafana/dashboards/ds-01
-      orgId: 1
-      type: file
-    - disableDeletion: false
-      editable: false
-      folder: LSDcontainer
-      name: ds-02
-      options:
-        path: /var/lib/grafana/dashboards/ds-02
-      orgId: 1
-      type: file
-    - disableDeletion: false
-      editable: false
-      folder: LSDcontainer
-      name: ds-03
-      options:
-        path: /var/lib/grafana/dashboards/ds-03
-      orgId: 1
-      type: file
-    - disableDeletion: false
-      editable: false
-      folder: LSDcontainer
-      name: ds-04
-      options:
-        path: /var/lib/grafana/dashboards/ds-04
-      orgId: 1
-      type: file
-    - disableDeletion: false
-      editable: false
-      folder: LSDcontainer
-      name: ds-05
-      options:
-        path: /var/lib/grafana/dashboards/ds-05
-      orgId: 1
-      type: file
-  datasources.yaml: |
-    apiVersion: 1
-    datasources:
-    - isDefault: true
-      name: LSDobserve - Prometheus
-      type: prometheus
-      url: http://lsdobserve-prometheus-server
-  grafana.ini: |
-    [server]
-    root_url = https://{{ .Values.lsdobserve.grafana.ingress.url }}
-    [analytics]
-    check_for_updates = true
-    [grafana_net]
-    url = https://{{ .Values.lsdobserve.grafana.ingress.url }}
-    [smtp]
-    enabled = true
-    host = {{ .Values.lsdobserve.smtpHost }}:{{ .Values.lsdobserve.smtpPort }}
-    skip_verify = true
-    from_address = {{ .Values.lsdobserve.fromAddress }}
-    from_name = {{ .Values.lsdobserve.fromName }}
-    [emails]
-    welcome_email_on_sign_up = true
-    templates_pattern = emails/*.html
-    [log]
-    mode = console
-    [paths]
-    data = /var/lib/grafana/data
-    logs = /var/log/grafana
-    plugins = /var/lib/grafana/plugins
-    provisioning = /etc/grafana/provisioning
-kind: ConfigMap
-metadata:
-  annotations:
-    meta.helm.sh/release-name: {{ .Release.Name }}
-    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
-  name: lsdobserve-grafana
----
 
 # Grafana Ingress
 {{- if or (eq .Values.lsdobserve.clusterType "gke") (eq .Values.lsdobserve.clusterType "rancher") -}}
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -102,8 +19,10 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: lsdobserve-grafana
-          servicePort: 80
+          service:
+            name: lsdobserve-grafana
+            port:
+              number: 80
         path: /
         pathType: ImplementationSpecific
 ---

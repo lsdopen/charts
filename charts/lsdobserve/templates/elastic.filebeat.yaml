@@ -49,12 +49,14 @@ spec:
   type: filebeat
   version: {{ .Values.lsdobserve.elastic.filebeat.version }}
   image: {{ .Values.lsdobserve.elastic.filebeat.image }}
-  elasticsearchRef:
-    name: {{ .Release.Name }}
   config:
     filebeat.inputs:
     - type: container
       close_inactive: 4h
+      multiline:
+        match: after
+        negate: false
+        pattern: '^[[:space:]]+|^Caused by:'
       paths:
       - /var/log/containers/*.log
       processors:
@@ -63,6 +65,8 @@ spec:
           matchers:
           - logs_path:
               logs_path: /var/log/containers/
+    output.logstash:
+      hosts: ["lsdobserve-logstash:5044"]              
   daemonSet:
     podTemplate:
       spec:
