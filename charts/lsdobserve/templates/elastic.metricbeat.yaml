@@ -4,7 +4,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: metricbeat
+  name: {{ .Release.Name }}-metricbeat
 rules:
 - apiGroups:
   - ""
@@ -49,14 +49,14 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: metricbeat
+  name: {{ .Release.Name }}-metricbeat
 subjects:
 - kind: ServiceAccount
-  name: metricbeat
+  name: {{ .Release.Name }}-metricbeat
   namespace: lsdobserve
 roleRef:
   kind: ClusterRole
-  name: metricbeat
+  name: {{ .Release.Name }}-metricbeat
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: v1
@@ -87,7 +87,7 @@ spec:
           type: kubernetes
       modules:
       - module: system
-        period: 10s
+        period: 20s
         metricsets:
         - cpu
         - load
@@ -141,7 +141,7 @@ spec:
           - -c
           - /etc/beat.yml
           - -system.hostfs=/hostfs
-          name: metricbeat
+          name: {{ .Release.Name }}-metricbeat
           volumeMounts:
           - mountPath: /hostfs/sys/fs/cgroup
             name: cgroup

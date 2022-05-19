@@ -3,12 +3,26 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: elastic-filbeat-custom-files
+  name: elastic-filebeat-custom-files
 data:
-  lsdobserve-filebeat.ilm.policy.json: |-
-{{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.json" | indent 4}}
-  lsdobserve-filebeat.pipeline.json: |-
-{{ .Files.Get "elastic/lsdobserve-filebeat.pipeline.json" | indent 4}}
-  lsdobserve-filebeat.template.json: |-
-{{ .Files.Get "elastic/lsdobserve-filebeat.template.json" | indent 4}}
+  lsdobserve-filebeat.bootstrap.k8s.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.bootstrap.k8s.json" | indent 4}}
+  lsdobserve-filebeat.bootstrap.lsdo.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.bootstrap.lsdo.json" | indent 4}}
+  lsdobserve-filebeat.bootstrap.project.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.bootstrap.project.json" | indent 4}}
+  lsdobserve-filebeat.ilm.policy.k8s.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.k8s.json" | indent 4}}
+  lsdobserve-filebeat.ilm.policy.lsdo.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.lsdo.json" | indent 4}}
+  lsdobserve-filebeat.ilm.policy.project.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.ilm.policy.project.json" | indent 4}}
+  lsdobserve-filebeat.template.7.16.3.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.template.7.16.3.json" | indent 4}}
+  lsdobserve-filebeat.template.k8s.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.template.k8s.json" | indent 4}}
+  lsdobserve-filebeat.template.lsdo.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.template.lsdo.json" | indent 4}}
+  lsdobserve-filebeat.template.project.json: |-
+{{ .Files.Get "elastic/lsdobserve-filebeat.template.project.json" | indent 4}}
 ---
