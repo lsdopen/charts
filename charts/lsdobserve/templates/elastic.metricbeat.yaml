@@ -53,7 +53,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: metricbeat
-  namespace: lsdobserve
+  namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
   name: metricbeat
