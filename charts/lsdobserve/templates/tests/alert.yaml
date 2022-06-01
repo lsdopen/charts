@@ -64,4 +64,4 @@ data:
 kind: ConfigMap
 metadata:
   name: alert-test
-  namespace: lsdobserve
+  namespace: {{ .Release.Namespace }}
