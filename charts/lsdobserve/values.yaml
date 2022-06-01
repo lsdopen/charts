@@ -120,18 +120,64 @@ grafana:
           type: prometheus
           url: http://lsdobserve-prometheus-server
           isDefault: true
+  grafana.ini:
+    server:
+      root_url: *anchorgrafanaURL
+    grafana_net:
+      url: *anchorgrafanaURL
+    smtp:
+      enabled: true
+      host: *anchorsmtpSmartHost
+      skip_verify: false
+      from_address: *anchorfromAddress
+      from_name: *anchorfromName
+    emails:
+      welcome_email_on_sign_up: true
+      templates_pattern: emails/*.html
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
-        - name: "ds-01"
-          orgId: 1
-          folder: "LSDcontainer"
-          type: file
-          disableDeletion: false
+        - disableDeletion: false
           editable: false
+          folder: LSDcontainer
+          name: ds-01
           options:
             path: /var/lib/grafana/dashboards/ds-01
+          orgId: 1
+          type: file
+        - disableDeletion: false
+          editable: false
+          folder: LSDcontainer
+          name: ds-02
+          options:
+            path: /var/lib/grafana/dashboards/ds-02
+          orgId: 1
+          type: file
+        - disableDeletion: false
+          editable: false
+          folder: LSDcontainer
+          name: ds-03
+          options:
+            path: /var/lib/grafana/dashboards/ds-03
+          orgId: 1
+          type: file
+        - disableDeletion: false
+          editable: false
+          folder: LSDcontainer
+          name: ds-04
+          options:
+            path: /var/lib/grafana/dashboards/ds-04
+          orgId: 1
+          type: file
+        - disableDeletion: false
+          editable: false
+          folder: LSDcontainer
+          name: ds-05
+          options:
+            path: /var/lib/grafana/dashboards/ds-05
+          orgId: 1
+          type: file
   dashboardsConfigMaps:
     ds-01: "grafana-dashboard-kubernetes-overview"
     ds-02: "grafana-dashboard-namespace-details"
