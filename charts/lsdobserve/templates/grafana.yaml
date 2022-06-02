@@ -12,6 +12,7 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"    
   name: lsdobserve-grafana
 spec:
+  ingressClassName: {{ .Values.lsdobserve.grafana.ingress.class }}
   rules:
   - host: {{ .Values.lsdobserve.grafana.ingress.url }}
     http:
