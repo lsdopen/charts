@@ -40,11 +40,11 @@ metadata:
   annotations:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+    kubernetes.io/ingress.class: {{ .Values.lsdobserve.elastic.kibana.ingress.class }}
   labels:
     app: kibana
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"    
   name: lsdobserve-kb
-  ingressClassName: {{ .Values.lsdobserve.elastic.kibana.ingress.class }}
 spec:
   rules:
   - host: {{ .Values.lsdobserve.elastic.kibana.ingress.url }}

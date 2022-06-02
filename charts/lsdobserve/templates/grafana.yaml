@@ -7,12 +7,12 @@ metadata:
   annotations:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+    kubernetes.io/ingress.class: {{ .Values.lsdobserve.grafana.ingress.class }}
   labels:
     app: grafana
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"    
   name: lsdobserve-grafana
 spec:
-  ingressClassName: {{ .Values.lsdobserve.grafana.ingress.class }}
   rules:
   - host: {{ .Values.lsdobserve.grafana.ingress.url }}
     http:
