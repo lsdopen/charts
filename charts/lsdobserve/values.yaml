@@ -23,12 +23,14 @@ lsdobserve:
   fromAddress: &anchorfromAddress "lsdobserve+noreply+k8s-01.qa.lsdopen.io@lsdopen.io"
   fromName: &anchorfromName "LSDobserve - LSD - k8s-01.qa.lsdopen.io@lsdopen.io"
   storageClass: &anchorstorageClass "standard"
+  ingressClass: &anchoringressClass "nginx"
   curl:
     image: docker.io/curlimages/curl:7.74.0
   grafana:
     enabled: true
     ingress:
       url: *anchorgrafanaURL
+      class: *anchoringressClass
   elastic:
     enabled: true
     image: "docker.elastic.co/elasticsearch/elasticsearch:7.10.0"
@@ -60,6 +62,7 @@ lsdobserve:
       count: "1"
       ingress:
         url: *anchorkibanaURL
+        class: *anchoringressClass
 
 # Elastic Operator
 # To get a latest values you can run:
@@ -100,6 +103,7 @@ grafana:
   # ingress is disable because it is created via the lsd-observe template
   ingress:
     enabled: false
+    ingressClassName: *anchoringressClass
   resources:
     limits:
       cpu: 100m
