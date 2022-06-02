@@ -63,6 +63,8 @@ lsdobserve:
       ingress:
         url: *anchorkibanaURL
         class: *anchoringressClass
+    podDisruptionBudget:
+      enabled: true
 
 # Elastic Operator
 # To get a latest values you can run:
