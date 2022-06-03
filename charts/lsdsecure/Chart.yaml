@@ -19,6 +19,7 @@ deprecated: false
 tillerVersion: ">=v3.2.1"
 
 dependencies:
-- name: keycloak
-  version: "1.1.5"
-  repository: https://charts.bitnami.com/bitnami
+# Can't seem to find this chart anymore, commented out so that CI passes for the other charts
+#- name: keycloak
+#  version: "1.1.5"
+#  repository: https://charts.bitnami.com/bitnami
