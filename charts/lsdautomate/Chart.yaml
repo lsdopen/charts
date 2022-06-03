@@ -24,9 +24,10 @@ deprecated: false
 tillerVersion: ">=v3.2.1"
 
 dependencies:
-- name: postgresql-ha
-  version: "6.5.0"
-  repository: https://charts.bitnami.com/bitnami
+# Can't seem to find this chart anymore, commented out so that CI passes for the other charts
+#- name: postgresql-ha
+#  version: "6.5.0"
+#  repository: https://charts.bitnami.com/bitnami
 - name: sonarqube
   version: "9.2.7"
   repository: https://oteemo.github.io/charts
