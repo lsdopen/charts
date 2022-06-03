@@ -39,7 +39,7 @@ spec:
             limits:
               memory: 4Gi
               cpu: 2
-  {{- if eq .Values.lsdobserve.elastic.podDisruptionBudget.enabled false -}}
-  podDisruptionBudget: null
-  {{- end }}
+  {{ if eq .Values.lsdobserve.elastic.podDisruptionBudget.enabled false }}
+  podDisruptionBudget: {}
+  {{ end }}
 {{- end }}
