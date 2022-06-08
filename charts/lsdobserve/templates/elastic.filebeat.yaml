@@ -34,7 +34,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: {{ .Release.Name }}-filebeat
-  namespace: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
 ---
 apiVersion: v1
 kind: ServiceAccount
