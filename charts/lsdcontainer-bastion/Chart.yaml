@@ -3,6 +3,7 @@ name: lsdcontainer-bastion
 version: "1.0.32"
 appVersion: "1.0.0"
 description: A Helm chart for LSDContainer for a bastion server that will house all services LSD uses for OKD/RKE/K8S deployments
+icon: https://lsdopen.io/wp-content/uploads/2022/03/LSD-Logo-Green-Transparent_compressed.png
 keywords:
   - lsdcontainer
   - kubernetes

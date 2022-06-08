@@ -5,6 +5,7 @@ appVersion: "1.0.1"
 # Disabling kubeVersion because GKE is dumb
 # kubeVersion: ">=v1.11.0"
 description: A Helm chart for LSDautomate
+icon: https://lsdopen.io/wp-content/uploads/2022/03/LSD-Logo-Green-Transparent_compressed.png
 keywords:
   - lsdautomate
   - kubernetes

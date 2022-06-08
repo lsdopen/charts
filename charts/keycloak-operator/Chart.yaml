@@ -1,6 +1,7 @@
 apiVersion: v2
 name: keycloak-operator
 description: A Helm chart to deploy the Keycloak Operator on Kubernets
+icon: https://lsdopen.io/wp-content/uploads/2022/03/LSD-Logo-Green-Transparent_compressed.png
 type: application
 version: 0.1.2
 # https://github.com/keycloak/keycloak-operator/releases

@@ -1,6 +1,7 @@
 apiVersion: v2
 name: kafka-army-knife
 description: A Helm chart for Kafka Army Knife
+icon: https://lsdopen.io/wp-content/uploads/2022/03/LSD-Logo-Green-Transparent_compressed.png
 
 # A chart can be either an 'application' or a 'library' chart.
 #

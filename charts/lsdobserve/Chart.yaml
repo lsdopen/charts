@@ -5,6 +5,7 @@ appVersion: "1.0.2"
 # Disabling kubeVersion because GKE is dumb
 # kubeVersion: ">=v1.11.0"
 description: A Helm chart for LSDobserve
+icon: https://lsdopen.io/wp-content/uploads/2022/03/LSD-Logo-Green-Transparent_compressed.png
 keywords:
   - lsdobserve
   - kubernetes
