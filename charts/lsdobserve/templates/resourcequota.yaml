@@ -1,8 +1,9 @@
+{{- if .Values.lsdobserve.resourceQuota.enabled -}}
 ---
 apiVersion: v1
 kind: ResourceQuota
 metadata:
-  name: lsdobserve
+  name: {{ .Release.Name }}
 spec:
   hard:
     requests.cpu: "6"
@@ -18,11 +19,13 @@ spec:
     secrets: "100"
     services: "100"
     services.loadbalancers: "10"
+{{- end }}
+{{- if .Values.lsdobserve.limitRange.enabled -}}
 ---
 apiVersion: v1
 kind: LimitRange
 metadata:
-  name: lsdobserve
+  name: {{ .Release.Name }}
 spec:
   limits:
   - max:
@@ -47,4 +50,4 @@ spec:
       cpu: 10m
       memory: 4Mi
     type: Container
-
+{{- end }}

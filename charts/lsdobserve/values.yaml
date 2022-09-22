@@ -24,6 +24,10 @@ lsdobserve:
   fromName: &anchorfromName "LSDobserve - LSD - k8s-01.qa.lsdopen.io@lsdopen.io"
   storageClass: &anchorstorageClass "standard"
   ingressClass: &anchoringressClass "nginx"
+  resourceQuota:
+    enabled: true
+  limitRange:
+    enabled: true
   curl:
     image: docker.io/curlimages/curl:7.74.0
   grafana:
