@@ -1,4 +1,4 @@
-{{- if .Values.lsdobserve.resourceQuota.enabled -}}
+{{- if .Values.lsdobserve.resourceQuota.enabled }}
 ---
 apiVersion: v1
 kind: ResourceQuota
@@ -20,7 +20,7 @@ spec:
     services: "100"
     services.loadbalancers: "10"
 {{- end }}
-{{- if .Values.lsdobserve.limitRange.enabled -}}
+{{- if .Values.lsdobserve.limitRange.enabled }}
 ---
 apiVersion: v1
 kind: LimitRange
